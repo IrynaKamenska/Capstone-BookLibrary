@@ -10,6 +10,6 @@ public class BookLibraryController {
 
     @GetMapping
     String book (){
-        return "My book library";
+        return "My book library!";
     }
 }
