@@ -6,10 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-public class BookServiceTest {
+class BookServiceTest {
 
     private final BookRepository bookRepository = mock(BookRepository.class);
     private final BookService bookService = new BookService(bookRepository);
