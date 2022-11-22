@@ -1,13 +1,13 @@
 import React from 'react';
-import '../css/App.css';
+import './css/App.css';
 import Books from "./Books";
 
 function App() {
 
     return <>
-        <div>
+        <main>
             <Books/>
-        </div>
+        </main>
 
     </>;
 }
