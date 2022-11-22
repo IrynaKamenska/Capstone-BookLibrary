@@ -54,7 +54,7 @@ class BookServiceTest {
         Book newBook = new Book(null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
         Book newBookWithId = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
 
-        when(bookRepository.save(newBook)).thenReturn(newBookWithId);
+        when(bookRepository.insert(newBook)).thenReturn(newBookWithId);
 
         //when
         Book actual = bookService.saveBook(newBook);
@@ -65,10 +65,10 @@ class BookServiceTest {
     }
 
     @Test
-    void addNewBookWithId_returnUpdatedBook() {
+    void addNewBookWithId_returnBook() {
         //given
         Book book = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
-        when(bookRepository.save(book)).thenReturn(book);
+        when(bookRepository.insert(book)).thenReturn(book);
 
         //when
         Book actual = bookService.saveBook(book);
@@ -77,4 +77,5 @@ class BookServiceTest {
         Book expected = book;
         assertEquals(expected, actual);
     }
+
 }
