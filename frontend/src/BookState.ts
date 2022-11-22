@@ -1,4 +1,4 @@
 export enum BookState {
-    AVAILABLE= "Available",
-    NOT_AVAILABLE="Not available"
+    AVAILABLE= "AVAILABLE",
+    NOT_AVAILABLE="NOT_AVAILABLE"
 }
