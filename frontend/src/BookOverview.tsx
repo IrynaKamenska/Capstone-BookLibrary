@@ -20,8 +20,8 @@ function BookOverview() {
 
 
     return <>
-            <p>Book List:</p>
         <section>
+            <p>Book List:</p>
             <ul>
                 {books.map((book) => {
                     return <li key={book.isbn}>
