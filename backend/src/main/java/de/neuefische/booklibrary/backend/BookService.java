@@ -20,6 +20,10 @@ public class BookService {
         return bookRepository.insert(book);
     }
 
+    public Book updateBook(Book updatedBook) {
+        return bookRepository.save(updatedBook);
+    }
+
     public void deleteBook(String id) {
         bookRepository.deleteById(id);
     }
