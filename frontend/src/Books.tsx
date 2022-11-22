@@ -59,7 +59,7 @@ function Books() {
 
     return (
         <section>
-            <h1>Books</h1>
+            <h2>Books</h2>
             <ul>
                 {books.map((book) => {
                     return <li key={book.isbn}>
