@@ -12,7 +12,7 @@ function BookOverview() {
         axios.get("/api/books")
             .then(response => response.data)
             .catch(error => console.error("GET Error: " + error))
-            .then(data => setBooks(data))
+            .then(setBooks)
     }
 
 
