@@ -6,10 +6,10 @@ import {BookState} from "./BookState";
 function Books() {
 
     const [books, setBooks] = useState<BookModel[]>([]);
-    const[bookTitle, setBookTitle] = useState<string>("");
-    const[bookAuthor, setAuthor] = useState<string>("");
-    const[bookIsbn, setBookIsbn] = useState<string>("");
-    const[bookState, setState] = useState<BookState>(BookState.AVAILABLE);
+    const [bookTitle, setBookTitle] = useState<string>("");
+    const [bookAuthor, setAuthor] = useState<string>("");
+    const [bookIsbn, setBookIsbn] = useState<string>("");
+    const [bookState, setState] = React.useState(BookState.AVAILABLE);
 
     const fetchAllBooks = () => {
         axios.get("/api/books")
@@ -19,9 +19,7 @@ function Books() {
     }
 
 
-    useEffect(() => {
-        fetchAllBooks()
-    }, [])
+    useEffect(fetchAllBooks,[])
 
 
     function handleTitle(event: ChangeEvent<HTMLInputElement>) {
@@ -36,13 +34,15 @@ function Books() {
         setBookIsbn(event.target.value);
     }
 
-    function handleState(event: ChangeEvent<HTMLInputElement>) {
-        setState(BookState.AVAILABLE);
-    }
 
 
     const handleAddBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
+        if (!bookTitle || !bookAuthor || !bookIsbn || !bookState) {
+            alert(`Please fill book title, author, isbn and state`)
+            return
+        }
+
         axios.post("/api/books", {
             title: bookTitle,
             author: bookAuthor,
@@ -56,22 +56,39 @@ function Books() {
         setState(BookState.AVAILABLE)
     }
 
+
     return (
         <section>
             <h1>Books</h1>
             <ul>
                 {books.map((book) => {
-                    return <li>Title: {book.title}
-                        Author: {book.author}
-                        ISBN: {book.isbn}
-                        State: {book.bookState}</li>
+                    return <li key={book.isbn}>
+                        {book.title},
+                        {book.author},
+                        {book.isbn},
+                        {book.bookState}</li>
                 })}
             </ul>
+
+
+
             <form onSubmit={handleAddBook}>
-                <input value={bookTitle} onChange={handleTitle}/>
-                <input value={bookAuthor} onChange={handleAuthor}/>
-                <input value={bookIsbn} onChange={handleIsbn}/>
-                <input value={bookState} onChange={handleState}/>
+                <br/>
+                <label htmlFor="title">Book Title</label>
+                <input type="title" id="title" onChange={handleTitle}/>
+                <br/>
+                <label htmlFor="author">Book Author</label>
+                <input type="author" id="author" onChange={handleAuthor}/>
+                <br/>
+                <label htmlFor="isbn">Book ISBN</label>
+                <input type="isbn" id="isbn" onChange={handleIsbn}/>
+                <br/>
+                <label htmlFor="state">Book State:</label>
+                <select name="state" id="state">
+                    <option value={BookState.AVAILABLE}>AVAILABLE</option>
+                    <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
+                </select>
+                <br/>
                 <button type={"submit"}>Add Book</button>
             </form>
         </section>
