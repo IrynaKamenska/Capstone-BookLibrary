@@ -14,7 +14,7 @@ function Books() {
     const fetchAllBooks = () => {
         axios.get("/api/books")
             .then(response => response.data)
-            .catch(error => console.log("GET Error: " + error))
+            .catch(error => console.error("GET Error: " + error))
             .then(data => setBooks(data))
     }
 
@@ -49,7 +49,7 @@ function Books() {
             isbn: bookIsbn,
             status: bookState
         })
-            .catch((error) => console.log("POST Error: " + error))
+            .catch((error) => console.error("POST Error: " + error))
         setBookTitle("")
         setAuthor("")
         setBookIsbn("")
