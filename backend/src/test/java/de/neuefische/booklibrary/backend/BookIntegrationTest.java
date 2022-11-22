@@ -136,7 +136,7 @@ class BookIntegrationTest {
                                 {
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "1-2-3",
+                                "isbn": "ISBN 978-0-596-52068-7",
                                 "bookState": "AVAILABLE"
                                 }
                                 """))
