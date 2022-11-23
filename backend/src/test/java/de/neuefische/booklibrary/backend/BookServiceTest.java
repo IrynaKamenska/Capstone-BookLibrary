@@ -24,8 +24,7 @@ class BookServiceTest {
         List<Book> actual = bookService.getAllBooks();
 
         //then
-        List<Book> expected = books;
-        assertEquals(expected, actual);
+        assertEquals(books, actual);
 
     }
 
@@ -42,8 +41,7 @@ class BookServiceTest {
         List<Book> actual = bookService.getAllBooks();
 
         //then
-        List<Book> expected = bookList;
-        assertEquals(expected, actual);
+        assertEquals(bookList, actual);
 
     }
 
@@ -60,8 +58,7 @@ class BookServiceTest {
         Book actual = bookService.saveBook(newBook);
 
         //then
-        Book expected = newBookWithId;
-        assertEquals(expected, actual);
+        assertEquals(newBookWithId, actual);
     }
 
     @Test
@@ -74,8 +71,7 @@ class BookServiceTest {
         Book actual = bookService.saveBook(book);
 
         //then
-        Book expected = book;
-        assertEquals(expected, actual);
+        assertEquals(book, actual);
     }
 
 
