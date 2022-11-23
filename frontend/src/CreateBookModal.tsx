@@ -1,4 +1,3 @@
-
 import React, {FormEvent} from "react";
 import Modal from 'react-modal';
 import axios from "axios";
@@ -21,7 +20,6 @@ export default function CreateBookModal(props: ModalProps) {
     );
 
 
-
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.bookState) {
@@ -42,8 +40,6 @@ export default function CreateBookModal(props: ModalProps) {
     }
 
 
-
-
     function handleChange(event: any) {
         setNewBook({
             ...newBook,
@@ -58,50 +54,50 @@ export default function CreateBookModal(props: ModalProps) {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-        <button onClick={() => props.closeModal()}>Close</button>
-        <form onSubmit={addNewBook}>
-            <br/>
-            <label>
-                Book title:
-                <input type="text"
-                       id="title"
-                       name="title"
-                       value={newBook.title}
-                       onChange={handleChange}
-                       placeholder="title"
-                />
-            </label>
-            <br/>
-            <label>
-                Book author:
-                <input type="text"
-                       id="author"
-                       name="author"
-                       value={newBook.author}
-                       onChange={handleChange}
-                       placeholder="author"
-                />
-            </label>
-            <br/>
-            <label>
-                Book isbn:
-                <input type="isbn"
-                       id="isbn"
-                       name="isbn"
-                       value={newBook.isbn}
-                       onChange={handleChange}
-                       placeholder="isbn"
-                />
-            </label>
-            <br/>
-            <label htmlFor="bookState">Book State:</label>
-            <select name="bookState" id="bookState">
-                <option value={BookState.AVAILABLE}>AVAILABLE</option>
-                <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
-            </select>
-            <br/><br/>
-            <button>add new book</button>
-        </form>
+            <button onClick={() => props.closeModal()}>Close</button>
+            <form onSubmit={addNewBook}>
+                <br/>
+                <label>
+                    Book title:
+                    <input type="text"
+                           id="title"
+                           name="title"
+                           value={newBook.title}
+                           onChange={handleChange}
+                           placeholder="title"
+                    />
+                </label>
+                <br/>
+                <label>
+                    Book author:
+                    <input type="text"
+                           id="author"
+                           name="author"
+                           value={newBook.author}
+                           onChange={handleChange}
+                           placeholder="author"
+                    />
+                </label>
+                <br/>
+                <label>
+                    Book isbn:
+                    <input type="isbn"
+                           id="isbn"
+                           name="isbn"
+                           value={newBook.isbn}
+                           onChange={handleChange}
+                           placeholder="isbn"
+                    />
+                </label>
+                <br/>
+                <label htmlFor="bookState">Book State:</label>
+                <select name="bookState" id="bookState">
+                    <option value={BookState.AVAILABLE}>AVAILABLE</option>
+                    <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
+                </select>
+                <br/><br/>
+                <button>add new book</button>
+            </form>
         </Modal>
     );
 
