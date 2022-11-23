@@ -1,13 +1,20 @@
 
 import React, {FormEvent} from "react";
-
+import Modal from 'react-modal';
 import axios from "axios";
 import {BookState} from "./BookState";
+import {BookModel} from "./BookModel";
 
-export default function CreateBook() {
+type ModalProps = {
+    modalIsOpen: boolean,
+    closeModal: () => void,
+    reloadAllBooks: () => void,
 
-    const [newBook, setNewBook] = React.useState(
+}
+export default function CreateBookModal(props: ModalProps) {
+    const [newBook, setNewBook] = React.useState<BookModel>(
         {
+            id: "",
             title: "",
             author: "",
             isbn: "",
@@ -16,26 +23,22 @@ export default function CreateBook() {
     );
 
 
+
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
         if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.bookState) {
             alert(`Please fill book title, author, isbn and state`)
             return
         }
 
         axios.post("/api/books", newBook)
-            .then(function (response) {
-                console.log(response)
-            })
-            .catch((e) => console.error("POST ERROR: " + e))
-        setNewBook({
-            title: "",
-            author: "",
-            isbn: "",
-            bookState: BookState.AVAILABLE
-        });
+            .catch((e) => console.log("POST Error: " + e))
+            .then(props.reloadAllBooks)
+            .then(props.closeModal)
     }
+
+
+
 
     function handleChange(event: any) {
         setNewBook({
@@ -44,9 +47,15 @@ export default function CreateBook() {
         })
     }
 
-    return <>
+    return (
+        <Modal
+            isOpen={props.modalIsOpen}
+            onRequestClose={props.closeModal}
+            contentLabel="Example Modal"
+            ariaHideApp={false}
+        >
+        <button onClick={() => props.closeModal()}>Close</button>
         <form onSubmit={addNewBook}>
-            <h3>Please fill the following fields: </h3>
             <br/>
             <label>
                 Book title:
@@ -89,6 +98,6 @@ export default function CreateBook() {
             <br/><br/>
             <button>add new book</button>
         </form>
-
-    </>
+        </Modal>
+    );
 }
