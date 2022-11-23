@@ -8,7 +8,17 @@ import CreateBookModal from "./CreateBookModal";
 function BookOverview() {
     const [books, setBooks] = useState<BookModel[]>([]);
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+    const [editMode, setEditMode] = useState({
+        status: true,
+        rowId: ""
+    });
 
+    const onEdit = (id: string) => {
+        setEditMode({
+            status: true,
+            rowId: id
+        })
+    }
 
     const fetchAllBooks = () => {
         axios.get("/api/books")
@@ -27,9 +37,13 @@ function BookOverview() {
         setModalIsOpen(false)
     }
 
-/*    if (books === undefined) {
-        return <>Bitte haben Sie einen Augenblick Geduld...</>
-    }*/
+    const deleteBook = (id: string) => {
+        axios.delete("/api/books/"+ id)
+            .then(fetchAllBooks)
+            .catch(error => console.error("DELETE Error: " + error))
+    }
+
+
     return <>
         <CreateBookModal modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
         {books.length > 0 ?
@@ -51,6 +65,13 @@ function BookOverview() {
                                 <td>{book.author}</td>
                                 <td>{book.isbn}</td>
                                 <td>{book.bookState}</td>
+                                <td>
+                                    <React.Fragment>
+                                        <button className="left" onClick={() => onEdit(book.id)}>Edit</button>
+                                        <button className="button-right" onClick={() => deleteBook(book.id)}>Delete</button>
+                                    </React.Fragment>
+                                </td>
+
                             </tr>;
                         })}
                         </tbody>
@@ -63,9 +84,7 @@ function BookOverview() {
                     <p>Keine Bücher vorhanden</p>
                     <button type={"submit"} onClick={openModal}>New Book</button>
                 </div>
-
         }
-
     </>;
 }
 
