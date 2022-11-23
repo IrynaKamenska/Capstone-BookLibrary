@@ -54,11 +54,10 @@ export default function CreateBookModal(props: ModalProps) {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <button onClick={() => props.closeModal()}>Close</button>
             <form onSubmit={addNewBook}>
                 <br/>
                 <label>
-                    Book title:
+                    New title:
                     <input type="text"
                            id="title"
                            name="title"
@@ -69,7 +68,7 @@ export default function CreateBookModal(props: ModalProps) {
                 </label>
                 <br/>
                 <label>
-                    Book author:
+                    New Author:
                     <input type="text"
                            id="author"
                            name="author"
@@ -80,8 +79,8 @@ export default function CreateBookModal(props: ModalProps) {
                 </label>
                 <br/>
                 <label>
-                    Book isbn:
-                    <input type="isbn"
+                    New ISBN:
+                    <input type="text"
                            id="isbn"
                            name="isbn"
                            value={newBook.isbn}
@@ -90,14 +89,15 @@ export default function CreateBookModal(props: ModalProps) {
                     />
                 </label>
                 <br/>
-                <label htmlFor="bookState">Book State:</label>
+                <label htmlFor="bookState">New Book State:</label>
                 <select name="bookState" id="bookState">
                     <option value={BookState.AVAILABLE}>AVAILABLE</option>
                     <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
                 <br/><br/>
-                <button>add new book</button>
+                <button>Create</button>
             </form>
+            <button onClick={() => props.closeModal()}>Close</button>
         </Modal>
     );
 
