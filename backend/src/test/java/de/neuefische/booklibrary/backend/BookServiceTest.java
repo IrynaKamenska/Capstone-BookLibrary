@@ -78,4 +78,15 @@ class BookServiceTest {
         assertEquals(expected, actual);
     }
 
+
+    @Test
+    void deleteBookById(){
+        //given
+        String id = "id1";
+        doNothing().when(bookRepository).deleteById(id);
+        //when
+        bookService.deleteBook(id);
+        //then
+        verify(bookRepository).deleteById(id);
+    }
 }

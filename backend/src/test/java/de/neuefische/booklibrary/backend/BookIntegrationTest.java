@@ -64,5 +64,27 @@ class BookIntegrationTest {
 
     }
 
+    @Test
+    @DirtiesContext
+    void deleteBook_return204() throws Exception {
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "1-2-3",
+                                "bookState": "AVAILABLE"
+                                }
+                                """))
+                .andExpect(status().is(201))
+                .andReturn().getResponse().getContentAsString();
+
+        Book book = objectMapper.readValue(body, Book.class);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/"+book.id()))
+                .andExpect(status().isNoContent());
+
+    }
+
 
 }
