@@ -3,7 +3,6 @@ import React, {FormEvent} from "react";
 import Modal from 'react-modal';
 import axios from "axios";
 import {BookState} from "./BookState";
-import {BookModel} from "./BookModel";
 
 type ModalProps = {
     modalIsOpen: boolean,
@@ -12,9 +11,8 @@ type ModalProps = {
 
 }
 export default function CreateBookModal(props: ModalProps) {
-    const [newBook, setNewBook] = React.useState<BookModel>(
+    const [newBook, setNewBook] = React.useState(
         {
-            id: "",
             title: "",
             author: "",
             isbn: "",
@@ -35,6 +33,12 @@ export default function CreateBookModal(props: ModalProps) {
             .catch((e) => console.log("POST Error: " + e))
             .then(props.reloadAllBooks)
             .then(props.closeModal)
+        setNewBook({
+            title: "",
+            author: "",
+            isbn: "",
+            bookState: BookState.AVAILABLE
+        });
     }
 
 
