@@ -17,7 +17,7 @@ public class BookService {
     }
 
     public Book saveBook(Book book) {
-        return bookRepository.insert(book);
+        return bookRepository.save(book);
     }
 
     public Book updateBook(Book updatedBook) {
@@ -26,5 +26,9 @@ public class BookService {
 
     public void deleteBook(String id) {
         bookRepository.deleteById(id);
+    }
+
+    public boolean isBookExisting(String id) {
+        return bookRepository.existsById(id);
     }
 }
