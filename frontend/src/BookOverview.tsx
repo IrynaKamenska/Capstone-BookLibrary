@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import CreateBookModal from "./CreateBookModal";
-
+import DeleteBook from "./DeleteBook";
 
 
 function BookOverview() {
@@ -37,19 +37,11 @@ function BookOverview() {
         setModalIsOpen(false)
     }
 
-    const deleteBook = (id: string) => {
-        axios.delete("/api/books/"+ id)
-            .then(fetchAllBooks)
-            .catch(error => console.error("DELETE Error: " + error))
-    }
-
-
     return <>
         <CreateBookModal modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
         {books.length > 0 ?
 
             <>
-                <div>
                     <table>
                         <tbody>
                         <tr>
@@ -68,7 +60,7 @@ function BookOverview() {
                                 <td>
                                     <React.Fragment>
                                         <button className="left" onClick={() => onEdit(book.id)}>Edit</button>
-                                        <button className="button-right" onClick={() => deleteBook(book.id)}>Delete</button>
+                                        <DeleteBook book={book} reloadAllBooks={fetchAllBooks}></DeleteBook>
                                     </React.Fragment>
                                 </td>
 
@@ -76,7 +68,6 @@ function BookOverview() {
                         })}
                         </tbody>
                     </table>
-                </div>
                 <button type={"submit"} onClick={openModal}>New Book</button>
             </>
                 :
