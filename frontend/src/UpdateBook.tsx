@@ -91,7 +91,7 @@ function UpdateBook(props: UpdateBookProps) {
                 </label>
                 <br/>
                 <label htmlFor="bookState">New Book State:</label>
-                <select name="bookState" id="bookState" onChange={handleUpdateChange}>
+                <select value={updatedBook.bookState} name="bookState" id="bookState" onChange={handleUpdateChange}>
                     <option value={BookState.AVAILABLE}>AVAILABLE</option>
                     <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
