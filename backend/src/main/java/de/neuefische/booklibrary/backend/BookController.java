@@ -2,6 +2,7 @@ package de.neuefische.booklibrary.backend;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,16 +29,22 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@RequestBody @Valid Book updatedBook, @PathVariable String id) {
-        if (updatedBook.id().equals(id)) {
-            return bookService.updateBook(updatedBook);
-        } else
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The ID in the URL does not match the request body's ID");
+    public ResponseEntity<Book> updateBook(@RequestBody @Valid Book book, @PathVariable String id) {
+        boolean bookExists = bookService.isBookExisting(id);
+
+        Book bookToUpdate = book.withId(id);
+        Book updatedBook = bookService.saveBook(bookToUpdate);
+
+        return bookExists ?
+                new ResponseEntity<>(updatedBook, HttpStatus.OK) :
+                new ResponseEntity<>(updatedBook, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteBook(@PathVariable String id) {
-        bookService.deleteBook(id);
+        if (bookService.isBookExisting(id)) {
+            bookService.deleteBook(id);
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Book with ID:" + id + " found");
     }
 }
