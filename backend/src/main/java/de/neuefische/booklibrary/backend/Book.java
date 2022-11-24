@@ -1,7 +1,6 @@
 package de.neuefische.booklibrary.backend;
 
 import lombok.With;
-import org.hibernate.validator.constraints.ISBN;
 
 import javax.validation.constraints.NotBlank;
 
@@ -14,7 +13,6 @@ public record Book(
         @NotBlank
         String author,
         @NotBlank
-        @ISBN
         String isbn,
         BookState bookState) {
 }
