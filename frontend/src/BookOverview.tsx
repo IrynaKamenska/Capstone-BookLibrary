@@ -8,18 +8,6 @@ import DeleteBook from "./DeleteBook";
 function BookOverview() {
     const [books, setBooks] = useState<BookModel[]>([]);
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    const [editMode, setEditMode] = useState({
-        status: true,
-        rowId: ""
-    });
-
-    const onEdit = (id: string) => {
-        setEditMode({
-            status: true,
-            rowId: id
-        })
-    }
-
     const fetchAllBooks = () => {
         axios.get("/api/books")
             .then(response => response.data)
@@ -59,7 +47,6 @@ function BookOverview() {
                                 <td>{book.bookState}</td>
                                 <td>
                                     <React.Fragment>
-                                        <button className="left" onClick={() => onEdit(book.id)}>Edit</button>
                                         <DeleteBook book={book} reloadAllBooks={fetchAllBooks}></DeleteBook>
                                     </React.Fragment>
                                 </td>
