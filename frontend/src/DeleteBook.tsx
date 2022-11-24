@@ -14,7 +14,7 @@ function DeleteBook(props: DeleteBookProps) {
     const deleteBook = (id: string) => {
         axios.delete("/api/books/" + id)
             .then(props.reloadAllBooks)
-            .then(() => alert("remove " + props.book.id + "successful!"))
+            .then(() => alert("Remove book with id " + props.book.id + "successful!"))
             .catch(error => console.error("DELETE Error: " + error))
     }
     const openModal = () => {
@@ -33,7 +33,11 @@ function DeleteBook(props: DeleteBookProps) {
             contentLabel="Example Modal"
             ariaHideApp={false}
         >
-            <button className="button-right" onClick={() => deleteBook(props.book.id)}>Delete</button>
+
+            <div className="modal-body">
+                <h5>Are you sure to delete this book?</h5>
+            </div>
+            <button id="del-alert" className="button-right" onClick={() => deleteBook(props.book.id)}>Delete</button>
             <button onClick={() => closeModal()}>Close</button>
         </Modal>
 
