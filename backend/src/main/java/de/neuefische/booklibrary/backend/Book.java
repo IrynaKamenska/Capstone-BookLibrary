@@ -3,17 +3,17 @@ package de.neuefische.booklibrary.backend;
 import lombok.With;
 import org.hibernate.validator.constraints.ISBN;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 
 
 @With
 public record Book(
         String id,
-        @NotEmpty
+        @NotBlank
         String title,
-        @NotEmpty
+        @NotBlank
         String author,
-        @NotEmpty
+        @NotBlank
         @ISBN
         String isbn,
         BookState bookState) {
