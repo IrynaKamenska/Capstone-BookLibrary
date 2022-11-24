@@ -3,6 +3,7 @@ import {BookModel} from "./BookModel";
 import axios from "axios";
 import CreateBook from "./CreateBook";
 import DeleteBook from "./DeleteBook";
+import UpdateBook from "./UpdateBook";
 
 
 function BookOverview() {
@@ -47,10 +48,10 @@ function BookOverview() {
                                 <td>{book.bookState}</td>
                                 <td>
                                     <React.Fragment>
+                                        <UpdateBook book={book} reloadAllBooks={fetchAllBooks}></UpdateBook>
                                         <DeleteBook book={book} reloadAllBooks={fetchAllBooks}></DeleteBook>
                                     </React.Fragment>
                                 </td>
-
                             </tr>;
                         })}
                         </tbody>
