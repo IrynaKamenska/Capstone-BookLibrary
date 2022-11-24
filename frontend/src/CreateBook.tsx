@@ -9,7 +9,7 @@ type ModalProps = {
     reloadAllBooks: () => void,
 
 }
-export default function CreateBookModal(props: ModalProps) {
+export default function CreateBook(props: ModalProps) {
     const [newBook, setNewBook] = React.useState(
         {
             title: "",

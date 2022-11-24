@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
-import CreateBookModal from "./CreateBookModal";
+import CreateBook from "./CreateBook";
 import DeleteBook from "./DeleteBook";
 
 
@@ -38,7 +38,7 @@ function BookOverview() {
     }
 
     return <>
-        <CreateBookModal modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
+        <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
         {books.length > 0 ?
 
             <>
