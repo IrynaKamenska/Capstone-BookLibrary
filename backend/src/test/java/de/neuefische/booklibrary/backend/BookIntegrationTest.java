@@ -10,8 +10,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -60,7 +59,11 @@ class BookIntegrationTest {
                              "isbn": "ISBN 978-0-596-52068-7",
                              "bookState": "AVAILABLE"
                         } ]
-                        """.replace("<id>", book.id())));
+                        """.replace("<id>", book.id())))
+                .andExpect(jsonPath("$..title").isNotEmpty())
+                .andExpect(jsonPath("$..author").isNotEmpty())
+                .andExpect(jsonPath("$..isbn").isNotEmpty())
+                .andExpect(jsonPath("$..bookState").isNotEmpty());
 
     }
 
@@ -185,8 +188,10 @@ class BookIntegrationTest {
     @Test
     @DirtiesContext
     void deleteBookWithNotExistingId_return404() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/1"))
-                .andExpect(status().isNotFound());
+        String id = "1";
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/" + id))
+                .andExpect(status().isNotFound())
+                .andExpect(status().reason("No Book with ID:" + id + " found"));
     }
 
 }
