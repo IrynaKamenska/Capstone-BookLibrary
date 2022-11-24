@@ -24,13 +24,14 @@ class BookServiceTest {
         List<Book> actual = bookService.getAllBooks();
 
         //then
+        verify(bookRepository).findAll();
         assertEquals(books, actual);
 
     }
 
 
     @Test
-    void getAllBooks_ifBooksExist_returnListOfAllBooks() {
+    void getAllBooks_ifBookListNotEmpty_returnListOfAllBooks() {
         //given
         List<Book> bookList = new ArrayList<>(List.of(
                 new Book("id1", "Java", "M. Kofler", "978-3-8362-8392-2", BookState.AVAILABLE)
@@ -41,6 +42,7 @@ class BookServiceTest {
         List<Book> actual = bookService.getAllBooks();
 
         //then
+        verify(bookRepository).findAll();
         assertEquals(bookList, actual);
 
     }
@@ -50,14 +52,13 @@ class BookServiceTest {
     void addNewBookWithoutId_returnBookWithId() {
         //given
         Book book = new Book(null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
-        when(bookRepository.insert(book)).thenReturn(book.withId("id1"));
+        when(bookRepository.save(book)).thenReturn(book.withId("id1"));
 
         //when
         Book actual = bookService.saveBook(book);
         Book expected = book.withId("id1");
 
         //then
-        verify(bookRepository).insert(book);
         assertEquals(expected, actual);
     }
 
@@ -65,26 +66,24 @@ class BookServiceTest {
     void addNewBookWithId_returnBook() {
         //given
         Book book = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
-        when(bookRepository.insert(book)).thenReturn(book);
+        when(bookRepository.save(book)).thenReturn(book);
 
         //when
         Book actual = bookService.saveBook(book);
-        Book expected = book;
 
         //then
-        verify(bookRepository).insert(book);
         assertEquals(book, actual);
     }
 
     @Test
-    void deleteBookById(){
+    void deleteBookById() {
         //given
-        String id = "id1";
-        doNothing().when(bookRepository).deleteById(id);
+        Book book = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
+        doNothing().when(bookRepository).deleteById(book.id());
         //when
-        bookService.deleteBook(id);
+        bookService.deleteBook(book.id());
         //then
-        verify(bookRepository).deleteById(id);
+        verify(bookRepository).deleteById(book.id());
     }
 
 
@@ -96,12 +95,25 @@ class BookServiceTest {
 
        //when
        Book actual = bookService.updateBook(book);
-       Book expected = book;
 
        //then
        verify(bookRepository).save(book);
-       assertEquals(expected, actual);
+       assertEquals(book, actual);
    }
+
+    @Test
+    void isBookExisting_returnTrue() {
+        //given
+        String id = "id1";
+        when(bookRepository.existsById(id)).thenReturn(true);
+
+        //when
+        boolean actual = bookService.isBookExisting(id);
+        boolean expected = true;
+
+        //then
+        assertEquals(expected, actual);
+    }
 
 
 }

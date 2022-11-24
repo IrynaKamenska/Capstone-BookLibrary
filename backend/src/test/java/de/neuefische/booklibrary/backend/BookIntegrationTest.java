@@ -10,8 +10,8 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -66,7 +66,7 @@ class BookIntegrationTest {
 
     @Test
     @DirtiesContext
-    void updateBook_return200() throws Exception {
+    void updateBookWithExistingId_return200() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -83,53 +83,85 @@ class BookIntegrationTest {
         Book book = objectMapper.readValue(body, Book.class);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/api/books/"+book.id())
-                .contentType(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {
+                                    {
+                                    "id": "<id>",
+                                    "title": "Java",
+                                    "author": "Ullenbom",
+                                    "isbn": "ISBN 978-0-596-52068-7",
+                                    "bookState": "NOT_AVAILABLE"
+                                    }
+                                """.replace("<id>", book.id())))
+                .andExpect(status().is(200))
+                .andExpect(content().json("""
+                            {
                                 "id": "<id>",
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "bookState": "NOT_AVAILABLE"
-                                }
-                            """.replace("<id>",book.id())))
-                .andExpect(status().isOk())
-                .andExpect(content().json("""
-                        {
-                            "id": "<id>",
-                            "title": "Java",
-                            "author": "Ullenbom",
-                            "isbn": "ISBN 978-0-596-52068-7",
-                            "bookState": "NOT_AVAILABLE"
-                        }
-                    """.replace("<id>",book.id())));
+                            }
+                        """.replace("<id>", book.id())));
     }
 
     @Test
     @DirtiesContext
-    void updateBook_ifUrlIdMismatchRequestBodyId_return400() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/books/id1")
+    void updateBookWithNewId_return201() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/books/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                "id": "id2",
+                                "id": "1",
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "ISBN 978-0-596-52068-7",
+                                "bookState": "AVAILABLE"
+                                }
+                                """))
+                .andExpect(status().is(201))
+                .andExpect(content().json("""
+                        {
+                                "id": "1",
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "ISBN 978-0-596-52068-7",
+                                "bookState": "AVAILABLE"
+                        }
+                        """));
+    }
+
+    @Test
+    @DirtiesContext
+    void updateBook_withDifferentIdInUrlAndBody_return201() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/books/id1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                    {
+                                    "id": "id2",
+                                    "title": "Java",
+                                    "author": "Ullenbom",
+                                    "isbn": "ISBN 978-0-596-52068-7",
+                                    "bookState": "NOT_AVAILABLE"
+                                    }
+                                """))
+                .andExpect(status().is(201))
+                .andExpect(content().json("""
+                        {
+                                "id": "id1",
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "bookState": "NOT_AVAILABLE"
                                 }
-                            """))
-                .andExpect(status().isBadRequest())
-                .andExpect(status().reason("The ID in the URL does not match the request body's ID"));
-
-
+                        """));
 
 
     }
 
     @Test
     @DirtiesContext
-    void deleteBook_return204() throws Exception {
+    void deleteBookSuccesfull_return204() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -144,10 +176,17 @@ class BookIntegrationTest {
                 .andReturn().getResponse().getContentAsString();
 
         Book book = objectMapper.readValue(body, Book.class);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/"+book.id()))
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/" + book.id()))
                 .andExpect(status().isNoContent());
 
     }
 
+    @Test
+    @DirtiesContext
+    void deleteBookWithNotExistingId_return404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/1"))
+                .andExpect(status().isNotFound());
+    }
 
 }
