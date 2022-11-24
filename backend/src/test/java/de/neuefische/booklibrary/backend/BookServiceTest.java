@@ -31,19 +31,20 @@ class BookServiceTest {
 
 
     @Test
-    void getAllBooks_ifBookListNotEmpty_returnListOfAllBooks() {
+    void getAllBooks_returnListWithOneBook() {
         //given
-        List<Book> bookList = new ArrayList<>(List.of(
-                new Book("id1", "Java", "M. Kofler", "978-3-8362-8392-2", BookState.AVAILABLE)
-        ));
-        when(bookRepository.findAll()).thenReturn(bookList);
+        Book book = new Book("id1", "Java", "M. Kofler", "978-3-8362-8392-2", BookState.AVAILABLE);
+        Book foundBook = book.withTitle("Java").withAuthor("M. Kofler").withIsbn("978-3-8362-8392-2").withBookState(BookState.AVAILABLE);
+
+        when(bookRepository.findAll()).thenReturn(List.of(foundBook));
 
         //when
+        List<Book> expected = List.of(foundBook);
         List<Book> actual = bookService.getAllBooks();
 
         //then
         verify(bookRepository).findAll();
-        assertEquals(bookList, actual);
+        assertEquals(expected, actual);
 
     }
 
@@ -75,17 +76,6 @@ class BookServiceTest {
         assertEquals(book, actual);
     }
 
-    @Test
-    void deleteBookById() {
-        //given
-        Book book = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
-        doNothing().when(bookRepository).deleteById(book.id());
-        //when
-        bookService.deleteBook(book.id());
-        //then
-        verify(bookRepository).deleteById(book.id());
-    }
-
 
    @Test
     void updateBookById_returnUpdatedBook(){
@@ -115,5 +105,15 @@ class BookServiceTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void deleteBookById() {
+        //given
+        Book book = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
+        doNothing().when(bookRepository).deleteById(book.id());
+        //when
+        bookService.deleteBook(book.id());
+        //then
+        verify(bookRepository).deleteById(book.id());
+    }
 
 }
