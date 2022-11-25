@@ -100,9 +100,11 @@ function UpdateBook(props: UpdateBookProps) {
                 <div className="modal-body">
                     <p>Are you sure to update this book?</p>
                 </div>
-                <button className="button-left">Update</button>
+                <div>
+                    <button className="button-left">Update</button>
+                    <button className="button-right" onClick={() => closeModal()}>Close</button>
+                </div>
             </form>
-            <button className="button-right" onClick={() => closeModal()}>Close</button>
         </Modal>
     </>;
 }
