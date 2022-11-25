@@ -57,12 +57,12 @@ function BookOverview() {
                     })}
                     </tbody>
                 </table>
-                <button className="button-add" type={"submit"} onClick={openModal}>New Book</button>
+                <button className="button-add" type={"submit"} onClick={openModal}>Add Book</button>
             </>
                 :
                 <div>
                     <p>Keine Bücher vorhanden</p>
-                    <button className="button-add" type={"submit"} onClick={openModal}>New Book</button>
+                    <button className="button-add" type={"submit"} onClick={openModal}>Add Book</button>
                 </div>
         }
     </>;

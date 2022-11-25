@@ -59,7 +59,7 @@ export default function CreateBook(props: ModalProps) {
                 <br/>
                 <label>
                     New title:
-                    <input type="text"
+                    <input className="input-text" type="text"
                            id="title"
                            name="title"
                            value={newBook.title}
@@ -70,7 +70,7 @@ export default function CreateBook(props: ModalProps) {
                 <br/>
                 <label>
                     New Author:
-                    <input type="text"
+                    <input className="input-text" type="text"
                            id="author"
                            name="author"
                            value={newBook.author}
@@ -81,7 +81,7 @@ export default function CreateBook(props: ModalProps) {
                 <br/>
                 <label>
                     New ISBN:
-                    <input type="text"
+                    <input className="input-text" type="text"
                            id="isbn"
                            name="isbn"
                            value={newBook.isbn}
