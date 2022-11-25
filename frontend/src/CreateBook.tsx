@@ -2,6 +2,7 @@ import React, {FormEvent} from "react";
 import Modal from 'react-modal';
 import axios from "axios";
 import {BookState} from "./BookState";
+import "./css/BookOverview.css";
 
 type ModalProps = {
     modalIsOpen: boolean,
@@ -48,11 +49,11 @@ export default function CreateBook(props: ModalProps) {
     }
 
     return (
-        <Modal
-            isOpen={props.modalIsOpen}
-            onRequestClose={props.closeModal}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
+        <Modal className="modal"
+               isOpen={props.modalIsOpen}
+               onRequestClose={props.closeModal}
+               contentLabel="Example Modal"
+               ariaHideApp={false}
         >
             <form onSubmit={addNewBook}>
                 <br/>

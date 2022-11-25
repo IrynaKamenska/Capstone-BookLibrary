@@ -3,6 +3,7 @@ import {BookModel} from "./BookModel";
 import axios from "axios";
 import {BookState} from "./BookState";
 import Modal from "react-modal";
+import "./css/BookOverview.css";
 
 type UpdateBookProps = {
     book: BookModel;
@@ -47,12 +48,12 @@ function UpdateBook(props: UpdateBookProps) {
 
 
     return <>
-        <button type={"submit"} onClick={openModal}>Edit</button>
-        <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
+        <button className="button-left" type={"submit"} onClick={openModal}>Edit</button>
+        <Modal className="modal"
+               isOpen={modalIsOpen}
+               onRequestClose={closeModal}
+               contentLabel="Example Modal"
+               ariaHideApp={false}
         >
 
             <form onSubmit={handleEditBook}>
@@ -96,13 +97,12 @@ function UpdateBook(props: UpdateBookProps) {
                     <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
                 <br/><br/>
-                <button>Update</button>
+                <div className="modal-body">
+                    <h5>Are you sure to update this book?</h5>
+                </div>
+                <button className="button-left">Update</button>
             </form>
-
-            <div className="modal-body">
-                <h5>Are you sure to update this book?</h5>
-            </div>
-            <button onClick={() => closeModal()}>Close</button>
+            <button className="button-right" onClick={() => closeModal()}>Close</button>
         </Modal>
     </>;
 }
