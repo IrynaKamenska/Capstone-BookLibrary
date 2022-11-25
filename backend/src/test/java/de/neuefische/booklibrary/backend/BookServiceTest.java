@@ -53,11 +53,12 @@ class BookServiceTest {
     void addNewBookWithoutId_returnBookWithId() {
         //given
         Book book = new Book(null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
-        when(bookRepository.save(book)).thenReturn(book.withId("id1"));
+        Book saveBook = book.withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withBookState(BookState.NOT_AVAILABLE);
+        when(bookRepository.save(saveBook)).thenReturn(saveBook.withId("id1"));
 
         //when
-        Book actual = bookService.saveBook(book);
-        Book expected = book.withId("id1");
+        Book actual = bookService.saveBook(saveBook);
+        Book expected = saveBook.withId("id1");
 
         //then
         assertEquals(expected, actual);
@@ -67,28 +68,31 @@ class BookServiceTest {
     void addNewBookWithId_returnBook() {
         //given
         Book book = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
-        when(bookRepository.save(book)).thenReturn(book);
+        Book saveBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withBookState(BookState.NOT_AVAILABLE);
+        when(bookRepository.save(saveBook)).thenReturn(saveBook);
 
         //when
-        Book actual = bookService.saveBook(book);
+        Book actual = bookService.saveBook(saveBook);
 
         //then
-        assertEquals(book, actual);
+        assertEquals(saveBook, actual);
     }
 
 
    @Test
-    void updateBookById_returnUpdatedBook(){
-        //given
+    void updateBookById_returnUpdatedBook() {
+       //given
        Book book = new Book("id1", "Java-Script", "P. Ackermann", "978-3-8362-8629-9", BookState.NOT_AVAILABLE);
-       when(bookRepository.save(book)).thenReturn(book);
+       Book toUpdateBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withBookState(BookState.NOT_AVAILABLE);
+
+       when(bookRepository.save(toUpdateBook)).thenReturn(toUpdateBook);
 
        //when
-       Book actual = bookService.updateBook(book);
+       Book actual = bookService.updateBook(toUpdateBook);
 
        //then
-       verify(bookRepository).save(book);
-       assertEquals(book, actual);
+       verify(bookRepository).save(toUpdateBook);
+       assertEquals(toUpdateBook, actual);
    }
 
     @Test
