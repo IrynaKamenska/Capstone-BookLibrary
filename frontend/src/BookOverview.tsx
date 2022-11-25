@@ -4,6 +4,7 @@ import axios from "axios";
 import CreateBook from "./CreateBook";
 import DeleteBook from "./DeleteBook";
 import UpdateBook from "./UpdateBook";
+import "./css/BookOverview.css";
 
 
 function BookOverview() {
@@ -31,37 +32,37 @@ function BookOverview() {
         {books.length > 0 ?
 
             <>
-                    <table>
-                        <tbody>
-                        <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>ISBN</th>
-                            <th>Book State</th>
-                            <th>Action</th>
-                        </tr>
-                        {books.map(book => {
-                            return <tr key={book.id}>
-                                <td>{book.title}</td>
-                                <td>{book.author}</td>
-                                <td>{book.isbn}</td>
-                                <td>{book.bookState}</td>
-                                <td>
-                                    <React.Fragment>
-                                        <UpdateBook book={book} reloadAllBooks={fetchAllBooks}></UpdateBook>
-                                        <DeleteBook book={book} reloadAllBooks={fetchAllBooks}></DeleteBook>
-                                    </React.Fragment>
-                                </td>
-                            </tr>;
-                        })}
-                        </tbody>
-                    </table>
-                <button type={"submit"} onClick={openModal}>New Book</button>
+                <table className="content-table">
+                    <tbody>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                        <th>Book State</th>
+                        <th>Action</th>
+                    </tr>
+                    {books.map(book => {
+                        return <tr key={book.id}>
+                            <td>{book.title}</td>
+                            <td>{book.author}</td>
+                            <td>{book.isbn}</td>
+                            <td>{book.bookState}</td>
+                            <td>
+                                <React.Fragment>
+                                    <UpdateBook book={book} reloadAllBooks={fetchAllBooks}></UpdateBook>
+                                    <DeleteBook book={book} reloadAllBooks={fetchAllBooks}></DeleteBook>
+                                </React.Fragment>
+                            </td>
+                        </tr>;
+                    })}
+                    </tbody>
+                </table>
+                <button className="button-add" type={"submit"} onClick={openModal}>New Book</button>
             </>
                 :
                 <div>
                     <p>Keine Bücher vorhanden</p>
-                    <button type={"submit"} onClick={openModal}>New Book</button>
+                    <button className="button-add" type={"submit"} onClick={openModal}>New Book</button>
                 </div>
         }
     </>;

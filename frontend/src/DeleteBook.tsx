@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
+import "./css/BookOverview.css";
 
 type DeleteBookProps = {
     book: BookModel;
@@ -26,18 +27,18 @@ function DeleteBook(props: DeleteBookProps) {
     }
 
     return <>
-        <button type={"submit"} onClick={openModal}>Delete</button>
-        <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
+        <button className="button-right" type={"submit"} onClick={openModal}>Delete</button>
+        <Modal className="modal"
+               isOpen={modalIsOpen}
+               onRequestClose={closeModal}
+               contentLabel="Example Modal"
+               ariaHideApp={false}
         >
 
             <div className="modal-body">
                 <h5>Are you sure to delete this book?</h5>
             </div>
-            <button id="del-alert" className="button-right" onClick={() => deleteBook(props.book.id)}>Delete</button>
+            <button id="del-alert" onClick={() => deleteBook(props.book.id)}>Delete</button>
             <button onClick={() => closeModal()}>Close</button>
         </Modal>
 
