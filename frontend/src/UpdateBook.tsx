@@ -98,7 +98,7 @@ function UpdateBook(props: UpdateBookProps) {
                 </select>
                 <br/><br/>
                 <div className="modal-body">
-                    <h5>Are you sure to update this book?</h5>
+                    <p>Are you sure to update this book?</p>
                 </div>
                 <button className="button-left">Update</button>
             </form>
