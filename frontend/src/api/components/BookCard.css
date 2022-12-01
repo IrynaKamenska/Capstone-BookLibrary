@@ -1,0 +1,56 @@
+.book-card {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem auto;
+    background-color: #fff;
+    border: 1px solid #efefef;
+    transition: 0.5s all ease-in-out;
+
+}
+
+.book-card:hover {
+    opacity: 0.9;
+    cursor: pointer;
+    border: 1px solid #767676;
+}
+
+.book-title {
+    margin: 0;
+    word-wrap: break-word;
+    text-align: justify;
+
+}
+
+.book-authors {
+    text-align: justify;
+}
+
+.book-image {
+    display: flex;
+    width: auto;
+    height: auto;
+    align-self: center;
+    min-height: 1vh;
+    margin: 0 auto;
+}
+
+.link-details {
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    color: white;
+    font-weight: 700;
+    margin-top: auto;
+    outline: 0;
+    border: 0;
+    background-color: orange;
+    text-align: center;
+}
+
+.link-details:active, focus, hover, visited {
+    color: white;
+}
+
+
+
+
