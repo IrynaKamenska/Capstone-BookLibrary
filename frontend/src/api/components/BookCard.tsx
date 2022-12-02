@@ -1,13 +1,12 @@
 import React, {FormEvent} from 'react';
 import "./BookCard.css";
-
-import {GoogleModel} from "../model/GoogleModel";
 import {BookState} from "../../BookState";
 import axios from "axios";
+import {BookModel} from "../../BookModel";
 
 
 type BookCardProps = {
-    book: GoogleModel;
+    book: BookModel;
     reloadAllBooks: () => void;
 
 }
@@ -15,9 +14,10 @@ type BookCardProps = {
 function BookCard(props: BookCardProps) {
     const [newBook, setNewBook] = React.useState(
         {
-            title: "",
-            author: "",
-            isbn: "",
+            id: props.book.id,
+            title: props.book.title,
+            author: props.book.author,
+            isbn: props.book.isbn,
             bookState: BookState.AVAILABLE
         }
     );
@@ -34,6 +34,7 @@ function BookCard(props: BookCardProps) {
             .catch((e) => console.log("POST Error: " + e))
             .then(props.reloadAllBooks)
         setNewBook({
+            id: "",
             title: "",
             author: "",
             isbn: "",
@@ -41,7 +42,7 @@ function BookCard(props: BookCardProps) {
         });
     }
 
-    function handleUpdateChange(event: any) {
+    function handleAddApiBook(event: any) {
         setNewBook({
             ...newBook,
             [event.target.name]: event.target.value
@@ -50,24 +51,9 @@ function BookCard(props: BookCardProps) {
 
     return <>
         <div className={"book-card"}>
-            {props.book.volumeInfo === undefined ? ""
-                :
-                <h3 className="book-title">{props.book.volumeInfo.title}</h3>}
-            <p className="book-authors">{props.book.volumeInfo.authors}</p>
-            <p className="book-authors">{props.book.volumeInfo.industryIdentifiers
-                .map(({type, identifier}) => {
-                    return <p key={props.book.id}>{type}{identifier}</p>
-                })
-            }</p>
-
-            {props.book.volumeInfo.imageLinks === undefined ? ""
-                :
-                <img className="book-image" src={props.book.volumeInfo.imageLinks.thumbnail}
-                     alt={props.book.volumeInfo.title}/>
-            }
-            {/*<a href={props.book.volumeInfo.previewLink} className={"link-details"} target="_blank" rel="noreferrer">More Info</a>*/}
-
-
+            <h3 className="book-title">{props.book.title}</h3>
+            <p className="book-authors">{props.book.author}</p>
+            <p className="book-authors">{props.book.isbn}</p>
             <form onSubmit={addNewBook}>
                 <br/>
                 <label>
@@ -75,9 +61,9 @@ function BookCard(props: BookCardProps) {
                     <input className="input-text" type="text"
                            id={"title" + props.book.id}
                            name="title"
-                           value={props.book.volumeInfo.title}
+                           value={props.book.title}
                            placeholder="title"
-                           onChange={handleUpdateChange}
+                           onChange={handleAddApiBook}
                     />
                 </label>
                 <br/>
@@ -86,9 +72,9 @@ function BookCard(props: BookCardProps) {
                     <input className="input-text" type="text"
                            id={"author" + props.book.id}
                            name="author"
-                           value={props.book.volumeInfo.authors}
+                           value={props.book.author}
                            placeholder="author"
-                           onChange={handleUpdateChange}
+                           onChange={handleAddApiBook}
                     />
                 </label>
                 <br/>
@@ -97,12 +83,9 @@ function BookCard(props: BookCardProps) {
                     <input className="input-text" type="text"
                            id={"isbn" + props.book.id}
                            name="isbn"
-                           value={props.book.volumeInfo.industryIdentifiers.filter(
-                               current => current.type === "ISBN_13").map(
-                               element => element.identifier
-                           )}
+                           value={props.book.isbn}
                            placeholder="isbn"
-                           onChange={handleUpdateChange}
+                           onChange={handleAddApiBook}
                     />
                 </label>
                 <br/>
@@ -114,8 +97,6 @@ function BookCard(props: BookCardProps) {
                 <br/><br/>
                 <button>ADD</button>
             </form>
-
-
         </div>
 
 
