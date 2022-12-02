@@ -81,7 +81,7 @@ class ApiBookIntegrationTest {
                                         "title": "Java von Kopf bis Fuß",
                                         "author": "Kathy Sierra",
                                         "isbn": "3897214482",
-                                        "bookState": "AVAILABLE"
+                                        "availability": "AVAILABLE"
                                     }
                                 ]
                                 """
@@ -142,7 +142,7 @@ class ApiBookIntegrationTest {
                                  "title":"Java von Kopf bis Fuß",
                                  "author":"Kathy Sierra",
                                  "isbn":"9783897214484",
-                                  "bookState": "AVAILABLE"}]
+                                 "availability": "AVAILABLE"}]
                                  """
                 ));
 

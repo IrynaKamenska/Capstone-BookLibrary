@@ -42,7 +42,7 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "bookState": "AVAILABLE"
+                                "availability": "AVAILABLE"
                                 }
                                 """))
                 .andExpect(status().is(201))
@@ -59,13 +59,13 @@ class BookIntegrationTest {
                             "title": "Java",
                              "author": "Ullenbom",
                              "isbn": "ISBN 978-0-596-52068-7",
-                             "bookState": "AVAILABLE"
+                             "availability": "AVAILABLE"
                         } ]
                         """.replace("<id>", book.id())))
                 .andExpect(jsonPath("$..title").isNotEmpty())
                 .andExpect(jsonPath("$..author").isNotEmpty())
                 .andExpect(jsonPath("$..isbn").isNotEmpty())
-                .andExpect(jsonPath("$..bookState").isNotEmpty());
+                .andExpect(jsonPath("$..availability").isNotEmpty());
 
     }
 
@@ -79,7 +79,7 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "bookState": "AVAILABLE"
+                                "availability": "AVAILABLE"
                                 }
                                 """))
                 .andExpect(status().is(201))
@@ -95,7 +95,7 @@ class BookIntegrationTest {
                                     "title": "Java",
                                     "author": "Ullenbom",
                                     "isbn": "ISBN 978-0-596-52068-7",
-                                    "bookState": "NOT_AVAILABLE"
+                                    "availability": "NOT_AVAILABLE"
                                     }
                                 """.replace("<id>", book.id())))
                 .andExpect(status().is(200))
@@ -105,7 +105,7 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "bookState": "NOT_AVAILABLE"
+                                "availability": "NOT_AVAILABLE"
                             }
                         """.replace("<id>", book.id())));
     }
@@ -121,7 +121,7 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "bookState": "AVAILABLE"
+                                "availability": "AVAILABLE"
                                 }
                                 """))
                 .andExpect(status().is(201))
@@ -131,7 +131,7 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "bookState": "AVAILABLE"
+                                "availability": "AVAILABLE"
                         }
                         """));
     }
@@ -147,7 +147,7 @@ class BookIntegrationTest {
                                     "title": "Java",
                                     "author": "Ullenbom",
                                     "isbn": "ISBN 978-0-596-52068-7",
-                                    "bookState": "NOT_AVAILABLE"
+                                    "availability": "NOT_AVAILABLE"
                                     }
                                 """))
                 .andExpect(status().is(201))
@@ -157,7 +157,7 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "bookState": "NOT_AVAILABLE"
+                                "availability": "NOT_AVAILABLE"
                                 }
                         """));
 
@@ -174,7 +174,7 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "bookState": "AVAILABLE"
+                                "availability": "AVAILABLE"
                                 }
                                 """))
                 .andExpect(status().is(201))
