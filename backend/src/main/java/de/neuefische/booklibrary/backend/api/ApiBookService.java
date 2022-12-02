@@ -2,7 +2,6 @@ package de.neuefische.booklibrary.backend.api;
 
 
 import de.neuefische.booklibrary.backend.Book;
-import de.neuefische.booklibrary.backend.BookRepository;
 import de.neuefische.booklibrary.backend.BookState;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -21,13 +20,10 @@ import static java.util.Objects.requireNonNull;
 @Service
 public class ApiBookService {
 
-    private final BookRepository bookRepository;
-
     private final String apiKey;
     private final WebClient webClient;
 
-    public ApiBookService(BookRepository bookRepository, @Value("${api.url}") String apiUrl, @Value("${api.key}") String apiKey) {
-        this.bookRepository = bookRepository;
+    public ApiBookService(@Value("${api.url}") String apiUrl, @Value("${api.key}") String apiKey) {
         this.apiKey = apiKey;
         this.webClient = WebClient.create(apiUrl);
     }
