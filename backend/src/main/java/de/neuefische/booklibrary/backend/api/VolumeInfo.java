@@ -1,6 +1,7 @@
 package de.neuefische.booklibrary.backend.api;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.With;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public record VolumeInfo(
         String title,
         List<String> authors,
         List<Isbn> industryIdentifiers,
-        ImageLink imageLink,
+        @JsonProperty("imageLinks") ImageLink imageLink,
         String previewLink
 
 ) {
