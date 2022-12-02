@@ -1,7 +1,7 @@
 import React, {FormEvent} from "react";
 import Modal from 'react-modal';
 import axios from "axios";
-import {BookState} from "./BookState";
+import {BookState} from "./api/model/BookState";
 import "./css/BookOverview.css";
 
 type ModalProps = {
@@ -13,6 +13,7 @@ type ModalProps = {
 export default function CreateBook(props: ModalProps) {
     const [newBook, setNewBook] = React.useState(
         {
+            cover: "",
             title: "",
             author: "",
             isbn: "",
@@ -33,6 +34,7 @@ export default function CreateBook(props: ModalProps) {
             .then(props.reloadAllBooks)
             .then(props.closeModal)
         setNewBook({
+            cover: "",
             title: "",
             author: "",
             isbn: "",

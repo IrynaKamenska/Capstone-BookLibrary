@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BookModel} from "./BookModel";
+import {BookModel} from "./api/model/BookModel";
 import axios from "axios";
 import Modal from "react-modal";
 import "./css/BookOverview.css";

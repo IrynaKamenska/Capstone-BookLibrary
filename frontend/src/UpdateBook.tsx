@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from 'react';
-import {BookModel} from "./BookModel";
+import {BookModel} from "./api/model/BookModel";
 import axios from "axios";
-import {BookState} from "./BookState";
+import {BookState} from "./api/model/BookState";
 import Modal from "react-modal";
 import "./css/BookOverview.css";
 
@@ -57,6 +57,17 @@ function UpdateBook(props: UpdateBookProps) {
         >
 
             <form onSubmit={handleEditBook}>
+                <br/>
+                <label>
+                    New cover:
+                    <input type="text"
+                           id="cover"
+                           name="cover"
+                           value={updatedBook.cover}
+                           onChange={handleUpdateChange}
+                           placeholder="cover"
+                    />
+                </label>
                 <br/>
                 <label>
                     New title:

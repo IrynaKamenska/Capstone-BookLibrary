@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {BookModel} from "./BookModel";
+import {BookModel} from "./api/model/BookModel";
 import CreateBook from "./CreateBook";
 import DeleteBook from "./DeleteBook";
 import UpdateBook from "./UpdateBook";
