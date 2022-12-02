@@ -12,16 +12,7 @@ type BookCardProps = {
 }
 
 function BookCard(props: BookCardProps) {
-    const [newBook, setNewBook] = React.useState(
-        {
-            id: props.book.id,
-            cover: props.book.cover,
-            title: props.book.title,
-            author: props.book.author,
-            isbn: props.book.isbn,
-            availability: Availability.AVAILABLE
-        }
-    );
+    const [newBook, setNewBook] = React.useState(props.book);
 
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
