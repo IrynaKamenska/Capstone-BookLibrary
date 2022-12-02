@@ -1,9 +1,9 @@
 import React, {FormEvent, useState} from 'react';
 import axios from "axios";
 import BookCard from "../components/BookCard";
-import "../components/BookGallery.css";
+import "../../css/BookGallery.css";
 import {BookState} from "../model/BookState";
-import {BookModel} from "../../BookModel";
+import {BookModel} from "../model/BookModel";
 
 type GetBooksFromApiProps = {
     reloadAllBooks: () => void
@@ -13,6 +13,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
     const [text, setText] = useState<string>("")
     const initialData: BookModel = {
         "id": "",
+        "cover": "",
         "title": "",
         "author": "",
         "isbn": "",
