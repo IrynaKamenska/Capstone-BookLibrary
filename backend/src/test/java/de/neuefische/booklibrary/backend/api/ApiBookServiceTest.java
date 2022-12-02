@@ -1,6 +1,7 @@
 package de.neuefische.booklibrary.backend.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.neuefische.booklibrary.backend.Book;
 import de.neuefische.booklibrary.backend.BookRepository;
 import de.neuefische.booklibrary.backend.BookState;
 import okhttp3.mockwebserver.MockResponse;
@@ -57,22 +58,24 @@ public class ApiBookServiceTest {
         ImageLinks thumbnail = new ImageLinks("http://books.google.com/books/thumbnail");
         VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_13, isbn_10), thumbnail, previewLink);
         ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, BookState.AVAILABLE);
-
         ApiBook foundBook = book.withVolumeInfo(volumeInfo.withTitle("Java von Kopf bis Fuß").withAuthors(List.of("Kathy Sierra", "Bert Bates")).withIndustryIdentifiers(List.of(isbn_13, isbn_10))
                 .withImageLinks(thumbnail).withPreviewLink(previewLink));
 
+
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
+
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
+
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))
                 .addHeader("Content-Type", "application/json")
         );
         // when
-        BookResponseElement actual = apiBookService.getApiBookByIsbn("3897214482");
-        BookResponseElement expected = mockBokListResponse;
-
+        List<Book> actual = apiBookService.getApiBookByIsbn("9783897214484");
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
+
         //then
         assertEquals(expected, actual);
         assertEquals("GET", recordedRequest.getMethod());
@@ -84,6 +87,7 @@ public class ApiBookServiceTest {
     void getApiBookByInvalidIsbn_returnZeroBooks() throws Exception {
         //given
         BookResponseElement mockBokListResponse = new BookResponseElement(0, List.of());
+        List<Book> expected = List.of();
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))
@@ -91,10 +95,9 @@ public class ApiBookServiceTest {
         );
 
         // when
-        BookResponseElement actual = apiBookService.getApiBookByIsbn("abc");
-        BookResponseElement expected = mockBokListResponse;
-
+        List<Book> actual = apiBookService.getApiBookByIsbn("abc");
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
+
         //then
         assertEquals(expected, actual);
         assertEquals("GET", recordedRequest.getMethod());
@@ -118,15 +121,16 @@ public class ApiBookServiceTest {
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
+
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))
                 .addHeader("Content-Type", "application/json")
         );
         // when
-        BookResponseElement actual = apiBookService.getAllApiBooks("Java");
-        BookResponseElement expected = mockBokListResponse;
-
+        List<Book> actual = apiBookService.getAllApiBooks("Java");
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
+
         //then
         assertEquals(expected, actual);
         assertEquals("GET", recordedRequest.getMethod());
@@ -138,17 +142,16 @@ public class ApiBookServiceTest {
     void getApiBookByNotExistingKeyword_returnZeroBooks() throws Exception {
         //given
         BookResponseElement mockBokListResponse = new BookResponseElement(0, List.of());
-
+        List<Book> expected = List.of();
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))
                 .addHeader("Content-Type", "application/json")
         );
 
         // when
-        BookResponseElement actual = apiBookService.getAllApiBooks("12345dfjlkdfhdsjhfjkdsgfjkds");
-        BookResponseElement expected = mockBokListResponse;
-
+        List<Book> actual = apiBookService.getAllApiBooks("12345dfjlkdfhdsjhfjkdsgfjkds");
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
+
         //then
         assertEquals(expected, actual);
         assertEquals("GET", recordedRequest.getMethod());
