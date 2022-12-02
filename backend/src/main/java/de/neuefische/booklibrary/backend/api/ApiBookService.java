@@ -19,6 +19,8 @@ import static java.util.Objects.requireNonNull;
 
 @Service
 public class ApiBookService {
+    private final String QUERY = "?q=";
+    private final String KEY = "&key=";
 
     private final String apiKey;
     private final WebClient webClient;
@@ -28,11 +30,9 @@ public class ApiBookService {
         this.webClient = WebClient.create(apiUrl);
     }
 
-    String maxResults = "&maxResults=5";
-
-
     public List<Book> getApiBookByIsbn(String isbn) throws ResponseStatusException {
-        String query = "?q=isbn:" + isbn + "&key=" + apiKey;
+        String searchByIsbn = "isbn:";
+        String query = QUERY + searchByIsbn + isbn + KEY + apiKey;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse).stream().filter(book -> book.volumeInfo()
                 .industryIdentifiers()
@@ -65,7 +65,8 @@ public class ApiBookService {
     }
 
     public List<Book> getAllApiBooks(String searchText) {
-        String query = "?q=" + searchText + "&key=" + apiKey + maxResults;
+        String maxResults = "&maxResults=5";
+        String query = QUERY + searchText + KEY + apiKey + maxResults;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse);
 
