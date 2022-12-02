@@ -2,42 +2,25 @@ import React, {FormEvent, useState} from 'react';
 import axios from "axios";
 import BookCard from "../components/BookCard";
 import "../components/BookGallery.css";
-import {ResponseBookModel} from "../model/ResponseBookModel";
 import {BookState} from "../model/BookState";
+import {BookModel} from "../../BookModel";
 
-type GetBooksFromApi = {
+type GetBooksFromApiProps = {
     reloadAllBooks: () => void
 }
 
-function GetBooksFromApi(props: GetBooksFromApi) {
+function GetBooksFromApi(props: GetBooksFromApiProps) {
     const [text, setText] = useState<string>("")
-
-    const initialData: ResponseBookModel = {
-        "totalItems": 0,
-        "items": [
-            {
-                "id": "",
-                "volumeInfo": {
-                    "title": "",
-                    "authors": [],
-                    "industryIdentifiers": [
-                        {
-                            "type": "",
-                            "identifier": ""
-                        }
-                    ],
-                    "imageLinks": {
-                        "thumbnail": ""
-                    },
-                    "previewLink": "",
-                }, bookState: BookState.AVAILABLE
-            }
-        ]
+    const initialData: BookModel = {
+        "id": "",
+        "title": "",
+        "author": "",
+        "isbn": "",
+        "bookState": BookState.AVAILABLE
     }
-    const [result, setResult] = useState<ResponseBookModel>(initialData);
 
+    const [result, setResult] = useState<BookModel>(initialData);
     const [searchBy, setSearchBy] = useState<"isbn" | "text">()
-
 
     const isbnQuery = "isbn/" + text;
     const keyWordQuery = "search/" + text;
@@ -80,18 +63,16 @@ function GetBooksFromApi(props: GetBooksFromApi) {
                 />
                 <button type={"submit"}>Search</button>
             </form>
-            <button onClick={handleClick}>SearchByQuery: {searchBy}</button>
+            <button onClick={handleClick}>SearchBy: {searchBy}</button>
 
             <div className={"book-cards"}>
-
-                {Array.isArray(result.items)
-                    ? result.items.map((current, index) =>
+                {Array.isArray(result)
+                    ? result.map((current, index) =>
                         <div className={"book-card"}>
                             <BookCard key={index} book={current} reloadAllBooks={props.reloadAllBooks}/>
                         </div>)
                     : ""}
             </div>
-
         </div>
     );
 
