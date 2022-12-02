@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import BookCard from "../components/BookCard";
 import "../../css/BookGallery.css";
@@ -36,7 +36,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
     }
 
 
-    function handleChange(event: any) {
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
         const text = event.target.value;
         setText(text);
 
