@@ -1,8 +1,8 @@
 import React, {FormEvent} from 'react';
 import "./BookCard.css";
-import {BookState} from "../../BookState";
+import {BookState} from "../model/BookState";
 import axios from "axios";
-import {BookModel} from "../../BookModel";
+import {BookModel} from "../model/BookModel";
 
 
 type BookCardProps = {
@@ -15,6 +15,7 @@ function BookCard(props: BookCardProps) {
     const [newBook, setNewBook] = React.useState(
         {
             id: props.book.id,
+            cover: props.book.cover,
             title: props.book.title,
             author: props.book.author,
             isbn: props.book.isbn,
@@ -35,6 +36,7 @@ function BookCard(props: BookCardProps) {
             .catch((e) => console.log("POST Error: " + e))
         setNewBook({
             id: "",
+            cover: "",
             title: "",
             author: "",
             isbn: "",
@@ -51,50 +53,64 @@ function BookCard(props: BookCardProps) {
 
     return <>
         <div className={"book-card"}>
+            <img src={props.book.cover} alt={props.book.cover}/>
             <h3 className="book-title">{props.book.title}</h3>
             <p className="book-authors">{props.book.author}</p>
             <p className="book-authors">{props.book.isbn}</p>
             <form onSubmit={addNewBook}>
-                <br/>
-                <label>
-                    New title:
-                    <input className="input-text" type="text"
-                           id={"title" + props.book.id}
-                           name="title"
-                           value={props.book.title}
-                           placeholder="title"
-                           onChange={handleAddApiBook}
-                    />
-                </label>
-                <br/>
-                <label>
-                    New Author:
-                    <input className="input-text" type="text"
-                           id={"author" + props.book.id}
-                           name="author"
-                           value={props.book.author}
-                           placeholder="author"
-                           onChange={handleAddApiBook}
-                    />
-                </label>
-                <br/>
-                <label>
-                    New ISBN:
-                    <input className="input-text" type="text"
-                           id={"isbn" + props.book.id}
-                           name="isbn"
-                           value={props.book.isbn}
-                           placeholder="isbn"
-                           onChange={handleAddApiBook}
-                    />
-                </label>
-                <br/>
-                <label htmlFor="bookState">New Book State:</label>
-                <select name="bookState" id="bookState">
-                    <option value={BookState.AVAILABLE}>AVAILABLE</option>
-                    <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
-                </select>
-                <br/><br/>
+                <div className="div-form">
+                    <br/>
+                    <label>
+                        Cover:
+                        <input className="input-text" type="text"
+                               id={"cover" + props.book.cover}
+                               name="cover"
+                               value={props.book.cover}
+                               placeholder="cover"
+                               onChange={handleAddApiBook}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Title:
+                        <input className="input-text" type="text"
+                               id={"title" + props.book.id}
+                               name="title"
+                               value={props.book.title}
+                               placeholder="title"
+                               onChange={handleAddApiBook}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Author:
+                        <input className="input-text" type="text"
+                               id={"author" + props.book.id}
+                               name="author"
+                               value={props.book.author}
+                               placeholder="author"
+                               onChange={handleAddApiBook}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        ISBN:
+                        <input className="input-text" type="text"
+                               id={"isbn" + props.book.id}
+                               name="isbn"
+                               value={props.book.isbn}
+                               placeholder="isbn"
+                               onChange={handleAddApiBook}
+                        />
+                    </label>
+                    <br/>
+                    <label htmlFor="bookState">New Book State:</label>
+                    <select name="bookState" id="bookState">
+                        <option value={BookState.AVAILABLE}>AVAILABLE</option>
+                        <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
+                    </select>
+                    <br/><br/>
+                </div>
                 <button>ADD</button>
             </form>
         </div>
