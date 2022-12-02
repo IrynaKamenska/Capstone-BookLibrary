@@ -31,8 +31,8 @@ function BookCard(props: BookCardProps) {
         }
 
         axios.post("/api/books", newBook)
-            .catch((e) => console.log("POST Error: " + e))
             .then(props.reloadAllBooks)
+            .catch((e) => console.log("POST Error: " + e))
         setNewBook({
             id: "",
             title: "",
