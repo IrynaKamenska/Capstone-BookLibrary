@@ -43,35 +43,39 @@ public class ApiBookService {
                 .stream()
                 .anyMatch(isbn1 -> isbn.equals(isbn1.identifier()))).toList();
         List<Book> bookList = new ArrayList<>();
+        getBookListFromApiBookList(books, bookList);
+        return bookList;
+
+    }
+
+    private static void getBookListFromApiBookList(List<ApiBook> books, List<Book> bookList) {
         for (ApiBook apiBook : books) {
+            VolumeInfo volumeInfo = apiBook.volumeInfo();
+            String thumbnail = Optional.ofNullable(volumeInfo.imageLinks())
+                    .map(ImageLinks::thumbnail)
+                    .orElse(null);
+
+            String author = Optional.ofNullable(volumeInfo.authors()).map(current -> current.get(0))
+                    .orElse(null);
             Book book = new Book(
                     apiBook.id(),
-                    apiBook.volumeInfo().imageLinks().thumbnail(),
+                    thumbnail,
                     apiBook.volumeInfo().title(),
-                    apiBook.volumeInfo().authors().get(0),
+                    author,
                     apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
                     BookState.AVAILABLE);
             bookList.add(book);
         }
-        return bookList;
-
     }
 
     public List<Book> getAllApiBooks(String searchText) {
         String query = "?q=" + searchText + "&key=" + apiKey + maxResults;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse);
+
         List<Book> bookList = new ArrayList<>();
-        for (ApiBook apiBook : books) {
-            Book book = new Book(
-                    apiBook.id(),
-                    apiBook.volumeInfo().imageLinks().thumbnail(),
-                    apiBook.volumeInfo().title(),
-                    apiBook.volumeInfo().authors().get(0),
-                    apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
-                    BookState.AVAILABLE);
-            bookList.add(book);
-        }
+        getBookListFromApiBookList(books, bookList);
+
         return bookList;
     }
 
