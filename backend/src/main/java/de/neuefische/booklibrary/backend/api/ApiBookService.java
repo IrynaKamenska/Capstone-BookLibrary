@@ -65,7 +65,7 @@ public class ApiBookService {
     }
 
     public List<Book> getAllApiBooks(String searchText) {
-        String maxResults = "&maxResults=5";
+        String maxResults = "&maxResults=10";
         String query = QUERY + searchText + KEY + apiKey + maxResults;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse);
