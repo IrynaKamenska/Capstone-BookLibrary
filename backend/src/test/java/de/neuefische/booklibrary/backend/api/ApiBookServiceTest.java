@@ -2,7 +2,6 @@ package de.neuefische.booklibrary.backend.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.booklibrary.backend.Book;
-import de.neuefische.booklibrary.backend.BookRepository;
 import de.neuefische.booklibrary.backend.BookState;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -17,12 +16,10 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 
 
-public class ApiBookServiceTest {
+class ApiBookServiceTest {
     private static MockWebServer mockWebServer;
-    private final BookRepository bookRepository = mock(BookRepository.class);
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private ApiBookService apiBookService;
@@ -40,7 +37,7 @@ public class ApiBookServiceTest {
     void initialize() {
         String baseUrl = String.format("http://localhost:%s",
                 mockWebServer.getPort());
-        apiBookService = new ApiBookService(bookRepository, baseUrl, apiKey);
+        apiBookService = new ApiBookService(baseUrl, apiKey);
     }
 
     @AfterAll
