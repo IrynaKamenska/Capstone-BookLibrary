@@ -1,8 +1,8 @@
 package de.neuefische.booklibrary.backend.api;
 
 
+import de.neuefische.booklibrary.backend.Availability;
 import de.neuefische.booklibrary.backend.Book;
-import de.neuefische.booklibrary.backend.BookState;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +59,7 @@ public class ApiBookService {
                     apiBook.volumeInfo().title(),
                     author,
                     apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
-                    BookState.AVAILABLE);
+                    Availability.AVAILABLE);
             bookList.add(book);
         }
     }
