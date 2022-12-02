@@ -47,10 +47,6 @@
     text-align: center;
 }
 
-.link-details:active, focus, hover, visited {
-    color: white;
-}
-
 .div-form {
     display: none;
 }
