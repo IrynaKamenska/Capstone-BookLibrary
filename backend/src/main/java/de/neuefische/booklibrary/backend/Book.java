@@ -14,5 +14,5 @@ public record Book(
         String author,
         @NotBlank
         String isbn,
-        BookState bookState) {
+        Availability availability) {
 }

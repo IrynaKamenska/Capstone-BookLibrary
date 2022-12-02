@@ -1,8 +1,8 @@
 package de.neuefische.booklibrary.backend.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.neuefische.booklibrary.backend.Availability;
 import de.neuefische.booklibrary.backend.Book;
-import de.neuefische.booklibrary.backend.BookState;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -54,7 +54,7 @@ class ApiBookServiceTest {
         Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
         ImageLinks thumbnail = new ImageLinks("http://books.google.com/books/thumbnail");
         VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_13, isbn_10), thumbnail, previewLink);
-        ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, BookState.AVAILABLE);
+        ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, Availability.AVAILABLE);
         ApiBook foundBook = book.withVolumeInfo(volumeInfo.withTitle("Java von Kopf bis Fuß").withAuthors(List.of("Kathy Sierra", "Bert Bates")).withIndustryIdentifiers(List.of(isbn_13, isbn_10))
                 .withImageLinks(thumbnail).withPreviewLink(previewLink));
 
@@ -62,7 +62,7 @@ class ApiBookServiceTest {
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", Availability.AVAILABLE));
 
 
         mockWebServer.enqueue(new MockResponse()
@@ -110,7 +110,7 @@ class ApiBookServiceTest {
         Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
         ImageLinks thumbnail = new ImageLinks("http://books.google.com/books/thumbnail");
         VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_13, isbn_10), thumbnail, previewLink);
-        ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, BookState.AVAILABLE);
+        ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, Availability.AVAILABLE);
 
         ApiBook foundBook = book.withVolumeInfo(volumeInfo.withTitle("Java von Kopf bis Fuß").withAuthors(List.of("Kathy Sierra", "Bert Bates")).withIndustryIdentifiers(List.of(isbn_13, isbn_10))
                 .withImageLinks(thumbnail).withPreviewLink(previewLink));
@@ -118,7 +118,7 @@ class ApiBookServiceTest {
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", Availability.AVAILABLE));
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))

@@ -1,5 +1,5 @@
 package de.neuefische.booklibrary.backend;
 
-public enum BookState {
+public enum Availability {
     AVAILABLE, NOT_AVAILABLE
 }
