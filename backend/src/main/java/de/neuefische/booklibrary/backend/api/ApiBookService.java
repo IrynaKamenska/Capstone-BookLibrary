@@ -1,7 +1,9 @@
 package de.neuefische.booklibrary.backend.api;
 
 
+import de.neuefische.booklibrary.backend.Book;
 import de.neuefische.booklibrary.backend.BookRepository;
+import de.neuefische.booklibrary.backend.BookState;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -32,25 +35,42 @@ public class ApiBookService {
     String maxResults = "&maxResults=5";
 
 
-    public BookResponseElement getApiBookByIsbn(String isbn) throws ResponseStatusException {
+    public List<Book> getApiBookByIsbn(String isbn) throws ResponseStatusException {
         String query = "?q=isbn:" + isbn + "&key=" + apiKey;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse).stream().filter(book -> book.volumeInfo()
                 .industryIdentifiers()
                 .stream()
                 .anyMatch(isbn1 -> isbn.equals(isbn1.identifier()))).toList();
-        int totalItems = requireNonNull(bookResponse.getBody()).totalItems();
-        return new BookResponseElement(totalItems, books);
+        List<Book> bookList = new ArrayList<>();
+        for (ApiBook apiBook : books) {
+            Book book = new Book(
+                    apiBook.id(),
+                    apiBook.volumeInfo().title(),
+                    apiBook.volumeInfo().authors().get(0),
+                    apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
+                    BookState.AVAILABLE);
+            bookList.add(book);
+        }
+        return bookList;
 
     }
 
-    public BookResponseElement getAllApiBooks(String searchText) {
+    public List<Book> getAllApiBooks(String searchText) {
         String query = "?q=" + searchText + "&key=" + apiKey + maxResults;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse);
-        int totalItems = requireNonNull(bookResponse.getBody()).totalItems();
-        return new BookResponseElement(totalItems, books);
-
+        List<Book> bookList = new ArrayList<>();
+        for (ApiBook apiBook : books) {
+            Book book = new Book(
+                    apiBook.id(),
+                    apiBook.volumeInfo().title(),
+                    apiBook.volumeInfo().authors().get(0),
+                    apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
+                    BookState.AVAILABLE);
+            bookList.add(book);
+        }
+        return bookList;
     }
 
     private ResponseEntity<BookResponseElement> getBookResponse(String query) {
