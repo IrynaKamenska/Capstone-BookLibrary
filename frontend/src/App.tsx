@@ -14,11 +14,15 @@ function App() {
             .catch(error => console.error("GET Error: " + error))
             .then(setBooks)
     }
+
+
+    console.log("BOOKS:" + books);
     useEffect(fetchAllBooks, [])
+
     return <>
         <h1>Book Library</h1>
         <main>
-            <BookOverview/>
+            <BookOverview books={books} fetchAllBooks={fetchAllBooks}/>
             <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
         </main>
     </>;

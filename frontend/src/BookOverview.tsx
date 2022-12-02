@@ -1,24 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {BookModel} from "./BookModel";
-import axios from "axios";
 import CreateBook from "./CreateBook";
 import DeleteBook from "./DeleteBook";
 import UpdateBook from "./UpdateBook";
 import "./css/BookOverview.css";
 
+type BookOverviewProps = {
+    books: BookModel[],
+    fetchAllBooks: () => void
+}
 
-function BookOverview() {
-    const [books, setBooks] = useState<BookModel[]>([]);
+function BookOverview(props: BookOverviewProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    const fetchAllBooks = () => {
-        axios.get("/api/books")
-            .then(response => response.data)
-            .catch(error => console.error("GET Error: " + error))
-            .then(setBooks)
-    }
-
-    useEffect(fetchAllBooks,[])
-
+    
     const openModal = () => {
         setModalIsOpen(true)
     }
@@ -28,8 +22,8 @@ function BookOverview() {
     }
 
     return <>
-        <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
-        {books.length > 0 ?
+        <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={props.fetchAllBooks}/>
+        {props.books.length > 0 ?
 
             <>
                 <table className="content-table">
@@ -41,7 +35,7 @@ function BookOverview() {
                         <th>Book State</th>
                         <th>Action</th>
                     </tr>
-                    {books.map(book => {
+                    {props.books.map(book => {
                         return <tr key={book.id}>
                             <td>{book.title}</td>
                             <td>{book.author}</td>
@@ -49,8 +43,8 @@ function BookOverview() {
                             <td>{book.bookState}</td>
                             <td>
                                 <React.Fragment>
-                                    <UpdateBook book={book} reloadAllBooks={fetchAllBooks}></UpdateBook>
-                                    <DeleteBook book={book} reloadAllBooks={fetchAllBooks}></DeleteBook>
+                                    <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
+                                    <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
                                 </React.Fragment>
                             </td>
                         </tr>;
