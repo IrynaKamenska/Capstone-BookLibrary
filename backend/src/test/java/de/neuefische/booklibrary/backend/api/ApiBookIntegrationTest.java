@@ -52,48 +52,36 @@ public class ApiBookIntegrationTest {
     @Test
     void searchApiBooksByIsbn_returnListWithOneBook() throws Exception {
         //given
-        Thread.sleep(100);
-        String mockBookListResponse = """
-                 {
-                                "items":[
-                                {"id":"5eDWcLzdAcYC",
-                                "volumeInfo":{"title":"Java von Kopf bis Fuß"
-                                ,"authors":["Kathy Sierra","Bert Bates"],
-                                "industryIdentifiers":[
-                                {"type":"ISBN_13","identifier":"9783897214484"},
-                                {"type":"ISBN_10","identifier":"3897214482"}
-                                ],
-                                "imageLinks":{"thumbnail":"http://books.google.com/books/thumbnail"},
-                                "previewLink":"http://books.google.de/books/preview"}}],
-                                
-                                "totalItems":1
-                                }
-                """;
+        String previewLink = "http://books.google.de/books/preview";
+        Isbn isbn_13 = new Isbn("ISBN_13", "9783897214484");
+        Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
+        ImageLinks thumbnail = new ImageLinks("http://books.google.com/books/thumbnail");
+        VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_10, isbn_13), thumbnail, previewLink);
+        ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, BookState.AVAILABLE);
+
+        BookResponseElement mockBokListResponse = new BookResponseElement(1, List.of(book));
+        System.out.println("Response:" + mockBokListResponse);
         mockWebServer.enqueue(new MockResponse()
-                .setBody(mockBookListResponse)
+                .setBody(objectMapper.writeValueAsString(mockBokListResponse))
                 .addHeader("Content-Type", "application/json")
         );
 
+
         //when
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/isbn/9783897214484"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/isbn/3897214482"))
                 // then
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
-                                {
-                                "items":[
-                                {"id":"5eDWcLzdAcYC",
-                                "volumeInfo":{"title":"Java von Kopf bis Fuß"
-                                ,"authors":["Kathy Sierra","Bert Bates"],
-                                "industryIdentifiers":[
-                                {"type":"ISBN_13","identifier":"9783897214484"},
-                                {"type":"ISBN_10","identifier":"3897214482"}
-                                ],
-                                "imageLinks":{"thumbnail":"http://books.google.com/books/thumbnail"},
-                                "previewLink":"http://books.google.de/books/preview"}}],
-                                                                
-                                "totalItems":1
-                                }
+                                [
+                                    {
+                                        "id": "5eDWcLzdAcYC",
+                                        "title": "Java von Kopf bis Fuß",
+                                        "author": "Kathy Sierra",
+                                        "isbn": "3897214482",
+                                        "bookState": "AVAILABLE"
+                                    }
+                                ]
                                 """
                 ));
 
@@ -101,7 +89,6 @@ public class ApiBookIntegrationTest {
 
     @Test
     void searchApiBooksByInvalidIsbn_return0TotalItems() throws Exception {
-        Thread.sleep(100);
         String mockBookListResponse = """
                  {
                      "items": [],
@@ -119,10 +106,7 @@ public class ApiBookIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
-                                {
-                                     "items": [],
-                                     "totalItems": 0
-                                 }
+                                []
                                 """
                 ));
     }
@@ -151,16 +135,13 @@ public class ApiBookIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
-                                {"items":[
-                                {"id":"5eDWcLzdAcYC",
-                                "volumeInfo":{
-                                "title":"Java von Kopf bis Fuß",
-                                "authors":["Kathy Sierra","Bert Bates"],
-                                "industryIdentifiers":[{"type":"ISBN_13","identifier":"9783897214484"},{"type":"ISBN_10","identifier":"3897214482"}],
-                                "imageLinks":{"thumbnail":"http://books.google.com/books/thumbnail"},
-                                "previewLink":"http://books.google.de/books/preview"}}],
-                                "totalItems":1}
-                                """
+                                [
+                                 {"id":"5eDWcLzdAcYC",
+                                 "title":"Java von Kopf bis Fuß",
+                                 "author":"Kathy Sierra",
+                                 "isbn":"9783897214484",
+                                  "bookState": "AVAILABLE"}]
+                                 """
                 ));
 
     }
@@ -184,14 +165,7 @@ public class ApiBookIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/books/search/12345dfjlkdfhdsjhfjkdsgfjkds"))
                 // then
                 .andExpect(status().isOk())
-                .andExpect(content().json(
-                        """
-                                {
-                                     "items": [],
-                                     "totalItems": 0
-                                 }
-                                """
-                ));
+                .andExpect(content().json("[]"));
 
     }
 }
