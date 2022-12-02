@@ -58,38 +58,29 @@ function UpdateBook(props: UpdateBookProps) {
 
             <form onSubmit={handleEditBook}>
                 <br/>
-                <label>
-                    New title:
-                    <input type="text"
-                           id="title"
-                           name="title"
-                           value={updatedBook.title}
-                           onChange={handleUpdateChange}
-                           placeholder="title"
-                    />
-                </label>
+                <label htmlFor="title">New title:</label>
+                <input type="text"
+                       id="title"
+                       name="title"
+                       value={updatedBook.title}
+                       onChange={handleUpdateChange}
+                       placeholder="title"/>
                 <br/>
-                <label>
-                    New Author:
-                    <input type="text"
-                           id="author"
-                           name="author"
-                           value={updatedBook.author}
-                           onChange={handleUpdateChange}
-                           placeholder="author"
-                    />
-                </label>
+                <label htmlFor="author">New Author:</label>
+                <input type="text"
+                       id="author"
+                       name="author"
+                       value={updatedBook.author}
+                       onChange={handleUpdateChange}
+                       placeholder="author"/>
                 <br/>
-                <label>
-                    New ISBN:
-                    <input type="text"
-                           id="isbn"
-                           name="isbn"
-                           value={updatedBook.isbn}
-                           onChange={handleUpdateChange}
-                           placeholder="isbn"
-                    />
-                </label>
+                <label htmlFor="isbn">New ISBN:</label>
+                <input type="text"
+                       id="isbn"
+                       name="isbn"
+                       value={updatedBook.isbn}
+                       onChange={handleUpdateChange}
+                       placeholder="isbn"/>
                 <br/>
                 <label htmlFor="availability">Availability</label>
                 <select value={updatedBook.availability} name="availability" id="availability"
