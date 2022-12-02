@@ -59,17 +59,6 @@ function UpdateBook(props: UpdateBookProps) {
             <form onSubmit={handleEditBook}>
                 <br/>
                 <label>
-                    New cover:
-                    <input type="text"
-                           id="cover"
-                           name="cover"
-                           value={updatedBook.cover}
-                           onChange={handleUpdateChange}
-                           placeholder="cover"
-                    />
-                </label>
-                <br/>
-                <label>
                     New title:
                     <input type="text"
                            id="title"
