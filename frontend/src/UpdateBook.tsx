@@ -1,7 +1,7 @@
 import React, {FormEvent, useState} from 'react';
 import {BookModel} from "./api/model/BookModel";
 import axios from "axios";
-import {BookState} from "./api/model/BookState";
+import {Availability} from "./api/model/Availability";
 import Modal from "react-modal";
 import "./css/BookOverview.css";
 
@@ -91,10 +91,11 @@ function UpdateBook(props: UpdateBookProps) {
                     />
                 </label>
                 <br/>
-                <label htmlFor="bookState">New Book State:</label>
-                <select value={updatedBook.bookState} name="bookState" id="bookState" onChange={handleUpdateChange}>
-                    <option value={BookState.AVAILABLE}>AVAILABLE</option>
-                    <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
+                <label htmlFor="availability">Availability</label>
+                <select value={updatedBook.availability} name="availability" id="availability"
+                        onChange={handleUpdateChange}>
+                    <option value={Availability.AVAILABLE}>AVAILABLE</option>
+                    <option value={Availability.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
                 <br/><br/>
                 <div className="modal-body">
