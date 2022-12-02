@@ -47,8 +47,8 @@ public class ApiBookService {
     private static void getBookListFromApiBookList(List<ApiBook> books, List<Book> bookList) {
         for (ApiBook apiBook : books) {
             VolumeInfo volumeInfo = apiBook.volumeInfo();
-            String thumbnail = Optional.ofNullable(volumeInfo.imageLinks())
-                    .map(ImageLinks::thumbnail)
+            String thumbnail = Optional.ofNullable(volumeInfo.imageLink())
+                    .map(ImageLink::thumbnail)
                     .orElse(null);
 
             String author = Optional.ofNullable(volumeInfo.authors()).map(current -> current.get(0))
