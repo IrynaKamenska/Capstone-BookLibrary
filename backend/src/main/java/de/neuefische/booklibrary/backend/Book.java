@@ -8,9 +8,9 @@ import javax.validation.constraints.NotBlank;
 @With
 public record Book(
         String id,
+        String cover,
         @NotBlank
         String title,
-        @NotBlank
         String author,
         @NotBlank
         String isbn,

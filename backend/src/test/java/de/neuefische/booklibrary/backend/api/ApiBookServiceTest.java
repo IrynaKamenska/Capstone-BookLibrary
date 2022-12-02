@@ -65,7 +65,7 @@ public class ApiBookServiceTest {
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
 
 
         mockWebServer.enqueue(new MockResponse()
@@ -121,7 +121,7 @@ public class ApiBookServiceTest {
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", BookState.AVAILABLE));
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))

@@ -46,6 +46,7 @@ public class ApiBookService {
         for (ApiBook apiBook : books) {
             Book book = new Book(
                     apiBook.id(),
+                    apiBook.volumeInfo().imageLinks().thumbnail(),
                     apiBook.volumeInfo().title(),
                     apiBook.volumeInfo().authors().get(0),
                     apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
@@ -64,6 +65,7 @@ public class ApiBookService {
         for (ApiBook apiBook : books) {
             Book book = new Book(
                     apiBook.id(),
+                    apiBook.volumeInfo().imageLinks().thumbnail(),
                     apiBook.volumeInfo().title(),
                     apiBook.volumeInfo().authors().get(0),
                     apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
@@ -84,13 +86,12 @@ public class ApiBookService {
     }
 
     private static List<ApiBook> getBookList(ResponseEntity<BookResponseElement> bookResponse) {
-        List<ApiBook> books = Optional.ofNullable(bookResponse)
+        return Optional.ofNullable(bookResponse)
                 .map(HttpEntity::getBody)
                 .filter(body -> body.totalItems() >= 1)
                 .map(BookResponseElement::apiBookItems)
                 .stream()
                 .flatMap(Collection::stream).toList();
-        return books;
     }
 
 
