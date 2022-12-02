@@ -59,38 +59,29 @@ export default function CreateBook(props: ModalProps) {
         >
             <form onSubmit={addNewBook}>
                 <br/>
-                <label>
-                    New title:
-                    <input className="input-text" type="text"
-                           id="title"
-                           name="title"
-                           value={newBook.title}
-                           onChange={handleChange}
-                           placeholder="title"
-                    />
-                </label>
+                <label htmlFor="title">Title:</label>
+                <input className="input-text" type="text"
+                       id="title"
+                       name="title"
+                       value={newBook.title}
+                       onChange={handleChange}
+                       placeholder="title"/>
                 <br/>
-                <label>
-                    New Author:
-                    <input className="input-text" type="text"
-                           id="author"
-                           name="author"
-                           value={newBook.author}
-                           onChange={handleChange}
-                           placeholder="author"
-                    />
-                </label>
+                <label htmlFor="author">Author:</label>
+                <input className="input-text" type="text"
+                       id="author"
+                       name="author"
+                       value={newBook.author}
+                       onChange={handleChange}
+                       placeholder="author"/>
                 <br/>
-                <label>
-                    New ISBN:
-                    <input className="input-text" type="text"
-                           id="isbn"
-                           name="isbn"
-                           value={newBook.isbn}
-                           onChange={handleChange}
-                           placeholder="isbn"
-                    />
-                </label>
+                <label htmlFor="isbn">ISBN:</label>
+                <input className="input-text" type="text"
+                       id="isbn"
+                       name="isbn"
+                       value={newBook.isbn}
+                       onChange={handleChange}
+                       placeholder="isbn"/>
                 <br/>
                 <label htmlFor="availability">Availability:</label>
                 <select name="availability" id="availability">
