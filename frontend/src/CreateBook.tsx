@@ -1,7 +1,7 @@
 import React, {FormEvent} from "react";
 import Modal from 'react-modal';
 import axios from "axios";
-import {BookState} from "./api/model/BookState";
+import {Availability} from "./api/model/Availability";
 import "./css/BookOverview.css";
 
 type ModalProps = {
@@ -17,14 +17,14 @@ export default function CreateBook(props: ModalProps) {
             title: "",
             author: "",
             isbn: "",
-            bookState: BookState.AVAILABLE
+            availability: Availability.AVAILABLE
         }
     );
 
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.bookState) {
+        if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.availability) {
             alert(`Please fill book title, author, isbn and state`)
             return
         }
@@ -38,7 +38,7 @@ export default function CreateBook(props: ModalProps) {
             title: "",
             author: "",
             isbn: "",
-            bookState: BookState.AVAILABLE
+            availability: Availability.AVAILABLE
         });
     }
 
@@ -92,10 +92,10 @@ export default function CreateBook(props: ModalProps) {
                     />
                 </label>
                 <br/>
-                <label htmlFor="bookState">New Book State:</label>
-                <select name="bookState" id="bookState">
-                    <option value={BookState.AVAILABLE}>AVAILABLE</option>
-                    <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
+                <label htmlFor="availability">Availability:</label>
+                <select name="availability" id="availability">
+                    <option value={Availability.AVAILABLE}>AVAILABLE</option>
+                    <option value={Availability.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
                 <br/><br/>
                 <button>Create</button>

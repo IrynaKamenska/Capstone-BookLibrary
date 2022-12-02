@@ -1,4 +1,4 @@
-import {BookState} from "./BookState";
+import {Availability} from "./Availability";
 
 export type BookModel = {
     id: string,
@@ -6,5 +6,5 @@ export type BookModel = {
     title: string,
     author: string,
     isbn: string,
-    bookState: BookState
+    availability: Availability
 }

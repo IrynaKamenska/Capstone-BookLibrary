@@ -2,7 +2,7 @@ import React, {FormEvent, useState} from 'react';
 import axios from "axios";
 import BookCard from "../components/BookCard";
 import "../../css/BookGallery.css";
-import {BookState} from "../model/BookState";
+import {Availability} from "../model/Availability";
 import {BookModel} from "../model/BookModel";
 
 type GetBooksFromApiProps = {
@@ -17,7 +17,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
         "title": "",
         "author": "",
         "isbn": "",
-        "bookState": BookState.AVAILABLE
+        "availability": Availability.AVAILABLE
     }
 
     const [result, setResult] = useState<BookModel>(initialData);

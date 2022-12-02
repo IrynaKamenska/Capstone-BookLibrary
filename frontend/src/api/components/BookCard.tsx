@@ -1,6 +1,6 @@
 import React, {FormEvent} from 'react';
 import "./BookCard.css";
-import {BookState} from "../model/BookState";
+import {Availability} from "../model/Availability";
 import axios from "axios";
 import {BookModel} from "../model/BookModel";
 
@@ -19,14 +19,14 @@ function BookCard(props: BookCardProps) {
             title: props.book.title,
             author: props.book.author,
             isbn: props.book.isbn,
-            bookState: BookState.AVAILABLE
+            availability: Availability.AVAILABLE
         }
     );
 
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.bookState) {
+        if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.availability) {
             alert(`Please fill book title, author, isbn and state`)
             return
         }
@@ -40,7 +40,7 @@ function BookCard(props: BookCardProps) {
             title: "",
             author: "",
             isbn: "",
-            bookState: BookState.AVAILABLE
+            availability: Availability.AVAILABLE
         });
     }
 
@@ -104,10 +104,10 @@ function BookCard(props: BookCardProps) {
                         />
                     </label>
                     <br/>
-                    <label htmlFor="bookState">New Book State:</label>
-                    <select name="bookState" id="bookState">
-                        <option value={BookState.AVAILABLE}>AVAILABLE</option>
-                        <option value={BookState.NOT_AVAILABLE}>NOT_AVAILABLE</option>
+                    <label htmlFor="availability">New Book State:</label>
+                    <select name="availability" id="availability">
+                        <option value={Availability.AVAILABLE}>AVAILABLE</option>
+                        <option value={Availability.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                     </select>
                     <br/><br/>
                 </div>

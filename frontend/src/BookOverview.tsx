@@ -32,7 +32,7 @@ function BookOverview(props: BookOverviewProps) {
                         <th>Title</th>
                         <th>Author</th>
                         <th>ISBN</th>
-                        <th>Book State</th>
+                        <th>Availability</th>
                         <th>Action</th>
                     </tr>
                     {props.books.map(book => {
@@ -40,7 +40,7 @@ function BookOverview(props: BookOverviewProps) {
                             <td>{book.title}</td>
                             <td>{book.author}</td>
                             <td>{book.isbn}</td>
-                            <td>{book.bookState}</td>
+                            <td>{book.availability}</td>
                             <td>
                                 <React.Fragment>
                                     <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
