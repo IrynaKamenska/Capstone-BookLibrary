@@ -4,6 +4,7 @@ import de.neuefische.booklibrary.backend.security.AppUser;
 import de.neuefische.booklibrary.backend.security.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +22,7 @@ public class SecurityConfig {
 
     public static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    @Bean
     public PasswordEncoder encoder() {
         return passwordEncoder;
     }
@@ -31,7 +33,24 @@ public class SecurityConfig {
                 .csrf().disable()
                 .httpBasic().and()
                 .authorizeRequests()
-                .anyRequest().permitAll()
+
+                .antMatchers(HttpMethod.GET, "/api/app-users/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/app-users/me").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/app-users/role").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/app-users/logout").authenticated()
+                .antMatchers(HttpMethod.POST, "/api/app-users/member").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/app-users/librarian").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/api/app-users/**").authenticated()
+
+
+                .antMatchers(HttpMethod.GET, "/api/books").permitAll()
+                .antMatchers(HttpMethod.GET, "/search/**").hasRole("LIBRARIAN")
+                .antMatchers(HttpMethod.GET, "/isbn/**").hasRole("LIBRARIAN")
+                .antMatchers(HttpMethod.POST, "/api/books").hasRole("LIBRARIAN")
+                .antMatchers(HttpMethod.PUT, "/api/books/**").hasRole("LIBRARIAN")
+                .antMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("LIBRARIAN")
+
+                .anyRequest().denyAll()
                 .and().build();
     }
 
