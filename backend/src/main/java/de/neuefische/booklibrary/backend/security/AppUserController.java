@@ -16,7 +16,8 @@ public class AppUserController {
     private final AppUserService appUserService;
 
     @GetMapping("/login")
-    public void login() {
+    public HttpStatus login() {
+        return HttpStatus.OK;
 
     }
 
@@ -37,14 +38,26 @@ public class AppUserController {
                 .toString();
     }
 
-    @PostMapping
+    @PostMapping("/member")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public AppUser addAppUser(@RequestBody AppUser appUser) {
-        AppUser newAppUser = appUser.withRole(AppUserRole.MEMBER);
+    public AppUser registerMember(@RequestBody AppUser newAppUser) {
+        AppUser appUser = newAppUser.withRole(AppUserRole.MEMBER);
         try {
-            return appUserService.save(newAppUser);
+            return appUserService.save(appUser);
         } catch (UserAlreadyExistsException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+        }
+
+    }
+
+    @PostMapping("/librarian")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public AppUser registerLibrarian(@RequestBody AppUser newAppUser) {
+        AppUser appUser = newAppUser.withRole(AppUserRole.LIBRARIAN);
+        try {
+            return appUserService.save(appUser);
+        } catch (UserAlreadyExistsException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
 
     }
@@ -52,6 +65,15 @@ public class AppUserController {
     @GetMapping("/logout")
     public void logout(HttpSession httpSession) {
         httpSession.invalidate();
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable String id) {
+        if (appUserService.isAppUserExists(id)) {
+            appUserService.deleteAppUser(id);
+        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No AppUser with id: " + id + " found");
+
     }
 
 
