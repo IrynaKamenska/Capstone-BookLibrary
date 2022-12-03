@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/app-users")
@@ -40,7 +41,7 @@ public class AppUserController {
 
     @PostMapping("/member")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public AppUser registerMember(@RequestBody AppUser newAppUser) {
+    public AppUser registerMember(@RequestBody @Valid AppUser newAppUser) {
         AppUser appUser = newAppUser.withRole(AppUserRole.MEMBER);
         try {
             return appUserService.save(appUser);
@@ -52,7 +53,7 @@ public class AppUserController {
 
     @PostMapping("/librarian")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public AppUser registerLibrarian(@RequestBody AppUser newAppUser) {
+    public AppUser registerLibrarian(@RequestBody @Valid AppUser newAppUser) {
         AppUser appUser = newAppUser.withRole(AppUserRole.LIBRARIAN);
         try {
             return appUserService.save(appUser);
