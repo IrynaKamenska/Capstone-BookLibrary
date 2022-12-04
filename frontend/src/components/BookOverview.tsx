@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {BookModel} from "./api/model/BookModel";
-import CreateBook from "./CreateBook";
-import DeleteBook from "./DeleteBook";
-import UpdateBook from "./UpdateBook";
-import "./css/BookOverview.css";
+import {BookModel} from "../model/BookModel";
+import CreateBook from "../service/CreateBook";
+import DeleteBook from "../service/DeleteBook";
+import UpdateBook from "../service/UpdateBook";
+import "../css/BookOverview.css";
 
 type BookOverviewProps = {
     books: BookModel[],
@@ -12,7 +12,7 @@ type BookOverviewProps = {
 
 function BookOverview(props: BookOverviewProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    
+
     const openModal = () => {
         setModalIsOpen(true)
     }

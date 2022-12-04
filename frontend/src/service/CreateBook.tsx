@@ -1,8 +1,8 @@
 import React, {FormEvent} from "react";
 import Modal from 'react-modal';
 import axios from "axios";
-import {Availability} from "./api/model/Availability";
-import "./css/BookOverview.css";
+import {Availability} from "../model/Availability";
+import "../css/BookOverview.css";
 
 type ModalProps = {
     modalIsOpen: boolean,

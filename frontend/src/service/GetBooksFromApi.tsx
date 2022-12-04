@@ -1,7 +1,7 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import BookCard from "../components/BookCard";
-import "../../css/BookGallery.css";
+import "../css/GetBooksFromApi.css";
 import {Availability} from "../model/Availability";
 import {BookModel} from "../model/BookModel";
 

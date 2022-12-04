@@ -1,5 +1,5 @@
 import React, {FormEvent} from 'react';
-import "./BookCard.css";
+import "../css/BookCard.css";
 import {Availability} from "../model/Availability";
 import axios from "axios";
 import {BookModel} from "../model/BookModel";
