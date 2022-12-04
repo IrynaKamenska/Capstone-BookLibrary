@@ -55,16 +55,18 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
 
 
     return (
-        <div>
+        <div className="search-main-div">
+            <p>Add book semi-automatic via search in ggogle database: </p>
             <form onSubmit={handleSubmit}>
                 <input className={"search-input"} type="text"
                        placeholder={"Search for Books"}
                        autoComplete={"off"}
                        onChange={handleChange}
                 />
-                <button type={"submit"}>Search</button>
+                <button className="search-button" type={"submit"}>Search</button>
+                <button className="search-button" onClick={handleClick}>Search by: {searchBy}</button>
             </form>
-            <button onClick={handleClick}>SearchBy: {searchBy}</button>
+
 
             <div className={"book-cards"}>
                 {Array.isArray(result)
