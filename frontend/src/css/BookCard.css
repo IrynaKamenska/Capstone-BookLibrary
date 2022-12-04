@@ -1,3 +1,4 @@
+/*
 .book-card {
     display: flex;
     flex-direction: column;
@@ -50,5 +51,103 @@
 .div-form {
     display: none;
 }
+*/
 
+.book-card {
+    display: block;
+    margin: 10px;
+    background-color: #eee;
+    border: 1px solid #aaa;
+    transition: 0.2s all ease-in-out;
+    width: 300px;
+    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.3);
+    position: relative;
+    float: left;
+}
 
+.book-card-inner {
+    display: block;
+    /*background-color: #eee;*/
+    transition: 0.5s all ease-in-out;
+    position: relative;
+}
+
+.book-cover-div {
+    height: 170px;
+    text-align: center;
+    /*background-color: #eee;*/
+}
+
+.book-cover {
+    height: 155px;
+    margin: 5px 0 10px 0;
+}
+
+.book-card:hover {
+    border: 1px solid #000;
+    background-color: #fff;
+}
+
+.book-title {
+    margin: 0;
+    word-wrap: break-word;
+    padding: 0 5px;
+}
+
+.book-authors {
+    text-align: justify;
+    padding: 0 5px;
+}
+
+.book-image {
+    display: flex;
+    width: auto;
+    height: auto;
+    align-self: center;
+    min-height: 1vh;
+    margin: 0 auto;
+}
+
+.book-card-button {
+    border-radius: 30px;
+    background-color: #0b0;
+    color: #fff;
+    border-color: #0b0;
+    font-size: 18px;
+    margin: 0;
+    position: absolute;
+    right: 10px;
+    transition: 0.2s all ease-in-out;
+    height: 30px;
+    padding: 0 8px;
+}
+
+.div-button {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    height: 30px;
+}
+
+.book-card-button:hover {
+    background-color: #6f6;
+    color: #000;
+    border-color: #000;
+}
+
+.link-details {
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    color: white;
+    font-weight: 700;
+    margin-top: auto;
+    outline: 0;
+    border: 0;
+    background-color: orange;
+    text-align: center;
+}
+
+.div-form {
+    display: none;
+}
