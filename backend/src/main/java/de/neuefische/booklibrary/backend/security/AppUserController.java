@@ -1,10 +1,11 @@
 package de.neuefische.booklibrary.backend.security;
 
+import de.neuefische.booklibrary.backend.SecurityConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -41,24 +42,26 @@ public class AppUserController {
 
     @PostMapping("/member")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public AppUser registerMember(@RequestBody @Valid AppUser newAppUser) {
+    public ResponseEntity<Object> registerMember(@Valid @RequestBody AppUser newAppUser) {
         AppUser appUser = newAppUser.withRole(AppUserRole.MEMBER);
         try {
-            return appUserService.save(appUser);
+            appUserService.save(appUser, SecurityConfig.passwordEncoder);
+            return new ResponseEntity<>("User successfully registered!", HttpStatus.CREATED);
         } catch (UserAlreadyExistsException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
 
     }
 
     @PostMapping("/librarian")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public AppUser registerLibrarian(@RequestBody @Valid AppUser newAppUser) {
+    public ResponseEntity<Object> registerLibrarian(@Valid @RequestBody AppUser newAppUser) {
         AppUser appUser = newAppUser.withRole(AppUserRole.LIBRARIAN);
         try {
-            return appUserService.save(appUser);
+            appUserService.save(appUser, SecurityConfig.passwordEncoder);
+            return new ResponseEntity<>("User successfully registered!", HttpStatus.CREATED);
         } catch (UserAlreadyExistsException e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
         }
 
     }
@@ -68,7 +71,7 @@ public class AppUserController {
         httpSession.invalidate();
     }
 
-    @DeleteMapping("/{id}")
+/*    @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable String id) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -76,7 +79,14 @@ public class AppUserController {
         if (userFromDatabase.id().equals(id)) {
             appUserService.deleteAppUser(id);
         } else
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser with id: " + id + " must not delere another user");
-    }
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser with id: " + id + " must not delete another user");
+    }*/
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void deleteUser(@PathVariable String id) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        appUserService.deleteAppUser(id, username);
+
+    }
 }

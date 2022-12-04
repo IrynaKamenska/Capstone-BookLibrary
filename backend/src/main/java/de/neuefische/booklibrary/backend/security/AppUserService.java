@@ -1,8 +1,10 @@
 package de.neuefische.booklibrary.backend.security;
 
-import de.neuefische.booklibrary.backend.SecurityConfig;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
@@ -16,19 +18,26 @@ public class AppUserService {
         return appUserRepository.findByUsername(username);
     }
 
-    public AppUser save(AppUser newAppUser) {
+    public String save(AppUser newAppUser, PasswordEncoder passwordEncoder) {
         if (findByUsername(newAppUser.username()) != null) {
-            throw new UserAlreadyExistsException("User with name " + newAppUser.username() + " already exists");
+            throw new UserAlreadyExistsException("User with this name already exists");
         }
-        String encodedPassword = SecurityConfig.passwordEncoder.encode(newAppUser.password());
+
         AppUser appUser = newAppUser
                 .withId(UUID.randomUUID().toString())
-                .withPassword(encodedPassword)
+                .withPasswordBcrypt(passwordEncoder.encode(newAppUser.rawPassword()))
+                .withRawPassword("")
                 .withRole(newAppUser.role());
-        return appUserRepository.save(appUser);
+        appUserRepository.save(appUser);
+        return "Created user: " + newAppUser.username();
     }
 
-    public void deleteAppUser(String id) {
-        appUserRepository.deleteById(id);
+    public void deleteAppUser(String id, String username) {
+//        appUserRepository.deleteById(id);
+        AppUser userFromDatabase = findByUsername(username);
+        if (userFromDatabase.id().equals(id)) {
+            appUserRepository.deleteById(id);
+        } else
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser with id: " + id + " must not delere another user");
     }
 }
