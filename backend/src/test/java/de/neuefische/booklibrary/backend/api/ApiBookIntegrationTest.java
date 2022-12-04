@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
@@ -52,6 +53,7 @@ class ApiBookIntegrationTest {
 
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     void searchApiBooksByIsbn_returnListWithOneBook() throws Exception {
         //given
         String previewLink = "http://books.google.de/books/preview";
@@ -90,6 +92,7 @@ class ApiBookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     void searchApiBooksByInvalidIsbn_return0TotalItems() throws Exception {
         String mockBookListResponse = """
                  {
@@ -115,6 +118,7 @@ class ApiBookIntegrationTest {
 
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     void searchApiBooksByKeyword_returnListOfBooks() throws Exception {
         //given
         String previewLink = "http://books.google.de/books/preview";
@@ -150,6 +154,7 @@ class ApiBookIntegrationTest {
 
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     void searchApiBooksByKeyword_returnZeroTotalItems() throws Exception {
         //given
         String mockBookListResponse = """
