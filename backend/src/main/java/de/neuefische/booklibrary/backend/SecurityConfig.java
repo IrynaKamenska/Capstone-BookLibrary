@@ -39,7 +39,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/app-users/role").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/app-users/logout").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/app-users/member").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/app-users/librarian").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/app-users/librarian").hasRole("LIBRARIAN")
                 .antMatchers(HttpMethod.DELETE, "/api/app-users/**").authenticated()
 
 
@@ -65,7 +65,7 @@ public class SecurityConfig {
                 }
                 return User.builder()
                         .username(username)
-                        .password(appUserFromDB.password())
+                        .password(appUserFromDB.passwordBcrypt())
                         .roles(appUserFromDB.role().toString())
                         .build();
             }
