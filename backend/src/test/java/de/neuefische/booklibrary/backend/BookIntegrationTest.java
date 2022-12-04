@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
@@ -33,6 +34,7 @@ class BookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     @DirtiesContext
     void addBookWithoutId_returnBook() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
@@ -72,6 +74,7 @@ class BookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     @DirtiesContext
     void addBookWithoutCover_returnBookWithCover() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
@@ -153,6 +156,7 @@ class BookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     @DirtiesContext
     void updateBookWithNewId_return201() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/books/1")
@@ -179,6 +183,7 @@ class BookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     @DirtiesContext
     void updateBook_withDifferentIdInUrlAndBody_return201() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.put("/api/books/id1")
@@ -207,6 +212,7 @@ class BookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     @DirtiesContext
     void deleteBookSuccesfull_return204() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
@@ -231,6 +237,7 @@ class BookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     @DirtiesContext
     void deleteBookWithNotExistingId_return404() throws Exception {
         String id = "1";
