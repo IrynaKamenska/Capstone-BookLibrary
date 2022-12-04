@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './css/App.css';
-import BookOverview from "./BookOverview";
-import GetBooksFromApi from "./api/api/GetBooksFromApi";
+import BookOverview from "./components/BookOverview";
+import GetBooksFromApi from "./service/GetBooksFromApi";
 import axios from "axios";
-import {BookModel} from "./api/model/BookModel";
+import {BookModel} from "./model/BookModel";
 
 function App() {
     const [books, setBooks] = useState<BookModel[]>([]);
