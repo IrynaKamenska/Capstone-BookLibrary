@@ -3,9 +3,9 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    margin-left: -0.5rem;
-    margin-right: -0.5rem;
-    border: 1px solid black;
+    /*    margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        border: 1px solid black; */
 }
 
 .search-input {
