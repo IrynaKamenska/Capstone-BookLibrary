@@ -26,37 +26,53 @@ function BookOverview(props: BookOverviewProps) {
         {props.books.length > 0 ?
 
             <>
-                <table className="content-table">
-                    <tbody>
-                    <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>ISBN</th>
-                        <th>Availability</th>
-                        <th>Action</th>
-                    </tr>
-                    {props.books.map(book => {
-                        return <tr key={book.id}>
-                            <td>{book.title}</td>
-                            <td>{book.author}</td>
-                            <td>{book.isbn}</td>
-                            <td>{book.availability}</td>
-                            <td>
-                                <React.Fragment>
-                                    <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
-                                    <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
-                                </React.Fragment>
-                            </td>
-                        </tr>;
-                    })}
-                    </tbody>
-                </table>
-                <button className="button-add" type={"submit"} onClick={openModal}>Add Book</button>
+                <div className="content-main-div">
+                    <h2>Overview of all Books</h2>
+                    <table className="content-table">
+                        <tbody>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Availability</th>
+                            <th>Action</th>
+                        </tr>
+                        {props.books.map(book => {
+                            return <tr key={book.id}>
+                                <td className="db-list-cover-td"><img className="db-list-cover-img" src={book.cover} alt="Dummy-Cover"/></td>
+                                <td>{book.title}</td>
+                                <td>{book.author}</td>
+                                <td>{book.isbn}</td>
+                                {/*<td>{book.availability}</td>*/}
+                                <td>{book.availability === "AVAILABLE" ?
+                                    <span className="content-available">Available</span>
+                                    :
+                                    <span className="content-not-available">Not Available</span>
+                                }
+                                </td>
+
+                                <td>
+                                    <React.Fragment>
+                                        <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
+                                        <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
+                                    </React.Fragment>
+                                </td>
+                            </tr>;
+                        })}
+                        </tbody>
+                    </table>
+                    <h2>Add new Books</h2>
+                    <p>Add book manually via form: </p>
+                    <button className="button-add" type={"submit"} onClick={openModal}>Manually add new Book</button>
+                </div>
             </>
                 :
-                <div>
-                    <p>Keine Bücher vorhanden</p>
-                    <button className="button-add" type={"submit"} onClick={openModal}>Add Book</button>
+                <div className="content-main-div">
+                    <p>Library is empty :-(</p>
+                    <h2>Add new Books</h2>
+                    <p>Add book manually via form: </p>
+                    <button className="button-add" type={"submit"} onClick={openModal}>Manually add new Book</button>
                 </div>
         }
     </>;

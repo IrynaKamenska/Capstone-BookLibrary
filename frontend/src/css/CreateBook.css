@@ -1,0 +1,56 @@
+
+
+.input-text {
+    background: #fff;
+    position: relative;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 3px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.selector {
+    background: #eee;
+    background-image: linear-gradient(#eee, #ddd, #ccc);
+    position: relative;
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    margin: 3px;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.modal-heading {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    width: 180px;
+    display: block;
+    margin: 0 calc(50% - 90px) 15px calc(50% - 90px);
+}
+
+.modal-button {
+    border-radius: 30px;
+    color: #000;
+    font-size: 15px;
+    height: 23px;
+    margin: 2px calc(50% - 41px);
+    width: 80px;
+    cursor: pointer;
+    transition: 0.2s all ease-in-out;
+    border: 1px solid #999;
+    box-shadow: inset 1px 4px 1px rgba(255, 255, 255, 0.7), inset -1px -2px 10px rgba(0, 0, 0, 0.3);
+}
+.modal-button-create {
+    background-color: #96f696;
+}
+.modal-button-cancel {
+    background-color: #ddd;
+}
+.modal-button-create:hover {
+    background-color: #06bb06;
+}
+.modal-button-cancel:hover {
+    background-color: #aaa;
+}
