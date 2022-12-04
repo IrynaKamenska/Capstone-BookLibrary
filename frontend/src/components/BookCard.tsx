@@ -43,12 +43,14 @@ function BookCard(props: BookCardProps) {
     }
 
     return <>
-        <div className={"book-card"}>
-            <img src={props.book.cover} alt={props.book.cover}/>
-            <h3 className="book-title">{props.book.title}</h3>
-            <p className="book-authors">{props.book.author}</p>
-            <p className="book-authors">{props.book.isbn}</p>
-            <form onSubmit={addNewBook}>
+        <form onSubmit={addNewBook}>
+            <div className={"book-card-inner"}>
+                <div className="book-cover-div">
+                    <img className="book-cover" src={props.book.cover} alt={props.book.cover}/>
+                </div>
+                <h3 className="book-title">{props.book.title}</h3>
+                <p className="book-authors">{props.book.author}</p>
+                <p className="book-authors">{props.book.isbn}</p>
                 <div className="div-form">
                     <br/>
                     <label>
@@ -102,9 +104,11 @@ function BookCard(props: BookCardProps) {
                     </select>
                     <br/><br/>
                 </div>
-                <button>ADD</button>
-            </form>
-        </div>
+            </div>
+            <div className="div-button">
+                <button className="book-card-button">ADD</button>
+            </div>
+        </form>
 
 
     </>
