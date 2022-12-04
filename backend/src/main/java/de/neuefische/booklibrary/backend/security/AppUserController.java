@@ -71,11 +71,12 @@ public class AppUserController {
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteUser(@PathVariable String id) {
-        if (appUserService.isAppUserExists(id)) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        AppUser userFromDatabase = appUserService.findByUsername(username);
+        if (userFromDatabase.id().equals(id)) {
             appUserService.deleteAppUser(id);
-        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No AppUser with id: " + id + " found");
-
+        } else
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser with id: " + id + " must not delere another user");
     }
-
 
 }
