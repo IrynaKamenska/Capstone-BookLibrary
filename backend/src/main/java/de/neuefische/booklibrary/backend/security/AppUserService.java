@@ -28,10 +28,6 @@ public class AppUserService {
         return appUserRepository.save(appUser);
     }
 
-    public boolean isAppUserExists(String id) {
-        return appUserRepository.existsById(id);
-    }
-
     public void deleteAppUser(String id) {
         appUserRepository.deleteById(id);
     }
