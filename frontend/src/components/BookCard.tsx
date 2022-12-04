@@ -17,10 +17,6 @@ function BookCard(props: BookCardProps) {
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.availability) {
-            alert(`Please fill book title, author, isbn and state`)
-            return
-        }
 
         axios.post("/api/books", newBook)
             .then(props.reloadAllBooks)
@@ -49,8 +45,8 @@ function BookCard(props: BookCardProps) {
                     <img className="book-cover" src={props.book.cover} alt={props.book.cover}/>
                 </div>
                 <h3 className="book-title">{props.book.title}</h3>
-                <p className="book-authors">{props.book.author}</p>
-                <p className="book-authors">{props.book.isbn}</p>
+                <p className="book-info">{props.book.author}</p>
+                <p className="book-info">{props.book.isbn}</p>
                 <div className="div-form">
                     <br/>
                     <label>
@@ -106,7 +102,7 @@ function BookCard(props: BookCardProps) {
                 </div>
             </div>
             <div className="div-button">
-                <button className="book-card-button">ADD</button>
+                <button className="book-card-button">Add Book</button>
             </div>
         </form>
 
