@@ -2,7 +2,7 @@ import React, {FormEvent} from "react";
 import Modal from 'react-modal';
 import axios from "axios";
 import {Availability} from "../model/Availability";
-import "../css/BookOverview.css";
+import "../css/CreateBook.css";
 
 type ModalProps = {
     modalIsOpen: boolean,
@@ -24,10 +24,10 @@ export default function CreateBook(props: ModalProps) {
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.availability) {
+        /*if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.availability) {
             alert(`Please fill book title, author, isbn and state`)
             return
-        }
+        }*/
 
         axios.post("/api/books", newBook)
             .catch((e) => console.log("POST Error: " + e))
@@ -57,8 +57,8 @@ export default function CreateBook(props: ModalProps) {
                contentLabel="Example Modal"
                ariaHideApp={false}
         >
+            <span className="modal-heading">Add book manually</span>
             <form onSubmit={addNewBook}>
-                <br/>
                 <label htmlFor="title">Title:</label>
                 <input className="input-text" type="text"
                        id="title"
@@ -84,14 +84,14 @@ export default function CreateBook(props: ModalProps) {
                        placeholder="isbn"/>
                 <br/>
                 <label htmlFor="availability">Availability:</label>
-                <select name="availability" id="availability">
+                <select className="selector" name="availability" id="availability">
                     <option value={Availability.AVAILABLE}>AVAILABLE</option>
                     <option value={Availability.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
                 <br/><br/>
-                <button>Create</button>
+                <button className="modal-button modal-button-create">Create</button>
             </form>
-            <button onClick={() => props.closeModal()}>Close</button>
+            <button className="modal-button modal-button-cancel" onClick={() => props.closeModal()}>Cancel</button>
         </Modal>
     );
 

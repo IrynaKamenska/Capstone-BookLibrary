@@ -1,50 +1,126 @@
 
+.content-main-div {
+    margin: 10px 0;
+    padding: 3px 20px;
+}
+
 .content-table {
-    border: 6px solid #948473;
-    background-color: #FFE3C6;
+    border: 1px solid #555;
+    background-color: #eee;
     width: 100%;
-    text-align: center;
+    text-align: left;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-bottom: 40px;
 }
 
 .content-table td, .content-table th {
-    border: 1px solid #948473;
+    border: 1px solid #aaa;
     padding: 4px 4px;
 }
 
 .content-table tbody td {
-    font-size: 13px;
+    font-size: 16px;
 }
 
 .content-table th {
-    background: #948473;
-    background: -moz-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
-    background: -webkit-linear-gradient(top, #afa396 0%, #9e9081 66%, #948473 100%);
-    background: linear-gradient(to bottom, #afa396 0%, #9e9081 66%, #948473 100%);
+    background: #ccc;
+    text-align: left;
+    font-weight: bold;
+    font-size: 18px;
 }
 
-.content-table tr th {
-    font-size: 17px;
-    font-weight: bold;
-    color: rgba(5, 5, 5, 0.77);
-    text-align: left;
-    border-left: 2px solid #948473;
+.content-table tr {
+    transition: 0.2s all ease-in-out;
+}
+.content-table tr:hover {
+    background-color: #fff;
 }
 
 .content-table th:first-child {
-    border-left: none;
+    width: 92px;
+    text-align: center;
 }
 
-button {
-    height: 24px;
-    padding: 0 5px;
+.content-table th:nth-last-child(-n+2) {
     text-align: center;
-    display: inline-block;
-    cursor: pointer;
-    border: 2px solid #948473;
-    background-color: #FFE3C6;
-    font-size: 13px;
-    margin-left: 7px;
 }
+
+.content-table tr td:nth-last-child(-n+2) {
+    text-align: center;
+}
+
+.content-table tr td:nth-child(4) {
+    font-size: 13px;
+}
+
+.db-list-cover-td {
+    height: 92px;
+    width: 92px;
+    text-align: center;
+    padding: unset;
+}
+
+.db-list-cover-img {
+    max-height: 89px;
+    max-width: 89px;
+}
+
+.db-list-button {
+    border-radius: 30px;
+    color: #000;
+    font-size: 15px;
+    height: 23px;
+    margin: 2px;
+    width: 65px;
+    cursor: pointer;
+    transition: 0.2s all ease-in-out;
+    border: 1px solid #999;
+    box-shadow: inset 1px 4px 1px rgba(255, 255, 255, 0.7), inset -1px -2px 10px rgba(0, 0, 0, 0.3);
+}
+.db-list-button-edit {
+    background-color: #90afff;
+}
+.db-list-button-delete {
+    background-color: #ffacac;
+}
+.db-list-button-edit:hover {
+    background-color: #4f5fff;
+}
+.db-list-button-delete:hover {
+    background-color: #ff3f3f;
+}
+
+.button-add {
+    margin: 0 0 10px 30px;
+    width: 220px;
+    border-radius: 30px;
+    background-color: #96f696;
+    color: #000;
+    border: 1px solid #999;
+    font-size: 17px;
+    transition: 0.2s all ease-in-out;
+    height: 30px;
+    padding: 0 8px;
+    cursor: pointer;
+    /*box-shadow: inset 0px 0px 4px 4px #bfb;*/
+    /*box-shadow: inset 1px 4px 1px #dfd, inset -1px -2px 10px #6ed06e;*/
+    box-shadow: inset 1px 4px 1px rgba(255, 255, 255, 0.7), inset -1px -2px 10px rgba(0, 0, 0, 0.3);
+
+}
+.button-add:hover {
+    background-color: #06bb06;
+    color: #000;
+    border-color: #999;
+}
+
+.content-available {
+    color: #080;
+}
+.content-not-available {
+    color: #a00;
+}
+
 
 .button-left {
     margin-left: 7px;
@@ -60,24 +136,13 @@ button {
     margin-bottom: 2px;
 }
 
-.button-add {
-    margin-top: 2px;
-    background-color: #FFE3C6;
-    border: 2px solid #948473;
-    padding: 1px 2px;
-}
 
 .modal {
-    border: 6px solid #948473;
-    background-color: #FFE3C6;
+    border: 1px solid #aaa;
+    background-color: #fff;
     width: 50%;
     text-align: left;
-    margin-left: 5px;
-}
-
-.input-text {
-    background: #FFE3C6;
-    position: relative;
-    border: 1px solid #FFF;
-    display: inline-block;
+    margin: 20px 25%;
+    padding: 20px;
+    box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.3);
 }

@@ -3,7 +3,7 @@ import {BookModel} from "../model/BookModel";
 import axios from "axios";
 import {Availability} from "../model/Availability";
 import Modal from "react-modal";
-import "../css/BookOverview.css";
+import "../css/UpdateBook.css";
 
 type UpdateBookProps = {
     book: BookModel;
@@ -48,7 +48,7 @@ function UpdateBook(props: UpdateBookProps) {
 
 
     return <>
-        <button className="button-left" type={"submit"} onClick={openModal}>Edit</button>
+        <button className="db-list-button db-list-button-edit" type={"submit"} onClick={openModal}>Edit</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
                onRequestClose={closeModal}
@@ -56,10 +56,12 @@ function UpdateBook(props: UpdateBookProps) {
                ariaHideApp={false}
         >
 
+            <span className="modal-heading">Update book manually</span>
             <form onSubmit={handleEditBook}>
                 <br/>
                 <label htmlFor="title">New title:</label>
-                <input type="text"
+                <input className="input-text"
+                       type="text"
                        id="title"
                        name="title"
                        value={updatedBook.title}
@@ -67,7 +69,8 @@ function UpdateBook(props: UpdateBookProps) {
                        placeholder="title"/>
                 <br/>
                 <label htmlFor="author">New Author:</label>
-                <input type="text"
+                <input className="input-text"
+                       type="text"
                        id="author"
                        name="author"
                        value={updatedBook.author}
@@ -75,7 +78,8 @@ function UpdateBook(props: UpdateBookProps) {
                        placeholder="author"/>
                 <br/>
                 <label htmlFor="isbn">New ISBN:</label>
-                <input type="text"
+                <input className="input-text"
+                       type="text"
                        id="isbn"
                        name="isbn"
                        value={updatedBook.isbn}
@@ -83,7 +87,7 @@ function UpdateBook(props: UpdateBookProps) {
                        placeholder="isbn"/>
                 <br/>
                 <label htmlFor="availability">Availability</label>
-                <select value={updatedBook.availability} name="availability" id="availability"
+                <select className="selector" value={updatedBook.availability} name="availability" id="availability"
                         onChange={handleUpdateChange}>
                     <option value={Availability.AVAILABLE}>AVAILABLE</option>
                     <option value={Availability.NOT_AVAILABLE}>NOT_AVAILABLE</option>
@@ -93,8 +97,8 @@ function UpdateBook(props: UpdateBookProps) {
                     <p>Are you sure to update this book?</p>
                 </div>
                 <div>
-                    <button className="button-left">Update</button>
-                    <button className="button-right" onClick={() => closeModal()}>Close</button>
+                    <button className="modal-button modal-button-update">Update</button>
+                    <button className="modal-button modal-button-cancel" onClick={() => closeModal()}>Cancel</button>
                 </div>
             </form>
         </Modal>
