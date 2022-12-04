@@ -21,7 +21,7 @@ import static java.util.Objects.requireNonNull;
 public class ApiBookService {
     private final String QUERY = "?q=";
     private final String KEY = "&key=";
-
+    private static final String DEFAULT_COVER = "https://cdn-icons-png.flaticon.com/512/117/117029.png";
     private final String apiKey;
     private final WebClient webClient;
 
@@ -49,8 +49,7 @@ public class ApiBookService {
             VolumeInfo volumeInfo = apiBook.volumeInfo();
             String thumbnail = Optional.ofNullable(volumeInfo.imageLink())
                     .map(ImageLink::thumbnail)
-                    .orElse(null);
-
+                    .orElse(DEFAULT_COVER);
             String author = Optional.ofNullable(volumeInfo.authors()).map(current -> current.get(0))
                     .orElse(null);
             Book book = new Book(
