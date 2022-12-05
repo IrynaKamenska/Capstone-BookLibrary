@@ -4,6 +4,7 @@ import CreateBook from "../service/CreateBook";
 import DeleteBook from "../service/DeleteBook";
 import UpdateBook from "../service/UpdateBook";
 import "../css/BookOverview.css";
+import AddBookManually from "./AddBookManually";
 
 type BookOverviewProps = {
     books: BookModel[],
@@ -44,7 +45,6 @@ function BookOverview(props: BookOverviewProps) {
                                 <td>{book.title}</td>
                                 <td>{book.author}</td>
                                 <td>{book.isbn}</td>
-                                {/*<td>{book.availability}</td>*/}
                                 <td>{book.availability === "AVAILABLE" ?
                                     <span className="content-available">Available</span>
                                     :
@@ -62,17 +62,13 @@ function BookOverview(props: BookOverviewProps) {
                         })}
                         </tbody>
                     </table>
-                    <h2>Add new Books</h2>
-                    <p>Add book manually via form: </p>
-                    <button className="button-add" onClick={openModal}>Manually add new Book</button>
+                    <AddBookManually openModal={openModal}></AddBookManually>
                 </div>
             </>
                 :
                 <div className="content-main-div">
                     <p>Library is empty :-(</p>
-                    <h2>Add new Books</h2>
-                    <p>Add book manually via form: </p>
-                    <button className="button-add" onClick={openModal}>Manually add new Book</button>
+                    <AddBookManually openModal={openModal}></AddBookManually>
                 </div>
         }
     </>;
