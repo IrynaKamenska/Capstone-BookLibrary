@@ -64,7 +64,7 @@ function BookOverview(props: BookOverviewProps) {
                     </table>
                     <h2>Add new Books</h2>
                     <p>Add book manually via form: </p>
-                    <button className="button-add" type={"submit"} onClick={openModal}>Manually add new Book</button>
+                    <button className="button-add" onClick={openModal}>Manually add new Book</button>
                 </div>
             </>
                 :
@@ -72,7 +72,7 @@ function BookOverview(props: BookOverviewProps) {
                     <p>Library is empty :-(</p>
                     <h2>Add new Books</h2>
                     <p>Add book manually via form: </p>
-                    <button className="button-add" type={"submit"} onClick={openModal}>Manually add new Book</button>
+                    <button className="button-add" onClick={openModal}>Manually add new Book</button>
                 </div>
         }
     </>;
