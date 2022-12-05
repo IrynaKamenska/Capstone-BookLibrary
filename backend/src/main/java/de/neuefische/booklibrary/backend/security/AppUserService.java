@@ -6,8 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 public class AppUserService {
@@ -18,26 +16,23 @@ public class AppUserService {
         return appUserRepository.findByUsername(username);
     }
 
-    public String save(AppUser newAppUser, PasswordEncoder passwordEncoder) {
+    public AppUser save(AppUser newAppUser, PasswordEncoder passwordEncoder) {
         if (findByUsername(newAppUser.username()) != null) {
             throw new UserAlreadyExistsException("User with this name already exists");
         }
 
         AppUser appUser = newAppUser
-                .withId(UUID.randomUUID().toString())
+                .withUsername(newAppUser.username())
                 .withPasswordBcrypt(passwordEncoder.encode(newAppUser.rawPassword()))
-                .withRawPassword("")
                 .withRole(newAppUser.role());
-        appUserRepository.save(appUser);
-        return "Created user: " + newAppUser.username();
+        return appUserRepository.save(appUser);
     }
 
     public void deleteAppUser(String id, String username) {
-//        appUserRepository.deleteById(id);
         AppUser userFromDatabase = findByUsername(username);
         if (userFromDatabase.id().equals(id)) {
             appUserRepository.deleteById(id);
         } else
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser with id: " + id + " must not delere another user");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser " + userFromDatabase.username() + " must not delete another user");
     }
 }
