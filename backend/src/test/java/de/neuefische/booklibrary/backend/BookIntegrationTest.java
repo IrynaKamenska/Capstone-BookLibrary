@@ -73,6 +73,45 @@ class BookIntegrationTest {
 
     @Test
     @DirtiesContext
+    void addBookWithoutCover_returnBookWithCover() throws Exception {
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "ISBN 978-0-596-52068-7",
+                                "availability": "AVAILABLE"
+                                }
+                                """))
+                .andExpect(status().is(201))
+                .andReturn().getResponse().getContentAsString();
+
+        Book book = objectMapper.readValue(body, Book.class);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        [
+                        {
+                            "id": "<id>",
+                            "cover": "<cover>",
+                            "title": "Java",
+                             "author": "Ullenbom",
+                             "isbn": "ISBN 978-0-596-52068-7",
+                             "availability": "AVAILABLE"
+                        } ]
+                        """.replace("<id>", book.id()).replace("<cover>", book.cover())))
+                .andExpect(jsonPath("$..cover").isNotEmpty())
+                .andExpect(jsonPath("$..title").isNotEmpty())
+                .andExpect(jsonPath("$..author").isNotEmpty())
+                .andExpect(jsonPath("$..isbn").isNotEmpty())
+                .andExpect(jsonPath("$..availability").isNotEmpty());
+
+    }
+
+    @Test
+    @DirtiesContext
     void updateBookWithExistingId_return200() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
