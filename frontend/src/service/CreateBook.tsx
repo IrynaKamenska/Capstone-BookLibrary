@@ -24,10 +24,6 @@ export default function CreateBook(props: ModalProps) {
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        /*if (!newBook.title || !newBook.author || !newBook.isbn || !newBook.availability) {
-            alert(`Please fill book title, author, isbn and state`)
-            return
-        }*/
 
         axios.post("/api/books", newBook)
             .catch((e) => console.log("POST Error: " + e))
