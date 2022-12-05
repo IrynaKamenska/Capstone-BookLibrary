@@ -1,5 +1,6 @@
 package de.neuefische.booklibrary.backend.security;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,6 +25,8 @@ public class AppUserIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Test
     @WithMockUser
@@ -142,28 +145,12 @@ public class AppUserIntegrationTest {
                 .andExpect(status().isConflict());
     }
 
+
     @Test
     @DirtiesContext
-    @WithMockUser(roles = {"MEMBER"})
-    void expect403_POST_addLibrarianAsMember() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                {
-                                    "username": "ira",
-                                    "rawPassword": "Password898#"
-                                }
-                                """))
-                .andExpect(status().isForbidden())
-                .andExpect(status().reason("Forbidden"));
-    }
-
-
-/*    @Test
-    @DirtiesContext
-    @WithMockUser(roles = {"MEMBER"})
+    @WithMockUser(username = "lars", roles = {"MEMBER"})
     void expect204_DELETE_deleteMember() throws Exception {
-       String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -172,13 +159,11 @@ public class AppUserIntegrationTest {
                                 }
                                 """))
                 .andExpect(status().isCreated())
-               .andReturn().getResponse().getContentAsString();
+                .andReturn().getResponse().getContentAsString();
         AppUser appUser = objectMapper.readValue(body, AppUser.class);
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/app-users/" + appUser.id()))
                 .andExpect(status().isNoContent());
-
-    }*/
-
+    }
 
 }
