@@ -13,7 +13,6 @@ type ModalProps = {
 export default function CreateBook(props: ModalProps) {
     const [newBook, setNewBook] = React.useState(
         {
-            cover: "",
             title: "",
             author: "",
             isbn: "",
@@ -30,7 +29,6 @@ export default function CreateBook(props: ModalProps) {
             .then(props.reloadAllBooks)
             .then(props.closeModal)
         setNewBook({
-            cover: "",
             title: "",
             author: "",
             isbn: "",
