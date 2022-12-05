@@ -21,7 +21,7 @@ import static java.util.Objects.requireNonNull;
 public class ApiBookService {
     private final String QUERY = "?q=";
     private final String KEY = "&key=";
-    private static final String DEFAULT_COVER = "https://cdn-icons-png.flaticon.com/512/117/117029.png";
+    public static final String DEFAULT_COVER = "https://cdn-icons-png.flaticon.com/512/117/117029.png";
     private final String apiKey;
     private final WebClient webClient;
 
