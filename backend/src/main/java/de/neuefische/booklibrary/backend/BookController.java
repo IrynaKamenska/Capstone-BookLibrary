@@ -10,6 +10,8 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.validation.Valid;
 import java.util.List;
 
+import static de.neuefische.booklibrary.backend.api.ApiBookService.DEFAULT_COVER;
+
 
 @RestController
 @RequestMapping("/api/books")
@@ -40,6 +42,9 @@ public class BookController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Book addBook(@RequestBody @Valid Book newBook) {
+        if (newBook.cover().isEmpty()) {
+            return bookService.saveBook(newBook.withCover(DEFAULT_COVER));
+        }
         return bookService.saveBook(newBook);
     }
 
