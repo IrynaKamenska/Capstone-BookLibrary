@@ -42,7 +42,7 @@ public class BookController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Book addBook(@RequestBody @Valid Book newBook) {
-        if (newBook.cover().isEmpty()) {
+        if (newBook.cover().isBlank()) {
             return bookService.saveBook(newBook.withCover(DEFAULT_COVER));
         }
         return bookService.saveBook(newBook);
