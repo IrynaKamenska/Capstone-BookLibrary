@@ -42,7 +42,7 @@ function BookCard(props: BookCardProps) {
         <form onSubmit={addNewBook}>
             <div className={"book-card-inner"}>
                 <div className="book-cover-div">
-                    <img className="book-cover" src={props.book.cover} alt={props.book.cover}/>
+                    <img className="book-cover" src={props.book.cover} alt={props.book.title}/>
                 </div>
                 <h3 className="book-title">{props.book.title}</h3>
                 <p className="book-info">{props.book.author}</p>
