@@ -39,6 +39,7 @@ class BookIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
+                                "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
@@ -56,6 +57,7 @@ class BookIntegrationTest {
                         [
                         {
                             "id": "<id>",
+                            "cover": "http://localhost:8080/api/cover",
                             "title": "Java",
                              "author": "Ullenbom",
                              "isbn": "ISBN 978-0-596-52068-7",
@@ -76,6 +78,7 @@ class BookIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
+                                "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
@@ -171,6 +174,7 @@ class BookIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
+                                "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
