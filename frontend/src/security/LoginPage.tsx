@@ -1,32 +1,48 @@
-import {useState} from "react";
+import {FormEvent, useState} from "react";
 import axios from "axios";
+import {Link} from "react-router-dom";
+import "./css/LoginPage.css"
 
 type Props = {
     onLogin: () => void
 }
 export default function LoginPage(props: Props) {
     const [username, setUsername] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
+    const [rawPassword, setRawPassword] = useState<string>("");
 
 
     const login = () => {
         axios.get("/api/app-users/login", {
             auth: {
                 username,
-                password
+                password: rawPassword
             }
         })
             .then(props.onLogin)
             .catch(() => alert("Login failed"));
     }
 
+    function handleSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+        login()
+    }
 
     return <>
-        return <div style={{border: '3px solid blue', padding: '10px'}}>
-        <h1>Login</h1>
-        <input type="text" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}/>
-        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/>
-        <button onClick={login}>Login</button>
-    </div>
+        <div className={"login-form"}>
+            <form className="form" onSubmit={handleSubmit}>
+                <div className="input-group">
+                    <label htmlFor="username">Username</label>
+                    <input type="text" id="username" placeholder="username"
+                           onChange={event => setUsername(event.target.value)}/>
+                </div>
+                <div className="input-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" placeholder="password"
+                           onChange={event => setRawPassword(event.target.value)}/>
+                </div>
+                <button className="primary">Login</button>
+            </form>
+            <Link to={{pathname: "/register"}}>Register</Link>
+        </div>
     </>
 }
