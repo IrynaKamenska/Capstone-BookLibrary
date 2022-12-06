@@ -63,27 +63,6 @@
     font-size: 16px;
 }
 
-button.primary {
-    background: #f58733;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    max-width: 420px;
-    outline: 0;
-    padding: 10px 0;
-    transition: background 0.3s;
-    width: 80%;
-}
-
-button.primary:hover {
-    background: #ea6c0b;
-}
-
 button.secondary {
     background: #c1d7aa;
     border-radius: 5px;
