@@ -35,7 +35,7 @@ public class SecurityConfig {
                 .authorizeRequests()
 
                 .antMatchers(HttpMethod.GET, "/api/app-users/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/app-users/me").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/app-users/me").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/app-users/role").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/app-users/logout").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/app-users/member").permitAll()
@@ -51,7 +51,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("LIBRARIAN")
 
                 .anyRequest().denyAll()
-                .and().build();
+                .and()
+                .formLogin()
+                .disable()
+                .build();
     }
 
     @Bean
