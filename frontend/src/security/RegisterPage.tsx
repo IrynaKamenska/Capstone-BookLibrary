@@ -26,7 +26,7 @@ function RegisterPage() {
 
 
     return <>
-        <div className={"login-form"}>
+        <div className={"register-form"}>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
