@@ -50,11 +50,9 @@ public class AppUserServiceTest {
         //given
         AppUser newAppUser = new AppUser("id-1", "username", "password", "", AppUserRole.MEMBER);
         newAppUser = newAppUser.withPasswordBcrypt("encodedPassword");
-
         AppUser encodedAppUser = newAppUser
                 .withId(newAppUser.id())
                 .withUsername(newAppUser.username())
-                .withRawPassword(newAppUser.rawPassword())
                 .withPasswordBcrypt(newAppUser.passwordBcrypt())
                 .withRole(newAppUser.role());
 
