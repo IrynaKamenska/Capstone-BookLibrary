@@ -92,12 +92,13 @@ import static org.mockito.Mockito.*;
         AppUser userFromDatabase = new AppUser("2", "username", "password", "", AppUserRole.MEMBER);
         ResponseStatusException expectedResponseStatusException = new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser " + userFromDatabase.username() + " must not delete another user");
         when(mockAppUserRepository.findByUsername(userFromDatabase.username())).thenReturn(userFromDatabase);
+        String username = userFromDatabase.username();
 
         //when
         try {
-            appUserService.deleteAppUser(idToDelete, userFromDatabase.username());
+            appUserService.deleteAppUser(idToDelete, username);
             //then
-            fail();
+            fail("Expected an ResponseStatusException to be thrown");
         } catch (ResponseStatusException e) {
             assertEquals(expectedResponseStatusException.getMessage(), e.getMessage());
         }
