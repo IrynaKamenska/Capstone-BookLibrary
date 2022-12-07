@@ -31,6 +31,16 @@ public class AppUserController {
                 .getName();
     }
 
+    @GetMapping("/user")
+    public AppUser getAppUser() {
+        String name = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+        return appUserService.findByUsername(name);
+
+    }
+
     @GetMapping("/role")
     public String getRole() {
         return SecurityContextHolder
@@ -75,5 +85,6 @@ public class AppUserController {
     public void deleteUser(@PathVariable String id) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         appUserService.deleteAppUser(id, username);
+
     }
 }
