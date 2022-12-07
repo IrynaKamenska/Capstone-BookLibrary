@@ -1,4 +1,4 @@
-.register-form {
+.login-form {
     display: flex;
     flex-flow: column wrap;
     max-width: 25%;
@@ -9,7 +9,7 @@
     border: lightgray 2px solid;
 }
 
-.register-form h2 {
+.login-form h2 {
     text-align: center;
 }
 
@@ -63,6 +63,18 @@
     font-size: 16px;
 }
 
+b {
+    position: relative;
+    top: 10%;
+    right: 8%;
+    cursor: pointer;
+}
+
+b:hover {
+    color: #f58733;
+    cursor: pointer;
+}
+
 button.primary {
     background: #f58733;
     border-radius: 5px;
@@ -77,30 +89,9 @@ button.primary {
     outline: 0;
     padding: 10px 0;
     transition: background 0.3s;
-    width: 80%;
+    width: 88%;
 }
 
 button.primary:hover {
     background: #ea6c0b;
-}
-
-button.secondary {
-    background: #c1d7aa;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: 1px;
-    max-width: 420px;
-    outline: 0;
-    padding: 10px 0;
-    transition: background 0.3s;
-    width: 80%;
-}
-
-button.secondary:hover {
-    background: #a8c787;
 }

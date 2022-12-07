@@ -63,6 +63,18 @@
     font-size: 16px;
 }
 
+i {
+    position: relative;
+    top: 10%;
+    right: 8%;
+    cursor: pointer;
+}
+
+i:hover {
+    color: #f58733;
+    cursor: pointer;
+}
+
 button.secondary {
     background: #c1d7aa;
     border-radius: 5px;
@@ -77,7 +89,7 @@ button.secondary {
     outline: 0;
     padding: 10px 0;
     transition: background 0.3s;
-    width: 80%;
+    width: 88%;
 }
 
 button.secondary:hover {

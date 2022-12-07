@@ -2,6 +2,9 @@
 .content-main-div {
     margin: 10px 0;
     padding: 3px 20px;
+    width: 100%;
+    display: block;
+    position: relative;
 }
 
 .content-table {
