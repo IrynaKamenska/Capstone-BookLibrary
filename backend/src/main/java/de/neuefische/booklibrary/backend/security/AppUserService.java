@@ -24,6 +24,7 @@ public class AppUserService {
         AppUser appUser = newAppUser
                 .withUsername(newAppUser.username())
                 .withPasswordBcrypt(passwordEncoder.encode(newAppUser.rawPassword()))
+                .withRawPassword("")
                 .withRole(newAppUser.role());
         return appUserRepository.save(appUser);
     }
