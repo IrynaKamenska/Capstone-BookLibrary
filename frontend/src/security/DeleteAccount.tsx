@@ -33,7 +33,7 @@ function DeleteAccount(props: DeleteAccountProps) {
     }
 
     return <>
-        <button className="button-delete" type={"submit"} onClick={openModal}>Delete Account</button>
+        <button className="button-delete-account" type={"submit"} onClick={openModal}>Delete Account</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
                onRequestClose={closeModal}
