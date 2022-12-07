@@ -9,16 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
-public class AppUserServiceTest {
-    private final AppUserRepository mockAppUserRepository = mock(AppUserRepository.class);
-    private final AppUserService appUserService = new AppUserService(mockAppUserRepository);
-    private final BCryptPasswordEncoder mockPasswordEncoder = mock(BCryptPasswordEncoder.class);
+ class AppUserServiceTest {
+     private final AppUserRepository mockAppUserRepository = mock(AppUserRepository.class);
+     private final AppUserService appUserService = new AppUserService(mockAppUserRepository);
+     private final BCryptPasswordEncoder mockPasswordEncoder = mock(BCryptPasswordEncoder.class);
 
-    @Test
-    void findByUsernameAndReturnUsername() {
-        // given
-        AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
-        when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(newAppUser);
+     @Test
+     void findByUsernameAndReturnUsername() {
+         // given
+         AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
+         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(newAppUser);
 
         // when
         AppUser actual = appUserService.findByUsername("Bob");
