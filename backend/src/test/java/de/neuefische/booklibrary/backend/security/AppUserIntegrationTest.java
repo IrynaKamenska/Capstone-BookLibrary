@@ -194,7 +194,6 @@ public class AppUserIntegrationTest {
                                 {
                                     "id": "id1",
                                     "username": "user",
-                                    "rawPassword": "Password30#",
                                     "passwordBcrypt": "<encoded>",
                                     "role": "LIBRARIAN"
                                 }

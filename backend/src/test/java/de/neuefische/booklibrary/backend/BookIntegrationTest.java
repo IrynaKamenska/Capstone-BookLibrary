@@ -114,6 +114,7 @@ class BookIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = "LIBRARIAN")
     @DirtiesContext
     void updateBookWithExistingId_return200() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
