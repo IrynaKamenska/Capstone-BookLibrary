@@ -9,17 +9,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class SecurityConfigTest {
-    private final AppUserService appUserService = mock(AppUserService.class);
+ class SecurityConfigTest {
+     private final AppUserService appUserService = mock(AppUserService.class);
 
-    @Test
-    void userDetailServiceAsUser() {
-        // given
-        String rawPassword = "user123";
-        String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
-        AppUser appUser = new AppUser(
-                "id1",
-                "user",
+     @Test
+     void userDetailServiceAsUser() {
+         // given
+         String rawPassword = "user123";
+         String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
+         AppUser appUser = new AppUser(
+                 "id1",
+                 "user",
                 rawPassword,
                 encodedPassword,
                 AppUserRole.MEMBER);
