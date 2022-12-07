@@ -29,6 +29,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        String LIBRARIAN_ROLE = "LIBRARIAN";
         return http
                 .csrf().disable()
                 .httpBasic().and()
@@ -45,11 +46,11 @@ public class SecurityConfig {
 
 
                 .antMatchers(HttpMethod.GET, "/api/books").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/books/search/**").hasRole("LIBRARIAN")
-                .antMatchers(HttpMethod.GET, "/api/books/isbn/**").hasRole("LIBRARIAN")
-                .antMatchers(HttpMethod.POST, "/api/books").hasRole("LIBRARIAN")
-                .antMatchers(HttpMethod.PUT, "/api/books/**").hasRole("LIBRARIAN")
-                .antMatchers(HttpMethod.DELETE, "/api/books/**").hasRole("LIBRARIAN")
+                .antMatchers(HttpMethod.GET, "/api/books/search/**").hasRole(LIBRARIAN_ROLE)
+                .antMatchers(HttpMethod.GET, "/api/books/isbn/**").hasRole(LIBRARIAN_ROLE)
+                .antMatchers(HttpMethod.POST, "/api/books").hasRole(LIBRARIAN_ROLE)
+                .antMatchers(HttpMethod.PUT, "/api/books/**").hasRole(LIBRARIAN_ROLE)
+                .antMatchers(HttpMethod.DELETE, "/api/books/**").hasRole(LIBRARIAN_ROLE)
 
                 .anyRequest().denyAll()
                 .and()
@@ -76,27 +77,27 @@ public class SecurityConfig {
 
             @Override
             public void createUser(UserDetails user) {
-
+                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
             }
 
             @Override
             public void updateUser(UserDetails user) {
-
+                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
             }
 
             @Override
             public void deleteUser(String username) {
-
+                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
             }
 
             @Override
             public void changePassword(String oldPassword, String newPassword) {
-
+                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
             }
 
             @Override
             public boolean userExists(String username) {
-                return false;
+                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
             }
 
         };
