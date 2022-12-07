@@ -36,6 +36,7 @@ public class SecurityConfig {
 
                 .antMatchers(HttpMethod.GET, "/api/app-users/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/app-users/me").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/app-users/user").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/app-users/role").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/app-users/logout").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/app-users/member").permitAll()
