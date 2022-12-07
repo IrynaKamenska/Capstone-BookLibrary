@@ -15,7 +15,8 @@
     width: 20%;
     float: left;
     position: relative;
-    padding: 10px 0
+    padding: 10px 0;
+    text-align: right;
 }
 
 .button-logout {
