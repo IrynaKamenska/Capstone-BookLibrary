@@ -46,17 +46,6 @@ function App() {
     }
     useEffect(fetchUsername, [])
 
-    const [role, setRole] = useState<string>("")
-
-    function fetchRole() {
-        axios.get("/api/app-users/role")
-            .then(response => response.data)
-            .catch(error => console.error(error))
-            .then(setRole)
-    }
-
-    useEffect(fetchRole, [])
-
 
     if (username === undefined) {
         return <>Loading...</>
