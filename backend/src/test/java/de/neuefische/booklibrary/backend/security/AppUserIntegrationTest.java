@@ -12,6 +12,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.Base64;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,9 +33,11 @@ public class AppUserIntegrationTest {
     @Test
     @WithMockUser
     void expect200_GET_login() throws Exception {
-        mockMvc.perform(get("/api/app-users/login"))
-                .andExpect(status().isOk());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/login")
+                        .header("Authorization", "Basic:" + Base64.getEncoder().encodeToString("user:user123".getBytes())))
+                .andExpect(status().is(200));
     }
+
 
 
     @Test
@@ -164,6 +168,37 @@ public class AppUserIntegrationTest {
 
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/app-users/" + appUser.id()))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    @DirtiesContext
+    @WithMockUser(roles = {"LIBRARIAN"})
+    void expectAppUser_GET_AppUser() throws Exception {
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "id": "id1",
+                                    "username": "user",
+                                    "rawPassword": "Password30#",
+                                    "role": "LIBRARIAN"
+                                }
+                                """))
+                .andReturn().getResponse().getContentAsString();
+        AppUser appUser = objectMapper.readValue(body, AppUser.class);
+
+        mockMvc.perform(get("/api/app-users/user"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(
+                        """
+                                {
+                                    "id": "id1",
+                                    "username": "user",
+                                    "rawPassword": "Password30#",
+                                    "passwordBcrypt": "<encoded>",
+                                    "role": "LIBRARIAN"
+                                }
+                                """.replace("<encoded>", appUser.passwordBcrypt())));
     }
 
 }
