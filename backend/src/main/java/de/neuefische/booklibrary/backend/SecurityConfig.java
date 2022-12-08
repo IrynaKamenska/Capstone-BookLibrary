@@ -19,6 +19,9 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+    private static final String EXCEPTION_MSG = "You cannot use this custom UserDetailsManager for this action.";
+    private static final String LIBRARIAN_ROLE = "LIBRARIAN";
+
     private final AppUserService appUserService;
 
     public static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -30,7 +33,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        String LIBRARIAN_ROLE = "LIBRARIAN";
         return http
                 .csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
@@ -65,6 +67,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsManager userDetailsManager() {
         return new UserDetailsManager() {
+
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
                 AppUser appUserFromDB = appUserService.findByUsername(username);
@@ -80,27 +83,27 @@ public class SecurityConfig {
 
             @Override
             public void createUser(UserDetails user) {
-                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
+                throw new UnsupportedOperationException(EXCEPTION_MSG);
             }
 
             @Override
             public void updateUser(UserDetails user) {
-                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
+                throw new UnsupportedOperationException(EXCEPTION_MSG);
             }
 
             @Override
             public void deleteUser(String username) {
-                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
+                throw new UnsupportedOperationException(EXCEPTION_MSG);
             }
 
             @Override
             public void changePassword(String oldPassword, String newPassword) {
-                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
+                throw new UnsupportedOperationException(EXCEPTION_MSG);
             }
 
             @Override
             public boolean userExists(String username) {
-                throw new UnsupportedOperationException("You cannot use this custom UserDetailsManager for this action.");
+                throw new UnsupportedOperationException(EXCEPTION_MSG);
             }
 
         };
