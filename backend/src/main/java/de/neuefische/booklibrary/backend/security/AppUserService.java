@@ -17,12 +17,13 @@ public class AppUserService {
     }
 
     public AppUser save(AppUser newAppUser, PasswordEncoder passwordEncoder) {
-        if (findByUsername(newAppUser.username()) != null) {
+        if (appUserRepository.existsByUsername(newAppUser.username())) {
             throw new UserAlreadyExistsException("User with this name already exists");
         }
 
         AppUser appUser = newAppUser
                 .withUsername(newAppUser.username())
+                .withRawPassword("")
                 .withPasswordBcrypt(passwordEncoder.encode(newAppUser.rawPassword()))
                 .withRole(newAppUser.role());
         return appUserRepository.save(appUser);
