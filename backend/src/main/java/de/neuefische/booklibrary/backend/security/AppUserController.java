@@ -32,13 +32,12 @@ public class AppUserController {
     }
 
     @GetMapping("/user")
-    public AppUser getAppUser() {
+    public AppUserInfo getAppUser() {
         String name = SecurityContextHolder
                 .getContext()
                 .getAuthentication()
                 .getName();
-        return appUserService.findByUsername(name);
-
+        return appUserService.getUserInfo(name);
     }
 
     @GetMapping("/role")
