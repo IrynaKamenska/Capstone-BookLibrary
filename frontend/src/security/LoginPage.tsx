@@ -1,4 +1,4 @@
-import {FormEvent, useState} from "react";
+import {ChangeEvent, FormEvent, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import "./css/LoginPage.css"
@@ -44,7 +44,7 @@ export default function LoginPage(props: Props) {
 
     }
 
-    function handleChange(event: any) {
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
         setAppUser({
             ...appUser,
             [event.target.name]: event.target.value
