@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Base64;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -76,7 +77,7 @@ class AppUserIntegrationTest {
                                     "rawPassword": "Password898#",
                                     "role": "LIBRARIAN"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().isCreated());
 
         mockMvc.perform(get("/api/app-users/login"))
@@ -94,7 +95,7 @@ class AppUserIntegrationTest {
                                     "username": "lars",
                                     "rawPassword": "Password899#"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().isCreated());
 
         mockMvc.perform(get("/api/app-users/login"))
@@ -112,7 +113,7 @@ class AppUserIntegrationTest {
                                     "username": "ira",
                                     "rawPassword": "Password898#"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().isCreated());
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -121,7 +122,7 @@ class AppUserIntegrationTest {
                                     "username": "ira",
                                     "rawPassword": "Password898#"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().isConflict());
     }
 
@@ -136,7 +137,7 @@ class AppUserIntegrationTest {
                                     "username": "lars",
                                     "rawPassword": "Password899#"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().isCreated());
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -145,7 +146,7 @@ class AppUserIntegrationTest {
                                     "username": "lars",
                                     "rawPassword": "Password899#"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().isConflict());
     }
 
@@ -161,12 +162,12 @@ class AppUserIntegrationTest {
                                     "username": "lars",
                                     "rawPassword": "Password899#"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
         AppUser appUser = objectMapper.readValue(body, AppUser.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/app-users/" + appUser.id()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/app-users/" + appUser.id()).with(csrf()))
                 .andExpect(status().isNoContent());
     }
 
@@ -183,7 +184,7 @@ class AppUserIntegrationTest {
                                     "rawPassword": "Password30#",
                                     "role": "LIBRARIAN"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andReturn().getResponse().getContentAsString();
         AppUser appUser = objectMapper.readValue(body, AppUser.class);
 
