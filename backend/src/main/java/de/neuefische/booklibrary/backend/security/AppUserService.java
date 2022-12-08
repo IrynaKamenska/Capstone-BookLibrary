@@ -1,10 +1,9 @@
 package de.neuefische.booklibrary.backend.security;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+
 
 @Service
 @RequiredArgsConstructor
@@ -34,11 +33,7 @@ public class AppUserService {
         return appUserRepository.save(appUser);
     }
 
-    public void deleteAppUser(String id, String username) {
-        AppUser userFromDatabase = findByUsername(username);
-        if (userFromDatabase.id().equals(id)) {
-            appUserRepository.deleteById(id);
-        } else
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser " + userFromDatabase.username() + " must not delete another user");
+    public void deleteAppUser(String username) {
+        appUserRepository.deleteByUsername(username);
     }
 }
