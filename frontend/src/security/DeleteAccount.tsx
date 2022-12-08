@@ -1,12 +1,12 @@
 import React, {Dispatch, SetStateAction, useCallback, useState} from 'react';
-import {AppUser} from "./model/AppUser";
+import {AppUserInfo} from "./model/AppUserInfo";
 import axios from "axios";
 import Modal from "react-modal";
 import "./css/DeleteAccount.css";
 
 
 type DeleteAccountProps = {
-    appUser: AppUser,
+    appUserInfo: AppUserInfo,
     setUsername: Dispatch<SetStateAction<string | undefined>>
     fetchUser: () => void
 }
@@ -14,19 +14,16 @@ type DeleteAccountProps = {
 function DeleteAccount(props: DeleteAccountProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
-
-    const deleteUser = (id: string) => {
-        console.log("USER ID" + id)
-        axios.delete("/api/app-users/" + id)
-            .then(props.fetchUser)
-            .then(() => alert("User with role " + props.appUser.role + "were deleted!"))
+    const deleteUser = () => {
+        axios.delete("/api/app-users/deleteMe")
+            .then(() => alert("User " + props.appUserInfo.username + " will be deleted!"))
             .catch(error => console.error("DELETE Error: " + error))
             .then(() => props.setUsername("anonymousUser"))
     }
 
-    const openModal = () => {
+    const openModal = useCallback(() => {
         setModalIsOpen(true)
-    }
+    }, [])
 
     const closeModal = useCallback(() => {
         setModalIsOpen(false)
@@ -47,11 +44,10 @@ function DeleteAccount(props: DeleteAccountProps) {
                 <h5>Are you sure to delete your account?</h5>
             </div>
             <button className="button-delete" id="del-alert"
-                    onClick={() => deleteUser(props.appUser.id)}>Delete
+                    onClick={() => deleteUser()}>Delete
             </button>
             <button className="button-cancel" onClick={() => closeModal()}>Cancel</button>
         </Modal>
-
 
     </>;
 }
