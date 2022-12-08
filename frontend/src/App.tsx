@@ -8,7 +8,7 @@ import LoginPage from "./security/LoginPage";
 import RegisterPage from "./security/RegisterPage";
 import SecuredPage from "./security/SecuredPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AppUser} from "./security/model/AppUser";
+import {AppUserInfo} from "./security/model/AppUserInfo";
 
 
 function App() {
@@ -24,13 +24,12 @@ function App() {
     useEffect(fetchAllBooks, [fetchAllBooks])
 
 
-    const initialData: AppUser = {
-        "id": "",
+    const initialData: AppUserInfo = {
         "username": "",
-        "rawPassword": "",
         "role": ""
     }
-    const [appUser, setAppUser] = useState<AppUser>(initialData);
+    const [appUser, setAppUser] = useState<AppUserInfo>(initialData);
+
     const fetchUser = useCallback(() => {
         axios.get("/api/app-users/user")
             .then(response => response.data)
@@ -65,7 +64,7 @@ function App() {
     }
 
     return <>
-        <SecuredPage fetchUsername={fetchUsername} appUser={appUser} fetchUser={fetchUser}
+        <SecuredPage fetchUsername={fetchUsername} appUserInfo={appUser} fetchUser={fetchUser}
                      setUsername={setUsername}/>
         <BookOverview books={books} fetchAllBooks={fetchAllBooks}/>
         <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
