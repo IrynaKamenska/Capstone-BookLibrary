@@ -47,7 +47,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/app-users/logout").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/app-users/member").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/app-users/librarian").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/api/app-users/**").authenticated()
+                .antMatchers(HttpMethod.DELETE, "/api/app-users/deleteMe").authenticated()
 
 
                 .antMatchers(HttpMethod.GET, "/api/books").permitAll()
