@@ -20,57 +20,69 @@ import static org.mockito.Mockito.*;
          AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
          when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(newAppUser);
 
-        // when
-        AppUser actual = appUserService.findByUsername("Bob");
+         // when
+         AppUser actual = appUserService.findByUsername("Bob");
 
-        // then
-        AppUser expected = newAppUser;
-        assertEquals(expected, actual);
-    }
+         // then
+         assertEquals(newAppUser, actual);
+     }
 
-    @Test
-    void addUserReturnsUserAlreadyExistsException() {
-        //given
-        String username = "testuser";
-        AppUser newAppUser = new AppUser("1", username, "password", "", null);
-        when(mockAppUserRepository.existsByUsername(username)).thenReturn(true);
-        when(mockPasswordEncoder.encode("password")).thenReturn("encodedPassword");
-        //when
-        try {
-            appUserService.save(newAppUser, mockPasswordEncoder);
-            fail();
-        } catch (UserAlreadyExistsException e) {
-            //then
-            assertEquals("User with this name already exists", e.getMessage());
-        }
-    }
+     @Test
+     void getAppUserInfoAndReturnAppUserInfo() {
+         // given
+         AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
+         AppUserInfo appUserInfo = new AppUserInfo(newAppUser.username(), newAppUser.role());
+         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(newAppUser);
 
-    @Test
-    void saveAppUserSuccessful() {
-        //given
-        AppUser newAppUser = new AppUser("id-1", "ira", "password", "", AppUserRole.MEMBER);
+         // when
+         AppUserInfo actual = appUserService.getUserInfo("Bob");
 
-        newAppUser = newAppUser.withPasswordBcrypt("encodedPassword");
-        AppUser encodedAppUser = newAppUser
-                .withId(newAppUser.id())
-                .withUsername(newAppUser.username())
-                .withRawPassword("")
-                .withPasswordBcrypt(newAppUser.passwordBcrypt())
-                .withRole(newAppUser.role());
+         // then
+         assertEquals(appUserInfo, actual);
+     }
 
-        when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(null);
-        when(mockPasswordEncoder.encode(newAppUser.rawPassword())).thenReturn(newAppUser.passwordBcrypt());
-        when(mockAppUserRepository.save(encodedAppUser)).thenReturn(encodedAppUser);
+     @Test
+     void addUserReturnsUserAlreadyExistsException() {
+         //given
+         String username = "testuser";
+         AppUser newAppUser = new AppUser("1", username, "password", "", null);
+         when(mockAppUserRepository.existsByUsername(username)).thenReturn(true);
+         when(mockPasswordEncoder.encode("password")).thenReturn("encodedPassword");
+         //when
+         try {
+             appUserService.save(newAppUser, mockPasswordEncoder);
+             fail();
+         } catch (UserAlreadyExistsException e) {
+             //then
+             assertEquals("User with this name already exists", e.getMessage());
+         }
+     }
 
-        //when
-        AppUser expected = encodedAppUser;
-        AppUser actual = appUserService.save(newAppUser, mockPasswordEncoder);
+     @Test
+     void saveAppUserSuccessful() {
+         //given
+         AppUser newAppUser = new AppUser("id-1", "ira", "password", "", AppUserRole.MEMBER);
 
-        //then
-        verify(mockPasswordEncoder).encode("password");
-        assertEquals(expected, actual);
+         newAppUser = newAppUser.withPasswordBcrypt("encodedPassword");
+         AppUser encodedAppUser = newAppUser
+                 .withId(newAppUser.id())
+                 .withUsername(newAppUser.username())
+                 .withRawPassword("")
+                 .withPasswordBcrypt(newAppUser.passwordBcrypt())
+                 .withRole(newAppUser.role());
 
-    }
+         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(null);
+         when(mockPasswordEncoder.encode(newAppUser.rawPassword())).thenReturn(newAppUser.passwordBcrypt());
+         when(mockAppUserRepository.save(encodedAppUser)).thenReturn(encodedAppUser);
+
+         //when
+         AppUser actual = appUserService.save(newAppUser, mockPasswordEncoder);
+
+         //then
+         verify(mockPasswordEncoder).encode("password");
+         assertEquals(encodedAppUser, actual);
+
+     }
 
     @Test
     void deleteAppUserSuccessful() {

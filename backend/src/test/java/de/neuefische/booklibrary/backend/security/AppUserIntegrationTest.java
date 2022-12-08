@@ -174,8 +174,8 @@ class AppUserIntegrationTest {
     @Test
     @DirtiesContext
     @WithMockUser(roles = {"LIBRARIAN"})
-    void expectAppUser_GET_AppUser() throws Exception {
-        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
+    void expectAppUserInfo_GET_AppUserInfo() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -186,19 +186,16 @@ class AppUserIntegrationTest {
                                 }
                                 """).with(csrf()))
                 .andReturn().getResponse().getContentAsString();
-        AppUser appUser = objectMapper.readValue(body, AppUser.class);
 
         mockMvc.perform(get("/api/app-users/user"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(
                         """
                                 {
-                                    "id": "id1",
                                     "username": "user",
-                                    "passwordBcrypt": "<encoded>",
                                     "role": "LIBRARIAN"
                                 }
-                                """.replace("<encoded>", appUser.passwordBcrypt())));
+                                """));
     }
 
 }
