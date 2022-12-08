@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './css/App.css';
 import BookOverview from "./components/BookOverview";
 import GetBooksFromApi from "./service/GetBooksFromApi";
@@ -13,15 +13,16 @@ import {AppUser} from "./security/model/AppUser";
 
 function App() {
     const [books, setBooks] = useState<BookModel[]>([]);
-    const fetchAllBooks = () => {
+
+    const fetchAllBooks = useCallback(() => {
         axios.get("/api/books")
             .then(response => response.data)
             .catch(error => console.error("GET Error: " + error))
             .then(setBooks)
-    }
-    useEffect(fetchAllBooks, [])
+    }, [])
 
-    const [username, setUsername] = useState<string>();
+    useEffect(fetchAllBooks, [fetchAllBooks])
+
 
     const initialData: AppUser = {
         "id": "",
@@ -30,21 +31,21 @@ function App() {
         "role": ""
     }
     const [appUser, setAppUser] = useState<AppUser>(initialData);
-
-    const fetchUser = () => {
+    const fetchUser = useCallback(() => {
         axios.get("/api/app-users/user")
             .then(response => response.data)
             .then(setAppUser)
-    }
-    useEffect(fetchUser, [])
+    }, [])
+    useEffect(fetchUser, [fetchUser])
 
 
-    const fetchUsername = () => {
+    const [username, setUsername] = useState<string>();
+    const fetchUsername = useCallback(() => {
         axios.get("/api/app-users/me")
             .then(response => response.data)
             .then(setUsername)
-    }
-    useEffect(fetchUsername, [])
+    }, [])
+    useEffect(fetchUsername, [fetchUsername])
 
 
     if (username === undefined) {
@@ -55,7 +56,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={"/*"}
-                           element={<LoginPage fetchUser={fetchUser} fetchUsername={fetchUsername}/>}></Route>
+                           element={<LoginPage fetchUser={fetchUser}
+                                               fetchUsername={fetchUsername}/>}></Route>
                     <Route path={"/register"} element={<RegisterPage/>}></Route>
                 </Routes>
             </BrowserRouter>
@@ -63,7 +65,8 @@ function App() {
     }
 
     return <>
-        <SecuredPage fetchUsername={fetchUsername} appUser={appUser} fetchUser={fetchUser} setUsername={setUsername}/>
+        <SecuredPage fetchUsername={fetchUsername} appUser={appUser} fetchUser={fetchUser}
+                     setUsername={setUsername}/>
         <BookOverview books={books} fetchAllBooks={fetchAllBooks}/>
         <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
     </>;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {BookModel} from "../model/BookModel";
 import axios from "axios";
 import Modal from "react-modal";
@@ -12,12 +12,15 @@ type DeleteBookProps = {
 
 function DeleteBook(props: DeleteBookProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    const deleteBook = (id: string) => {
+
+    const deleteBook = useCallback((id: string) => {
         axios.delete("/api/books/" + id)
             .then(props.reloadAllBooks)
             .then(() => alert("Remove book with id " + props.book.id + " successful!"))
             .catch(error => console.error("DELETE Error: " + error))
-    }
+    }, [props.book.id, props.reloadAllBooks])
+
+
     const openModal = () => {
         setModalIsOpen(true)
     }
@@ -25,12 +28,17 @@ function DeleteBook(props: DeleteBookProps) {
     const closeModal = () => {
         setModalIsOpen(false)
     }
+    const closeModalCallback = useCallback(closeModal, [])
+
+    const handleCancelClick = useCallback(() => closeModal(), []);
+    const handleDeleteClick = useCallback(() => deleteBook(props.book.id), [deleteBook, props.book.id]);
+
 
     return <>
         <button className="db-list-button db-list-button-delete" type={"submit"} onClick={openModal}>Delete</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
-               onRequestClose={closeModal}
+               onRequestClose={closeModalCallback}
                contentLabel="Example Modal"
                ariaHideApp={false}
         >
@@ -39,10 +47,10 @@ function DeleteBook(props: DeleteBookProps) {
             <div className="modal-body">
                 <h5>Are you sure to delete this book?</h5>
             </div>
-            <button className="modal-button modal-button-delete" id="del-alert" onClick={() => deleteBook(props.book.id)}>Delete</button>
-            <button className="modal-button modal-button-cancel" onClick={() => closeModal()}>Cancel</button>
+            <button className="modal-button modal-button-delete" id="del-alert" onClick={handleDeleteClick}>Delete
+            </button>
+            <button className="modal-button modal-button-cancel" onClick={handleCancelClick}>Cancel</button>
         </Modal>
-
 
     </>;
 }

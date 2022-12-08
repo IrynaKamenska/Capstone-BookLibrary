@@ -4,7 +4,6 @@ import React, {Dispatch, SetStateAction} from "react";
 import DeleteAccount from "./DeleteAccount";
 import "./css/SecuredPage.css";
 
-
 type SecuredProps = {
     fetchUsername: () => void,
     appUser: AppUser
@@ -12,7 +11,6 @@ type SecuredProps = {
     setUsername: Dispatch<SetStateAction<string | undefined>>
 }
 export default function SecuredPage(props: SecuredProps) {
-
     function logout() {
         axios.get("/api/app-users/logout")
             .then(props.fetchUsername)
@@ -27,6 +25,5 @@ export default function SecuredPage(props: SecuredProps) {
             <DeleteAccount appUser={props.appUser} setUsername={props.setUsername} fetchUser={props.fetchUser}/>
         </div>
     </div>
-
 
 }
