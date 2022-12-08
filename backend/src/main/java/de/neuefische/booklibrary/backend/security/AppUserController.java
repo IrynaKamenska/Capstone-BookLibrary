@@ -79,11 +79,10 @@ public class AppUserController {
         httpSession.invalidate();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deleteMe")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable String id) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        appUserService.deleteAppUser(id, username);
-
+    public void deleteUser() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        appUserService.deleteAppUser(name);
     }
 }
