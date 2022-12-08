@@ -21,16 +21,16 @@ function DeleteBook(props: DeleteBookProps) {
     }, [props.book.id, props.reloadAllBooks])
 
 
-    const openModal = () => {
+    const openModal = useCallback(() => {
         setModalIsOpen(true)
-    }
+    }, [])
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setModalIsOpen(false)
-    }
-    const closeModalCallback = useCallback(closeModal, [])
+    }, [])
+    const closeModalCallback = useCallback(closeModal, [closeModal])
 
-    const handleCancelClick = useCallback(() => closeModal(), []);
+    const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
     const handleDeleteClick = useCallback(() => deleteBook(props.book.id), [deleteBook, props.book.id]);
 
 
