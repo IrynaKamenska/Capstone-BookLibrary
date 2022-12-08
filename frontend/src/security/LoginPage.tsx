@@ -1,10 +1,9 @@
-import {ChangeEvent, FormEvent, useState} from "react";
+import {FormEvent, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import "./css/LoginPage.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye} from "@fortawesome/free-solid-svg-icons";
-import {AppUser} from "./model/AppUser";
 
 const eye = <FontAwesomeIcon icon={faEye}/>;
 
@@ -13,15 +12,9 @@ type Props = {
     fetchUsername: () => void
 }
 export default function LoginPage(props: Props) {
+    const [username, setUsername] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
     const [passwordShown, setPasswordShown] = useState(false);
-
-    const initialData: AppUser = {
-        "id": "",
-        "username": "",
-        "rawPassword": "",
-        "role": ""
-    }
-    const [appUser, setAppUser] = useState(initialData)
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
@@ -30,11 +23,12 @@ export default function LoginPage(props: Props) {
     const login = () => {
         axios.get("/api/app-users/login", {
             auth: {
-                username: appUser.username,
-                password: appUser.rawPassword
+                username,
+                password
             }
         })
             .then(props.fetchUsername)
+            .then(props.fetchUser)
             .catch(() => alert("Login failed"));
     }
 
@@ -44,27 +38,19 @@ export default function LoginPage(props: Props) {
 
     }
 
-    function handleChange(event: ChangeEvent<HTMLInputElement>) {
-        setAppUser({
-            ...appUser,
-            [event.target.name]: event.target.value
-        })
-    }
-
-
     return <>
         <div className={"login-form"}>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
                     <input name="username" type="text" id="username" placeholder="username"
-                           onChange={handleChange}/>
+                           onChange={event => setUsername(event.target.value)}/>
                 </div>
                 <div className="input-group">
                     <label htmlFor="password">Password</label>
-                    <input name="rawPassword" type={passwordShown ? "text" : "password"} id="password"
+                    <input name="password" type={passwordShown ? "text" : "password"} id="password"
                            placeholder="password"
-                           onChange={handleChange}/>
+                           onChange={event => setPassword(event.target.value)}/>
                     <b onClick={togglePassword} id="eye">{eye}</b>
                 </div>
                 <button className="primary">Login</button>
