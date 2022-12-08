@@ -33,7 +33,7 @@ import static org.mockito.Mockito.*;
         //given
         String username = "testuser";
         AppUser newAppUser = new AppUser("1", username, "password", "", null);
-        when(mockAppUserRepository.findByUsername(username)).thenReturn(newAppUser);
+        when(mockAppUserRepository.existsByUsername(username)).thenReturn(true);
         when(mockPasswordEncoder.encode("password")).thenReturn("encodedPassword");
         //when
         try {
@@ -48,24 +48,26 @@ import static org.mockito.Mockito.*;
     @Test
     void saveAppUserSuccessful() {
         //given
-        AppUser newAppUser = new AppUser("id-1", "username", "password", "", AppUserRole.MEMBER);
+        AppUser newAppUser = new AppUser("id-1", "ira", "password", "", AppUserRole.MEMBER);
+
         newAppUser = newAppUser.withPasswordBcrypt("encodedPassword");
         AppUser encodedAppUser = newAppUser
                 .withId(newAppUser.id())
                 .withUsername(newAppUser.username())
+                .withRawPassword("")
                 .withPasswordBcrypt(newAppUser.passwordBcrypt())
                 .withRole(newAppUser.role());
 
+        when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(null);
         when(mockPasswordEncoder.encode(newAppUser.rawPassword())).thenReturn(newAppUser.passwordBcrypt());
-        when(mockAppUserRepository.save(newAppUser)).thenReturn(newAppUser);
+        when(mockAppUserRepository.save(encodedAppUser)).thenReturn(encodedAppUser);
 
         //when
-        AppUser actual = appUserService.save(newAppUser, mockPasswordEncoder);
         AppUser expected = encodedAppUser;
+        AppUser actual = appUserService.save(newAppUser, mockPasswordEncoder);
 
         //then
         verify(mockPasswordEncoder).encode("password");
-
         assertEquals(expected, actual);
 
     }
