@@ -12,6 +12,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -47,7 +48,7 @@ class BookIntegrationTest {
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "AVAILABLE"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().is(201))
                 .andReturn().getResponse().getContentAsString();
 
@@ -86,7 +87,7 @@ class BookIntegrationTest {
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "AVAILABLE"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().is(201))
                 .andReturn().getResponse().getContentAsString();
 
@@ -127,13 +128,13 @@ class BookIntegrationTest {
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "AVAILABLE"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().is(201))
                 .andReturn().getResponse().getContentAsString();
 
         Book book = objectMapper.readValue(body, Book.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.put("/api/books/"+book.id())
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/books/" + book.id())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                     {
@@ -143,7 +144,7 @@ class BookIntegrationTest {
                                     "isbn": "ISBN 978-0-596-52068-7",
                                     "availability": "NOT_AVAILABLE"
                                     }
-                                """.replace("<id>", book.id())))
+                                """.replace("<id>", book.id())).with(csrf()))
                 .andExpect(status().is(200))
                 .andExpect(content().json("""
                             {
@@ -170,7 +171,7 @@ class BookIntegrationTest {
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "AVAILABLE"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().is(201))
                 .andExpect(content().json("""
                         {
@@ -197,7 +198,7 @@ class BookIntegrationTest {
                                     "isbn": "ISBN 978-0-596-52068-7",
                                     "availability": "NOT_AVAILABLE"
                                     }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().is(201))
                 .andExpect(content().json("""
                         {
@@ -226,13 +227,13 @@ class BookIntegrationTest {
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "AVAILABLE"
                                 }
-                                """))
+                                """).with(csrf()))
                 .andExpect(status().is(201))
                 .andReturn().getResponse().getContentAsString();
 
         Book book = objectMapper.readValue(body, Book.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/" + book.id()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/" + book.id()).with(csrf()))
                 .andExpect(status().isNoContent());
 
     }
@@ -242,7 +243,7 @@ class BookIntegrationTest {
     @DirtiesContext
     void deleteBookWithNotExistingId_return404() throws Exception {
         String id = "1";
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/" + id))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/" + id).with(csrf()))
                 .andExpect(status().isNotFound())
                 .andExpect(status().reason("No Book with ID:" + id + " found"));
     }
