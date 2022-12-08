@@ -1,6 +1,5 @@
 package de.neuefische.booklibrary.backend.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,9 +26,6 @@ class AppUserIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @Test
     @WithMockUser
@@ -155,7 +151,7 @@ class AppUserIntegrationTest {
     @DirtiesContext
     @WithMockUser(username = "lars", roles = {"MEMBER"})
     void expect204_DELETE_deleteMember() throws Exception {
-        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -165,9 +161,8 @@ class AppUserIntegrationTest {
                                 """).with(csrf()))
                 .andExpect(status().isCreated())
                 .andReturn().getResponse().getContentAsString();
-        AppUser appUser = objectMapper.readValue(body, AppUser.class);
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/app-users/" + appUser.id()).with(csrf()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/app-users/deleteMe").with(csrf()))
                 .andExpect(status().isNoContent());
     }
 
