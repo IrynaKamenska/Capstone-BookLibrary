@@ -16,6 +16,11 @@ public class AppUserService {
         return appUserRepository.findByUsername(username);
     }
 
+    public AppUserInfo getUserInfo(String username) {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        return new AppUserInfo(appUser.username(), appUser.role());
+    }
+
     public AppUser save(AppUser newAppUser, PasswordEncoder passwordEncoder) {
         if (appUserRepository.existsByUsername(newAppUser.username())) {
             throw new UserAlreadyExistsException("User with this name already exists");
