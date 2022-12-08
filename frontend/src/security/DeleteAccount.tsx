@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
+import React, {Dispatch, SetStateAction, useCallback, useState} from 'react';
 import {AppUser} from "./model/AppUser";
 import axios from "axios";
 import Modal from "react-modal";
@@ -28,15 +28,16 @@ function DeleteAccount(props: DeleteAccountProps) {
         setModalIsOpen(true)
     }
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setModalIsOpen(false)
-    }
+    }, [])
+    const closeModalCallback = useCallback(closeModal, [closeModal])
 
     return <>
         <button className="button-delete-account" type={"submit"} onClick={openModal}>Delete Account</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
-               onRequestClose={closeModal}
+               onRequestClose={closeModalCallback}
                contentLabel="Example Modal"
                ariaHideApp={false}
         >
