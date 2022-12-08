@@ -1,9 +1,7 @@
 package de.neuefische.booklibrary.backend.security;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -71,7 +69,7 @@ import static org.mockito.Mockito.*;
                  .withPasswordBcrypt(newAppUser.passwordBcrypt())
                  .withRole(newAppUser.role());
 
-         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(null);
+         when(mockAppUserRepository.existsByUsername(newAppUser.username())).thenReturn(false);
          when(mockPasswordEncoder.encode(newAppUser.rawPassword())).thenReturn(newAppUser.passwordBcrypt());
          when(mockAppUserRepository.save(encodedAppUser)).thenReturn(encodedAppUser);
 
@@ -88,34 +86,14 @@ import static org.mockito.Mockito.*;
     void deleteAppUserSuccessful() {
         //given
         AppUser newAppUser = new AppUser("id-1", "username", "password", "", AppUserRole.MEMBER);
-        newAppUser = newAppUser.withPasswordBcrypt("encodedPassword");
-        when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(newAppUser);
-        doNothing().when(mockAppUserRepository).deleteById("id-1");
+        String username = newAppUser.username();
 
         //when
-        appUserService.deleteAppUser(newAppUser.id(), newAppUser.username());
+        doNothing().when(mockAppUserRepository).deleteByUsername(username);
+        appUserService.deleteAppUser(username);
 
         //then
-        verify(mockAppUserRepository).deleteById(newAppUser.id());
-    }
-
-    @Test
-    void deleteAppUser_return403() {
-        //given
-        String idToDelete = "1";
-        AppUser userFromDatabase = new AppUser("2", "username", "password", "", AppUserRole.MEMBER);
-        ResponseStatusException expectedResponseStatusException = new ResponseStatusException(HttpStatus.FORBIDDEN, "AppUser " + userFromDatabase.username() + " must not delete another user");
-        when(mockAppUserRepository.findByUsername(userFromDatabase.username())).thenReturn(userFromDatabase);
-        String username = userFromDatabase.username();
-
-        //when
-        try {
-            appUserService.deleteAppUser(idToDelete, username);
-            //then
-            fail("Expected an ResponseStatusException to be thrown");
-        } catch (ResponseStatusException e) {
-            assertEquals(expectedResponseStatusException.getMessage(), e.getMessage());
-        }
+        verify(mockAppUserRepository).deleteByUsername(username);
     }
 
 }
