@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import "./css/RegisterPage.css"
@@ -45,7 +45,7 @@ function RegisterPage() {
         register()
     }
 
-    function handleChange(event: any) {
+    function handleChange(event: ChangeEvent<HTMLInputElement>) {
         setAppUser({
             ...appUser,
             [event.target.name]: event.target.value
