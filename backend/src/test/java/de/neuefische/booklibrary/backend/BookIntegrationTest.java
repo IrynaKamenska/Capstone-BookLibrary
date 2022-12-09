@@ -1,6 +1,7 @@
 package de.neuefische.booklibrary.backend;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.neuefische.booklibrary.backend.book.Book;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
