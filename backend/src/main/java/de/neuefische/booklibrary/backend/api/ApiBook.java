@@ -1,6 +1,6 @@
 package de.neuefische.booklibrary.backend.api;
 
-import de.neuefische.booklibrary.backend.Availability;
+import de.neuefische.booklibrary.backend.book.Availability;
 import lombok.With;
 
 @With

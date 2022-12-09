@@ -1,4 +1,4 @@
-package de.neuefische.booklibrary.backend;
+package de.neuefische.booklibrary.backend.book;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 

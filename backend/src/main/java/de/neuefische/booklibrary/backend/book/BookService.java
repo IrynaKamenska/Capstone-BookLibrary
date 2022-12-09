@@ -1,4 +1,4 @@
-package de.neuefische.booklibrary.backend;
+package de.neuefische.booklibrary.backend.book;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
