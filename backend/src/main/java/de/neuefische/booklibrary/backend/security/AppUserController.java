@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/app-users")
@@ -71,6 +72,11 @@ public class AppUserController {
         } catch (UserAlreadyExistsException e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
+    }
+
+    @GetMapping("/allUsersnames")
+    public List<String> getAllUsernames() {
+        return appUserService.getUsernamesFromDb();
     }
 
 
