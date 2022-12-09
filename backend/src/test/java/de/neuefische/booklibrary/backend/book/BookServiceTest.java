@@ -33,7 +33,7 @@ class BookServiceTest {
     @Test
     void getAllBooks_returnListWithOneBook() {
         //given
-        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", Availability.AVAILABLE);
+        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", Availability.AVAILABLE, null);
         Book foundBook = book.withTitle("Java").withAuthor("M. Kofler").withIsbn("978-3-8362-8392-2").withAvailability(Availability.AVAILABLE);
 
         when(bookRepository.findAll()).thenReturn(List.of(foundBook));
@@ -52,7 +52,7 @@ class BookServiceTest {
     @Test
     void addNewBookWithoutId_returnBookWithId() {
         //given
-        Book book = new Book(null, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE);
+        Book book = new Book(null, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
         Book saveBook = book.withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(Availability.NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook.withId("id1"));
 
@@ -67,7 +67,7 @@ class BookServiceTest {
     @Test
     void addNewBookWithId_returnBook() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
         Book saveBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(Availability.NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook);
 
@@ -82,7 +82,7 @@ class BookServiceTest {
    @Test
     void updateBookById_returnUpdatedBook() {
        //given
-       Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE);
+       Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
        Book toUpdateBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(Availability.NOT_AVAILABLE);
 
        when(bookRepository.save(toUpdateBook)).thenReturn(toUpdateBook);
@@ -112,7 +112,7 @@ class BookServiceTest {
     @Test
     void deleteBookById() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
         doNothing().when(bookRepository).deleteById(book.id());
         //when
         bookService.deleteBook(book.id());
