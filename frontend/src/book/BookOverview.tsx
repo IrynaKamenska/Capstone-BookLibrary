@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {BookModel} from "./BookModel";
 import CreateBook from "./CreateBook";
 import DeleteBook from "./DeleteBook";
@@ -16,13 +16,13 @@ type BookOverviewProps = {
 function BookOverview(props: BookOverviewProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
-    const openModal = () => {
+    const openModal = useCallback(() => {
         setModalIsOpen(true)
-    }
+    }, [])
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setModalIsOpen(false)
-    }
+    }, [])
 
     return <>
         <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={props.fetchAllBooks}/>

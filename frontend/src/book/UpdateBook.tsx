@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useCallback, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import {Availability} from "./Availability";
@@ -32,13 +32,13 @@ function UpdateBook(props: UpdateBookProps) {
             .then(props.reloadAllBooks)
     }
 
-    const openModal = () => {
+    const openModal = useCallback(() => {
         setModalIsOpen(true)
-    }
+    }, [])
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setModalIsOpen(false)
-    }
+    }, [])
 
     function handleUpdateChange(event: any) {
         setUpdatedBook({
