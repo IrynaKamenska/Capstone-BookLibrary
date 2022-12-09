@@ -8,7 +8,6 @@ import {faEye} from "@fortawesome/free-solid-svg-icons";
 const eye = <FontAwesomeIcon icon={faEye}/>;
 
 type Props = {
-    fetchUser: () => void
     fetchUsername: () => void
 }
 export default function LoginPage(props: Props) {
@@ -28,7 +27,6 @@ export default function LoginPage(props: Props) {
             }
         })
             .then(props.fetchUsername)
-            .then(props.fetchUser)
             .catch(() => alert("Login failed"));
     }
 
