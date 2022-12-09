@@ -1,4 +1,4 @@
-package de.neuefische.booklibrary.backend;
+package de.neuefische.booklibrary.backend.book;
 
 import de.neuefische.booklibrary.backend.api.ApiBookService;
 import lombok.RequiredArgsConstructor;

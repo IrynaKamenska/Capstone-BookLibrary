@@ -1,8 +1,8 @@
 package de.neuefische.booklibrary.backend.api;
 
 
-import de.neuefische.booklibrary.backend.Availability;
-import de.neuefische.booklibrary.backend.Book;
+import de.neuefische.booklibrary.backend.book.Availability;
+import de.neuefische.booklibrary.backend.book.Book;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
