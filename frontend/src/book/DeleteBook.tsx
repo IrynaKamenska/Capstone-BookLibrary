@@ -1,8 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import {BookModel} from "../model/BookModel";
+import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
-import "../css/DeleteBook.css";
+import "./css/DeleteBook.css";
 
 type DeleteBookProps = {
     book: BookModel;

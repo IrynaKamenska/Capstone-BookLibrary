@@ -1,8 +1,8 @@
 import React, {FormEvent} from 'react';
-import "../css/BookCard.css";
-import {Availability} from "../model/Availability";
+import "./css/BookCard.css";
+import {Availability} from "./Availability";
 import axios from "axios";
-import {BookModel} from "../model/BookModel";
+import {BookModel} from "./BookModel";
 
 
 type BookCardProps = {

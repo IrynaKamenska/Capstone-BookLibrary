@@ -1,5 +1,5 @@
 import React from 'react';
-import "../css/AddBookManually.css";
+import "./css/AddBookManually.css";
 
 type addBookProps = {
     openModal: () => void

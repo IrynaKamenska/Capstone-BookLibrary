@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import './css/App.css';
-import BookOverview from "./components/BookOverview";
-import GetBooksFromApi from "./service/GetBooksFromApi";
+import './book/css/App.css';
+import BookOverview from "./book/BookOverview";
+import GetBooksFromApi from "./api/GetBooksFromApi";
 import axios from "axios";
-import {BookModel} from "./model/BookModel";
+import {BookModel} from "./book/BookModel";
 import LoginPage from "./security/LoginPage";
 import RegisterPage from "./security/RegisterPage";
 import SecuredPage from "./security/SecuredPage";

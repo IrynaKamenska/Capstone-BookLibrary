@@ -1,9 +1,9 @@
 import React, {FormEvent, useState} from 'react';
-import {BookModel} from "../model/BookModel";
+import {BookModel} from "./BookModel";
 import axios from "axios";
-import {Availability} from "../model/Availability";
+import {Availability} from "./Availability";
 import Modal from "react-modal";
-import "../css/UpdateBook.css";
+import "./css/UpdateBook.css";
 
 type UpdateBookProps = {
     book: BookModel;
