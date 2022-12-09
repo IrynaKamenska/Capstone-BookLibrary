@@ -58,7 +58,7 @@ public class ApiBookService {
                     apiBook.volumeInfo().title(),
                     author,
                     apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
-                    Availability.AVAILABLE);
+                    Availability.AVAILABLE, null);
             bookList.add(book);
         }
     }
@@ -93,6 +93,4 @@ public class ApiBookService {
                 .stream()
                 .flatMap(Collection::stream).toList();
     }
-
-
 }
