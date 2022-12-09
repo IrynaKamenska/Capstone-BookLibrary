@@ -57,10 +57,8 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.PUT, "/api/books/**").hasRole(LIBRARIAN_ROLE)
                 .antMatchers(HttpMethod.DELETE, "/api/books/**").hasRole(LIBRARIAN_ROLE)
 
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.GET, "/", "/static/**", "/index.html", "/register").permitAll()
                 .and()
-                .formLogin()
-                .disable()
                 .build();
     }
 
