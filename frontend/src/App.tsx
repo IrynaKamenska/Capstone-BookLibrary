@@ -8,7 +8,6 @@ import LoginPage from "./security/LoginPage";
 import RegisterPage from "./security/RegisterPage";
 import SecuredPage from "./security/SecuredPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {AppUserInfo} from "./security/model/AppUserInfo";
 
 
 function App() {
@@ -22,20 +21,6 @@ function App() {
     }, [])
 
     useEffect(fetchAllBooks, [fetchAllBooks])
-
-
-    const initialData: AppUserInfo = {
-        "username": "",
-        "role": ""
-    }
-    const [appUser, setAppUser] = useState<AppUserInfo>(initialData);
-
-    const fetchUser = useCallback(() => {
-        axios.get("/api/app-users/user")
-            .then(response => response.data)
-            .then(setAppUser)
-    }, [])
-    useEffect(fetchUser, [fetchUser])
 
 
     const [username, setUsername] = useState<string>();
@@ -55,8 +40,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={"/*"}
-                           element={<LoginPage fetchUser={fetchUser}
-                                               fetchUsername={fetchUsername}/>}></Route>
+                           element={<LoginPage fetchUsername={fetchUsername}/>}></Route>
                     <Route path={"/register"} element={<RegisterPage/>}></Route>
                 </Routes>
             </BrowserRouter>
@@ -64,8 +48,7 @@ function App() {
     }
 
     return <>
-        <SecuredPage fetchUsername={fetchUsername} appUserInfo={appUser} fetchUser={fetchUser}
-                     setUsername={setUsername}/>
+        <SecuredPage fetchUsername={fetchUsername} setUsername={setUsername}/>
         <BookOverview books={books} fetchAllBooks={fetchAllBooks}/>
         <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
     </>;
