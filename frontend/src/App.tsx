@@ -39,7 +39,7 @@ function App() {
         return <>
             <BrowserRouter>
                 <Routes>
-                    <Route path={"/*"}
+                    <Route path={"/"}
                            element={<LoginPage fetchUsername={fetchUsername}/>}></Route>
                     <Route path={"/register"} element={<RegisterPage/>}></Route>
                 </Routes>
