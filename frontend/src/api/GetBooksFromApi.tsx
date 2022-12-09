@@ -1,9 +1,9 @@
 import React, {ChangeEvent, FormEvent, useState} from 'react';
 import axios from "axios";
-import BookCard from "../components/BookCard";
-import "../css/GetBooksFromApi.css";
-import {Availability} from "../model/Availability";
-import {BookModel} from "../model/BookModel";
+import BookCard from "../book/BookCard";
+import "./css/GetBooksFromApi.css";
+import {Availability} from "../book/Availability";
+import {BookModel} from "../book/BookModel";
 
 type GetBooksFromApiProps = {
     reloadAllBooks: () => void
