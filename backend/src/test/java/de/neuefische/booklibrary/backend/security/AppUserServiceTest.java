@@ -22,6 +22,7 @@ import static org.mockito.Mockito.*;
          AppUser actual = appUserService.findByUsername("Bob");
 
          // then
+         verify(mockAppUserRepository).findByUsername(newAppUser.username());
          assertEquals(newAppUser, actual);
      }
 
@@ -36,6 +37,7 @@ import static org.mockito.Mockito.*;
          AppUserInfo actual = appUserService.getUserInfo("Bob");
 
          // then
+         verify(mockAppUserRepository).findByUsername(newAppUser.username());
          assertEquals(appUserInfo, actual);
      }
 
@@ -52,6 +54,8 @@ import static org.mockito.Mockito.*;
              fail();
          } catch (UserAlreadyExistsException e) {
              //then
+             verify(mockAppUserRepository).existsByUsername(username);
+             verify(mockAppUserRepository, never()).save(newAppUser);
              assertEquals("User with this name already exists", e.getMessage());
          }
      }
@@ -78,6 +82,8 @@ import static org.mockito.Mockito.*;
 
          //then
          verify(mockPasswordEncoder).encode("password");
+         verify(mockAppUserRepository).existsByUsername(newAppUser.username());
+         verify(mockAppUserRepository).save(encodedAppUser);
          assertEquals(encodedAppUser, actual);
 
      }
