@@ -3,6 +3,9 @@ package de.neuefische.booklibrary.backend.security;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
@@ -102,4 +105,23 @@ import static org.mockito.Mockito.*;
         verify(mockAppUserRepository).deleteByUsername(username);
     }
 
-}
+     @Test
+     void getUsernamesFromDb_returnAllUsernames() {
+         //given
+         String username1 = "username_1";
+         String username2 = "username_2";
+         List<String> usernames = new ArrayList<>(List.of(username1, username2));
+         AppUser newAppUser1 = new AppUser("id-1", username1, "password", "", AppUserRole.MEMBER);
+         AppUser newAppUser2 = new AppUser("id-2", username2, "password", "", AppUserRole.MEMBER);
+         List<AppUser> users = new ArrayList<>(List.of(newAppUser1, newAppUser2));
+
+         //when
+         when(mockAppUserRepository.findAll()).thenReturn(users);
+         List<String> actual = appUserService.getUsernamesFromDb();
+
+         //then
+         verify(mockAppUserRepository).findAll();
+         assertEquals(usernames, actual);
+     }
+
+ }
