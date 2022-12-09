@@ -14,5 +14,6 @@ public record Book(
         String author,
         @NotBlank
         String isbn,
-        Availability availability) {
+        Availability availability,
+        String rentedBy) {
 }
