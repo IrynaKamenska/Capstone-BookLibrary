@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +20,14 @@ public class AppUserService {
     public AppUserInfo getUserInfo(String username) {
         AppUser appUser = appUserRepository.findByUsername(username);
         return new AppUserInfo(appUser.username(), appUser.role());
+    }
+
+    public boolean existsByUsername(String username) {
+        return appUserRepository.existsByUsername(username);
+    }
+
+    public List<String> getUsernamesFromDb() {
+        return appUserRepository.findAll().stream().map(AppUser::username).toList();
     }
 
     public AppUser save(AppUser newAppUser, PasswordEncoder passwordEncoder) {
