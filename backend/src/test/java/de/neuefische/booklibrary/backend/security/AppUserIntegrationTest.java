@@ -38,10 +38,11 @@ class AppUserIntegrationTest {
 
 
     @Test
-    @WithMockUser
+    @WithMockUser(username = "appUser")
     void expect200_GET_me() throws Exception {
         mockMvc.perform(get("/api/app-users/me"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(content().string("appUser"));
     }
 
 
@@ -62,14 +63,14 @@ class AppUserIntegrationTest {
     }
 
     @Test
+    @WithMockUser(roles = {"LIBRARIAN"}, username = "appUser")
     @DirtiesContext
-    @WithMockUser(roles = {"LIBRARIAN"})
     void expect201_POST_addLibrarian() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "username": "ira",
+                                    "username": "appUser",
                                     "rawPassword": "Password898#",
                                     "role": "LIBRARIAN"
                                 }
@@ -78,17 +79,20 @@ class AppUserIntegrationTest {
 
         mockMvc.perform(get("/api/app-users/login"))
                 .andExpect(status().isOk());
+        mockMvc.perform(get("/api/app-users/me"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("appUser"));
     }
 
     @Test
     @DirtiesContext
-    @WithMockUser(roles = {"MEMBER"})
+    @WithMockUser(roles = {"MEMBER"}, username = "appUser")
     void expect201_POST_addMember() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                    "username": "lars",
+                                    "username": "appUser",
                                     "rawPassword": "Password899#"
                                 }
                                 """).with(csrf()))
@@ -96,6 +100,10 @@ class AppUserIntegrationTest {
 
         mockMvc.perform(get("/api/app-users/login"))
                 .andExpect(status().isOk());
+
+        mockMvc.perform(get("/api/app-users/role"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("[ROLE_MEMBER]"));
     }
 
     @Test
