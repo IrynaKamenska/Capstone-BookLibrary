@@ -70,9 +70,9 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
 
             <div className={"book-cards"}>
                 {Array.isArray(result)
-                    ? result.map((current, index) =>
+                    ? result.map((current) =>
                         <div className={"book-card"}>
-                            <BookCard key={index} book={current} reloadAllBooks={props.reloadAllBooks}/>
+                            <BookCard key={current.id} book={current} reloadAllBooks={props.reloadAllBooks}/>
                         </div>)
                     : ""}
             </div>
