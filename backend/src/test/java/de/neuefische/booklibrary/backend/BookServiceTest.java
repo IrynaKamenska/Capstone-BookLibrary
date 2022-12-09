@@ -1,5 +1,9 @@
 package de.neuefische.booklibrary.backend;
 
+import de.neuefische.booklibrary.backend.book.Availability;
+import de.neuefische.booklibrary.backend.book.Book;
+import de.neuefische.booklibrary.backend.book.BookRepository;
+import de.neuefische.booklibrary.backend.book.BookService;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

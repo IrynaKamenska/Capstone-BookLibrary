@@ -1,7 +1,7 @@
 package de.neuefische.booklibrary.backend.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.neuefische.booklibrary.backend.Availability;
+import de.neuefische.booklibrary.backend.book.Availability;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterAll;
