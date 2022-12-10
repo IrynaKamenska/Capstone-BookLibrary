@@ -6,5 +6,6 @@ export type BookModel = {
     title: string,
     author: string,
     isbn: string,
-    availability: Availability
+    availability: Availability,
+    rentedBy: string
 }

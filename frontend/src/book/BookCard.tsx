@@ -27,7 +27,8 @@ function BookCard(props: BookCardProps) {
             title: "",
             author: "",
             isbn: "",
-            availability: Availability.AVAILABLE
+            availability: Availability.AVAILABLE,
+            rentedBy: ""
         });
     }
 
