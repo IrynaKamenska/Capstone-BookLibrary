@@ -1,17 +1,22 @@
 package de.neuefische.booklibrary.backend.book;
 
+import de.neuefische.booklibrary.backend.security.AppUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
+import static de.neuefische.booklibrary.backend.book.Availability.AVAILABLE;
+import static de.neuefische.booklibrary.backend.book.Availability.NOT_AVAILABLE;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
 
     private final BookRepository bookRepository;
+    private final AppUserRepository appUserRepository;
 
 
     public List<Book> getAllBooks() {
@@ -34,13 +39,19 @@ public class BookService {
         return bookRepository.existsById(id);
     }
 
-    public Book rentBook(String id, String rentedBy, Book book) {
-        if (book.availability().equals(Availability.AVAILABLE)) {
-            Book bookToRent = book.withId(id).withRentedBy(rentedBy).withAvailability(Availability.NOT_AVAILABLE);
-            return bookRepository.save(bookToRent);
-        } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Book with a status NOT_AVAILABLE cannot be rented");
-        }
-    }
+    public Book rentBook(String id, String rentedBy) {
+        Book bookToRent = bookRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book found with this ID"));
 
+        if (bookToRent.availability() != AVAILABLE) throw new BookNotAvailableException("Book is not available");
+        if ((bookToRent.rentedBy() != null)) {
+            throw new BookIsAlreadyRentedException("Book is already rented to user: " + bookToRent.rentedBy());
+        }
+
+        if (!appUserRepository.existsByUsername(rentedBy)) {
+            throw new UsernameNotFoundException("Username not found");
+        }
+        bookToRent = bookToRent.withId(id).withRentedBy(rentedBy).withAvailability(NOT_AVAILABLE);
+        return bookRepository.save(bookToRent);
+
+    }
 }
