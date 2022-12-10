@@ -22,7 +22,6 @@ function UpdateBook(props: UpdateBookProps) {
 
     const handleEditBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log("Updated Book: " + updatedBook)
         axios.put("/api/books/" + props.book.id, updatedBook)
             .then(response => {
                 closeModal()
