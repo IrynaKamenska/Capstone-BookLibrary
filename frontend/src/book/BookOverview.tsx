@@ -4,6 +4,8 @@ import CreateBook from "./CreateBook";
 import DeleteBook from "./DeleteBook";
 import UpdateBook from "./UpdateBook";
 import "./css/BookOverview.css";
+import "../Buttons.css";
+import "../Modals.css";
 import AddBookManually from "./AddBookManually";
 
 type BookOverviewProps = {

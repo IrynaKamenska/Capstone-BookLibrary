@@ -39,10 +39,16 @@
     font-size: 16px;
 }
 
-.book-info {
+.book-author {
     text-align: justify;
     padding: 0 5px;
     font-size: 15px;
+}
+
+.book-isbn {
+    text-align: justify;
+    padding: 0 5px 10px 5px;
+    font-size: 13px;
 }
 
 .book-image {

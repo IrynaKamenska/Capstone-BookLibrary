@@ -1,25 +1,28 @@
 .login-form {
     display: flex;
     flex-flow: column wrap;
-    max-width: 25%;
-    margin: 5% auto;
-    padding: 1em;
-    box-shadow: 4px 8px 10px 5px rgba(0, 0, 0, 0.5);
-    border-radius: 3px;
-    border: lightgray 2px solid;
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    box-shadow: 4px 4px 8px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    border: lightgray 1px solid;
 }
 
 .login-form h2 {
     text-align: center;
+    font-style: unset;
+    margin-top: 5px;
 }
 
 .form {
-    margin-bottom: 98px;
-    margin-top: 41px;
+    margin-bottom: 40px;
+    margin-top: 15px;
 }
 
 .input-group {
     margin-bottom: 26px;
+    position: relative;
 }
 
 .input-group:nth-last-child(-n + 2) {
@@ -29,9 +32,8 @@
 .input-group > label,
 .input-group > input {
     font-family: 'Roboto', sans-serif;
-    max-width: 420px;
     text-align: left;
-    width: 80%;
+    width: 265px;
 }
 
 .input-group > label {
@@ -50,11 +52,15 @@
     height: 40px;
     outline: 0;
     padding: 0 15px;
-    transition: all 0.3s;
+    transition: all 0.2s ease;
 }
 
 .input-group > input:focus {
     background: #fff;
+    border-color: #c4c4c4;
+}
+
+.input-group > input:hover {
     border-color: #c4c4c4;
 }
 
@@ -64,15 +70,20 @@
 }
 
 b {
-    position: relative;
-    top: 10%;
-    right: 8%;
+    position: absolute;
+    top: 36px;
+    right: 15px;
     cursor: pointer;
+    transition: all 0.1s ease;
 }
 
 b:hover {
-    color: #f58733;
+    color: #ff0000;
     cursor: pointer;
+    scale: 1.4;
+}
+.input-pass {
+
 }
 
 button.primary {

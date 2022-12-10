@@ -3,6 +3,7 @@ import Modal from 'react-modal';
 import axios from "axios";
 import {Availability} from "./Availability";
 import "./css/CreateBook.css";
+import "../Modals.css"
 
 type ModalProps = {
     modalIsOpen: boolean,
@@ -50,6 +51,7 @@ export default function CreateBook(props: ModalProps) {
                onRequestClose={props.closeModal}
                contentLabel="Example Modal"
                ariaHideApp={false}
+               overlayClassName={"modal-overlay"}
         >
             <span className="modal-heading">Add book manually</span>
             <form onSubmit={addNewBook}>
@@ -83,9 +85,12 @@ export default function CreateBook(props: ModalProps) {
                     <option value={Availability.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
                 <br/><br/>
-                <button className="modal-button modal-button-create">Create</button>
+                <div className="modal-body">
+                    <h5>Create book?</h5>
+                    <button className="button button-create">Create</button>
+                    <button className="button button-cancel" onClick={() => props.closeModal()}>Cancel</button>
+                </div>
             </form>
-            <button className="modal-button modal-button-cancel" onClick={() => props.closeModal()}>Cancel</button>
         </Modal>
     );
 
