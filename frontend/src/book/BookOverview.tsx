@@ -7,6 +7,7 @@ import "./css/BookOverview.css";
 import "../Buttons.css";
 import "../Modals.css";
 import AddBookManually from "./AddBookManually";
+import RentBook from "./RentBook";
 
 type BookOverviewProps = {
     books: BookModel[],
@@ -58,6 +59,7 @@ function BookOverview(props: BookOverviewProps) {
                                     <React.Fragment>
                                         <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
                                         <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
+                                        <RentBook book={book} reloadAllBooks={props.fetchAllBooks}/>
                                     </React.Fragment>
                                 </td>
                             </tr>;
