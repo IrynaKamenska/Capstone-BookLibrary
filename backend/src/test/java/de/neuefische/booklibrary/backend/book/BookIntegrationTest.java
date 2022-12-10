@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
@@ -246,6 +247,70 @@ class BookIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/books/" + id).with(csrf()))
                 .andExpect(status().isNotFound())
                 .andExpect(status().reason("No Book with ID:" + id + " found"));
+    }
+
+    @Test
+    @WithMockUser(roles = {"LIBRARIAN"}, username = "librarian")
+    @DirtiesContext
+    void rentBookByIdOnExistingInDbAppUser_return200() throws Exception {
+        String rentOn = "member";
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "id": "id-1",
+                                "cover": "http://localhost:8080/api/cover",
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "ISBN 978-0-596-52068-7",
+                                "availability": "AVAILABLE"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().is(201))
+                .andReturn().getResponse().getContentAsString();
+
+        Book book = objectMapper.readValue(body, Book.class);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "librarian",
+                                    "rawPassword": "Password898#",
+                                    "role": "LIBRARIAN"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/api/app-users/login"))
+                .andExpect(status().isOk());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "member",
+                                    "rawPassword": "Password899#"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().isCreated());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/books/rentBook/" + book.id() + "/" + rentOn).with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                                "id": "id-1",
+                                "cover": "http://localhost:8080/api/cover",
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "ISBN 978-0-596-52068-7",
+                                "availability": "NOT_AVAILABLE",
+                                "rentedBy": "member"
+                        }
+                        """));
     }
 
 }
