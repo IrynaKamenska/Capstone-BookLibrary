@@ -3,6 +3,8 @@ import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
 import "./css/DeleteBook.css";
+import "../Buttons.css";
+import "../Modals.css";
 
 type DeleteBookProps = {
     book: BookModel;
@@ -35,21 +37,28 @@ function DeleteBook(props: DeleteBookProps) {
 
 
     return <>
-        <button className="db-list-button db-list-button-delete" type={"submit"} onClick={openModal}>Delete</button>
+        <button className="button button-delete-book" type={"submit"} onClick={openModal}>Delete</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
                onRequestClose={closeModalCallback}
                contentLabel="Example Modal"
                ariaHideApp={false}
+               overlayClassName={"modal-overlay"}
         >
 
             <span className="modal-heading">Delete book</span>
             <div className="modal-body">
+                <img className="modal-cover" src={props.book.cover} alt="cover"/><br />
+                <span className="modal-book-info">
+                    {props.book.title}<br />
+                    from <br />
+                    {props.book.author}
+                </span>
                 <h5>Are you sure to delete this book?</h5>
+                <button className="button button-delete" id="del-alert" onClick={handleDeleteClick}>Delete
+                </button>
+                <button className="button button-cancel" onClick={handleCancelClick}>Cancel</button>
             </div>
-            <button className="modal-button modal-button-delete" id="del-alert" onClick={handleDeleteClick}>Delete
-            </button>
-            <button className="modal-button modal-button-cancel" onClick={handleCancelClick}>Cancel</button>
         </Modal>
 
     </>;
