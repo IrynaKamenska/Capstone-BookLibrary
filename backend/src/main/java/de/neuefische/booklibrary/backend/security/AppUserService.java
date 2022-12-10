@@ -26,7 +26,7 @@ public class AppUserService {
         return appUserRepository.existsByUsername(username);
     }
 
-    public List<String> getUsernamesFromDb() {
+    public List<String> getAllUsernamesFromDb() {
         return appUserRepository.findAll().stream().map(AppUser::username).toList();
     }
 
