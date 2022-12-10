@@ -116,7 +116,7 @@ import static org.mockito.Mockito.*;
 
          //when
          when(mockAppUserRepository.findAll()).thenReturn(users);
-         List<String> actual = appUserService.getUsernamesFromDb();
+         List<String> actual = appUserService.getAllUsernamesFromDb();
 
          //then
          verify(mockAppUserRepository).findAll();
@@ -131,7 +131,7 @@ import static org.mockito.Mockito.*;
 
          //when
          when(mockAppUserRepository.findAll()).thenReturn(users);
-         List<String> actual = appUserService.getUsernamesFromDb();
+         List<String> actual = appUserService.getAllUsernamesFromDb();
 
          //then
          verify(mockAppUserRepository).findAll();
@@ -162,6 +162,37 @@ import static org.mockito.Mockito.*;
 
          //then
          assertFalse(actual);
+     }
+
+     @Test
+     void getAllUsernamesFromDbAnd_returnListWithOneName() {
+         // given
+         AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
+         List<AppUser> appUsers = new ArrayList<>(List.of(newAppUser));
+         List<String> names = new ArrayList<>(List.of(newAppUser.username()));
+         when(mockAppUserRepository.findAll()).thenReturn(appUsers);
+
+         // when
+         List<String> actual = appUserService.getAllUsernamesFromDb();
+
+         // then
+         verify(mockAppUserRepository).findAll();
+         assertEquals(names, actual);
+     }
+
+     @Test
+     void getAllUsernamesFromDbAnd_returnEmptyList() {
+         // given
+         List<AppUser> appUsers = new ArrayList<>(List.of());
+         List<String> names = new ArrayList<>(List.of());
+         when(mockAppUserRepository.findAll()).thenReturn(appUsers);
+
+         // when
+         List<String> actual = appUserService.getAllUsernamesFromDb();
+
+         // then
+         verify(mockAppUserRepository).findAll();
+         assertEquals(names, actual);
      }
 
  }

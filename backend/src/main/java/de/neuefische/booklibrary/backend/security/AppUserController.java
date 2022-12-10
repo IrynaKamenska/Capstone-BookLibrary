@@ -74,9 +74,9 @@ public class AppUserController {
         }
     }
 
-    @GetMapping("/allUsersnames")
+    @GetMapping("/getAllUsernames")
     public List<String> getAllUsernames() {
-        return appUserService.getUsernamesFromDb();
+        return appUserService.getAllUsernamesFromDb();
     }
 
 

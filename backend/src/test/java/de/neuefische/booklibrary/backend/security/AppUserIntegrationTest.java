@@ -36,7 +36,6 @@ class AppUserIntegrationTest {
     }
 
 
-
     @Test
     @WithMockUser(username = "appUser")
     void expect200_GET_me() throws Exception {
@@ -199,6 +198,38 @@ class AppUserIntegrationTest {
                                     "role": "LIBRARIAN"
                                 }
                                 """));
+    }
+
+
+    @Test
+    @WithMockUser(roles = {"LIBRARIAN"}, username = "appUser")
+    @DirtiesContext
+    void expectOneUsername_GET_getAllUsernames() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "appUser",
+                                    "rawPassword": "Password898#",
+                                    "role": "LIBRARIAN"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/api/app-users/login"))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/api/app-users/me"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("appUser"));
+
+        mockMvc.perform(get("/api/app-users/getAllUsernames"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        [
+                            "appUser"
+                        ]
+                        """));
+
     }
 
 }
