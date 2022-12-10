@@ -1,7 +1,6 @@
 package de.neuefische.booklibrary.backend.book;
 
 import de.neuefische.booklibrary.backend.api.ApiBookService;
-import de.neuefische.booklibrary.backend.security.AppUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +19,6 @@ import static de.neuefische.booklibrary.backend.api.ApiBookService.DEFAULT_COVER
 public class BookController {
 
     private final ApiBookService apiBookService;
-    private final AppUserService appUserService;
     private final BookService bookService;
 
     @GetMapping
@@ -51,10 +49,8 @@ public class BookController {
 
 
     @PostMapping("/rentBook/{id}/{rentedBy}")
-    public Book rentBook(@PathVariable String id, @PathVariable String rentedBy, @RequestBody Book book) {
-        if (appUserService.existsByUsername(rentedBy)) {
-            return bookService.rentBook(id, rentedBy, book);
-        } else throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No User with name:" + rentedBy + " found");
+    public Book rentBook(@PathVariable String id, @PathVariable String rentedBy) {
+        return bookService.rentBook(id, rentedBy);
     }
 
 
