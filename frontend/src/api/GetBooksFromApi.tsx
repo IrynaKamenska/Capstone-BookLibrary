@@ -21,7 +21,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
     }
 
     const [result, setResult] = useState<BookModel>(initialData);
-    const [searchBy, setSearchBy] = useState<"isbn" | "text">()
+    const [searchBy, setSearchBy] = useState<"isbn" | "text">("text")
 
     const isbnQuery = "isbn/" + text;
     const keyWordQuery = "search/" + text;
@@ -63,8 +63,8 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
                        autoComplete={"off"}
                        onChange={handleChange}
                 />
-                <button className="search-button" type={"submit"}>Search</button>
-                <button className="search-button" onClick={handleClick}>Search by: {searchBy}</button>
+                <button className="button button-search" type={"submit"}>Search</button>
+                <button className="button button-search-by" onClick={handleClick}>Search by: {searchBy}</button>
             </form>
 
 
