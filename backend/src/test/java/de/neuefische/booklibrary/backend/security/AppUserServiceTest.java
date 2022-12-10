@@ -6,8 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
  class AppUserServiceTest {
@@ -106,7 +105,7 @@ import static org.mockito.Mockito.*;
     }
 
      @Test
-     void getUsernamesFromDb_returnAllUsernames() {
+     void getAllUsernamesFromDb_returnAllUsernames() {
          //given
          String username1 = "username_1";
          String username2 = "username_2";
@@ -122,6 +121,47 @@ import static org.mockito.Mockito.*;
          //then
          verify(mockAppUserRepository).findAll();
          assertEquals(usernames, actual);
+     }
+
+     @Test
+     void getAllUsernamesFromDb_returnEmptyList() {
+         //given
+         List<String> emptyList = new ArrayList<>(List.of());
+         List<AppUser> users = new ArrayList<>(List.of());
+
+         //when
+         when(mockAppUserRepository.findAll()).thenReturn(users);
+         List<String> actual = appUserService.getUsernamesFromDb();
+
+         //then
+         verify(mockAppUserRepository).findAll();
+         assertEquals(emptyList, actual);
+     }
+
+     @Test
+     void whenAppUserExistsInDb_returnTrue() {
+         //given
+         String username = "username";
+
+         //when
+         when(mockAppUserRepository.existsByUsername(username)).thenReturn(true);
+         boolean actual = appUserService.existsByUsername(username);
+
+         //then
+         assertTrue(actual);
+     }
+
+     @Test
+     void whenAppUserDoesNotExistsInDb_returnFalse() {
+         //given
+         String username = "username";
+
+         //when
+         when(mockAppUserRepository.existsByUsername(username)).thenReturn(false);
+         boolean actual = appUserService.existsByUsername(username);
+
+         //then
+         assertFalse(actual);
      }
 
  }
