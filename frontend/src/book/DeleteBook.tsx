@@ -2,7 +2,6 @@ import React, {useCallback, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
-import "./css/DeleteBook.css";
 import "../Buttons.css";
 import "../Modals.css";
 

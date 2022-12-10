@@ -1,7 +1,8 @@
 import React, {FormEvent, useState} from 'react';
 import axios from "axios";
 import {Link} from "react-router-dom";
-import "./css/RegisterPage.css"
+import "./css/LoginPage.css"
+import "../Buttons.css"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEye} from "@fortawesome/free-solid-svg-icons";
 
@@ -32,7 +33,8 @@ function RegisterPage() {
     }
 
     return <>
-        <div className={"register-form"}>
+        <div className={"login-form"}>
+            <h2>Register</h2>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
@@ -44,9 +46,9 @@ function RegisterPage() {
                     <input name="rawPassword" type={passwordShown ? "text" : "password"} id="password"
                            placeholder="password"
                            onChange={event => setRawPassword(event.target.value)}/>
-                    <i onClick={togglePassword} id="eye">{eye}</i>
+                    <b onClick={togglePassword} id="eye">{eye}</b>
                 </div>
-                <button className="secondary">Register</button>
+                <button className="button button-reg">Register</button>
             </form>
             <Link to="/">Back to login</Link>
         </div>

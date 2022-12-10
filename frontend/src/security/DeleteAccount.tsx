@@ -3,6 +3,8 @@ import {AppUserInfo} from "./AppUserInfo";
 import axios from "axios";
 import Modal from "react-modal";
 import "./css/DeleteAccount.css";
+import "../Buttons.css"
+import "../Modals.css"
 
 
 type DeleteAccountProps = {
@@ -31,22 +33,23 @@ function DeleteAccount(props: DeleteAccountProps) {
     const closeModalCallback = useCallback(closeModal, [closeModal])
 
     return <>
-        <button className="button-delete-account" type={"submit"} onClick={openModal}>Delete Account</button>
+        <button className="button button-delete-account" type={"submit"} onClick={openModal}>Delete Account</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
                onRequestClose={closeModalCallback}
                contentLabel="Example Modal"
                ariaHideApp={false}
+               overlayClassName={"modal-overlay"}
         >
 
             <span className="modal-heading">Delete account</span>
             <div className="modal-body">
                 <h5>Are you sure to delete your account?</h5>
+                <button className="button button-delete" id="del-alert"
+                        onClick={() => deleteUser()}>Delete
+                </button>
+                <button className="button button-cancel" onClick={() => closeModal()}>Cancel</button>
             </div>
-            <button className="button-delete" id="del-alert"
-                    onClick={() => deleteUser()}>Delete
-            </button>
-            <button className="button-cancel" onClick={() => closeModal()}>Cancel</button>
         </Modal>
 
     </>;

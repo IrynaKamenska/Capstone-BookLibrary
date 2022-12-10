@@ -2,6 +2,7 @@ import axios from "axios";
 import React, {Dispatch, SetStateAction, useCallback, useEffect, useState} from "react";
 import DeleteAccount from "./DeleteAccount";
 import "./css/SecuredPage.css";
+import "../Buttons.css";
 import {AppUserInfo} from "./AppUserInfo";
 
 type SecuredProps = {
@@ -28,10 +29,11 @@ export default function SecuredPage(props: SecuredProps) {
             .then(props.fetchUsername)
     }
 
-    return <div className={"border"}>
-        <div className={"logged-in"}>Logged in as {appUserInfo.role}</div>
+    return <div className={"top-bar"}>
+        <div className={"logged-in"}>Hello {appUserInfo.username}! (you are {appUserInfo.role})</div>
+        <div className="top-bar-spacer"></div>
         <div className={"logout-delete-container"}>
-            <button className={"button-logout"} onClick={logout}>Logout</button>
+            <button className={"button button-logout"} onClick={logout}>Logout</button>
             <DeleteAccount appUserInfo={appUserInfo} setUsername={props.setUsername} fetchUser={fetchUser}/>
         </div>
     </div>

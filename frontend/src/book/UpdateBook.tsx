@@ -3,7 +3,6 @@ import {BookModel} from "./BookModel";
 import axios from "axios";
 import {Availability} from "./Availability";
 import Modal from "react-modal";
-import "./css/UpdateBook.css";
 import "../Buttons.css";
 import "../Modals.css";
 
