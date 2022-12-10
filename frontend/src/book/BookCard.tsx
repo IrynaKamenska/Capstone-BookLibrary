@@ -45,8 +45,8 @@ function BookCard(props: BookCardProps) {
                     <img className="book-cover" src={props.book.cover} alt={props.book.title}/>
                 </div>
                 <h3 className="book-title">{props.book.title}</h3>
-                <p className="book-info">{props.book.author}</p>
-                <p className="book-info">{props.book.isbn}</p>
+                <p className="book-author">{props.book.author}</p>
+                <p className="book-isbn">{props.book.isbn}</p>
                 <div className="div-form">
                     <br/>
                     <label>
@@ -102,7 +102,7 @@ function BookCard(props: BookCardProps) {
                 </div>
             </div>
             <div className="div-button">
-                <button className="book-card-button">Add Book</button>
+                <button className="button button-add-book">Add Book</button>
             </div>
         </form>
 
