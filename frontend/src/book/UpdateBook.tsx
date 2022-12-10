@@ -4,6 +4,8 @@ import axios from "axios";
 import {Availability} from "./Availability";
 import Modal from "react-modal";
 import "./css/UpdateBook.css";
+import "../Buttons.css";
+import "../Modals.css";
 
 type UpdateBookProps = {
     book: BookModel;
@@ -48,16 +50,20 @@ function UpdateBook(props: UpdateBookProps) {
 
 
     return <>
-        <button className="db-list-button db-list-button-edit" type={"submit"} onClick={openModal}>Edit</button>
+        <button className="button button-edit-book" type={"submit"} onClick={openModal}>Edit</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
                onRequestClose={closeModal}
                contentLabel="Example Modal"
                ariaHideApp={false}
+               overlayClassName={"modal-overlay"}
         >
 
             <span className="modal-heading">Update book manually</span>
             <form onSubmit={handleEditBook}>
+                <div className="modal-body">
+                    <img className="modal-cover" src={props.book.cover} alt="cover"/><br />
+                </div>
                 <br/>
                 <label htmlFor="title">New title:</label>
                 <input className="input-text"
@@ -94,11 +100,9 @@ function UpdateBook(props: UpdateBookProps) {
                 </select>
                 <br/><br/>
                 <div className="modal-body">
-                    <p>Are you sure to update this book?</p>
-                </div>
-                <div>
-                    <button className="modal-button modal-button-update">Update</button>
-                    <button className="modal-button modal-button-cancel" onClick={() => closeModal()}>Cancel</button>
+                    <h5>Are you sure to update this book?</h5>
+                    <button className="button button-update">Update</button>
+                    <button className="button button-cancel" onClick={() => closeModal()}>Cancel</button>
                 </div>
             </form>
         </Modal>
