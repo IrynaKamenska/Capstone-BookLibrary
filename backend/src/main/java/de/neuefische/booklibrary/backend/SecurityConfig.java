@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/books/isbn/**").hasRole(LIBRARIAN_ROLE)
                 .antMatchers(HttpMethod.POST, "/api/books").hasRole(LIBRARIAN_ROLE)
                 .antMatchers(HttpMethod.POST, "api/books/rentBook/**").permitAll()
+                .antMatchers(HttpMethod.POST, "api/books/returnBook/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/books/**").hasRole(LIBRARIAN_ROLE)
                 .antMatchers(HttpMethod.DELETE, "/api/books/**").hasRole(LIBRARIAN_ROLE)
 
