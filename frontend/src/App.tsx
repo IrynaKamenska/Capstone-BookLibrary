@@ -8,9 +8,22 @@ import LoginPage from "./security/LoginPage";
 import RegisterPage from "./security/RegisterPage";
 import SecuredPage from "./security/SecuredPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import CreateBook from "./book/CreateBook";
+import AddBookManually from "./book/AddBookManually";
 
 
 function App() {
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+
+    const openModal = useCallback(() => {
+        setModalIsOpen(true)
+    }, [])
+
+    const closeModal = useCallback(() => {
+        setModalIsOpen(false)
+    }, [])
+
+
     const [books, setBooks] = useState<BookModel[]>([]);
 
     const fetchAllBooks = useCallback(() => {
@@ -50,6 +63,8 @@ function App() {
     return <>
         <SecuredPage fetchUsername={fetchUsername} setUsername={setUsername}/>
         <BookOverview books={books} fetchAllBooks={fetchAllBooks}/>
+        <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
+        <AddBookManually openModal={openModal}></AddBookManually>
         <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
     </>;
 
