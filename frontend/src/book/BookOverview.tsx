@@ -1,6 +1,6 @@
-import React, {useCallback, useState} from 'react';
+import React, {useState} from 'react';
 import {BookModel} from "./BookModel";
-import CreateBook from "./CreateBook";
+
 import DeleteBook from "./DeleteBook";
 import UpdateBook from "./UpdateBook";
 import "./css/BookOverview.css";
@@ -16,18 +16,14 @@ type BookOverviewProps = {
 }
 
 function BookOverview(props: BookOverviewProps) {
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
-    const openModal = useCallback(() => {
-        setModalIsOpen(true)
-    }, [])
-
-    const closeModal = useCallback(() => {
-        setModalIsOpen(false)
-    }, [])
+    const [filterText, setFilterText] = useState<string>("")
+    const filteredBooks = props.books.filter(
+        (book) => book.title.toLowerCase().includes(filterText.toLowerCase()));
 
     return <>
-        <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={props.fetchAllBooks}/>
+        <p>Search Books in DB: {filterText}</p>
+        <input className={"search-input"} onChange={(event) => setFilterText(event.target.value)}/>
         {props.books.length > 0 ?
 
             <>
@@ -44,9 +40,10 @@ function BookOverview(props: BookOverviewProps) {
                             <th>RentedBy</th>
                             <th>Action</th>
                         </tr>
-                        {props.books.map(book => {
+                        {filteredBooks.map((book) => {
                             return <tr key={book.id}>
-                                <td className="db-list-cover-td"><img className="db-list-cover-img" src={book.cover} alt="Dummy-Cover"/></td>
+                                <td className="db-list-cover-td"><img className="db-list-cover-img" src={book.cover}
+                                                                      alt="Dummy-Cover"/></td>
                                 <td>{book.title}</td>
                                 <td>{book.author}</td>
                                 <td>{book.isbn}</td>
@@ -62,23 +59,25 @@ function BookOverview(props: BookOverviewProps) {
                                     <React.Fragment>
                                         <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
                                         <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
-                                        <RentBook book={book} reloadAllBooks={props.fetchAllBooks}/>
-                                        <ReturnBook book={book} reloadAllBooks={props.fetchAllBooks}/>
+                                        {book.availability === "AVAILABLE" ?
+                                            <RentBook book={book} reloadAllBooks={props.fetchAllBooks}/>
+                                            :
+                                            <ReturnBook book={book} reloadAllBooks={props.fetchAllBooks}/>
+                                        }
                                     </React.Fragment>
                                 </td>
                             </tr>;
                         })}
                         </tbody>
                     </table>
-                    <AddBookManually openModal={openModal}></AddBookManually>
                 </div>
             </>
                 :
                 <div className="content-main-div">
                     <p>Library is empty :-(</p>
-                    <AddBookManually openModal={openModal}></AddBookManually>
                 </div>
         }
+
     </>;
 }
 
