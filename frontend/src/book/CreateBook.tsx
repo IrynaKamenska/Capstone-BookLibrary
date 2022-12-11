@@ -82,7 +82,6 @@ export default function CreateBook(props: ModalProps) {
                 <label htmlFor="availability">Availability:</label>
                 <select className="selector" name="availability" id="availability">
                     <option value={Availability.AVAILABLE}>AVAILABLE</option>
-                    <option value={Availability.NOT_AVAILABLE}>NOT_AVAILABLE</option>
                 </select>
                 <br/><br/>
                 <div className="modal-body">
