@@ -40,6 +40,7 @@ function BookOverview(props: BookOverviewProps) {
                             <th>Author</th>
                             <th>ISBN</th>
                             <th>Availability</th>
+                            <th>RentedBy</th>
                             <th>Action</th>
                         </tr>
                         {props.books.map(book => {
@@ -54,6 +55,7 @@ function BookOverview(props: BookOverviewProps) {
                                     <span className="content-not-available">Not Available</span>
                                 }
                                 </td>
+                                <td>{book.rentedBy}</td>
 
                                 <td>
                                     <React.Fragment>
