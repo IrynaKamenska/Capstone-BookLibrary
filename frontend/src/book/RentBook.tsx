@@ -2,6 +2,9 @@ import React, {ChangeEvent, FormEvent, useCallback, useEffect, useState} from 'r
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 type RentBookProps = {
     book: BookModel;
@@ -12,6 +15,15 @@ function RentBook(props: RentBookProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
     const [rentedBy, setRentedBy] = useState<string>("")
     const [names, setNames] = useState<string[]>([]);
+    const [date, setDate] = useState<Date>(new Date())
+
+    const handleChangeDate = (date: Date) => {
+        setDate(date)
+    }
+
+    const handleDateSelect = () => {
+        props.reloadAllBooks()
+    }
 
     const fetchUsernames = useCallback(() => {
         axios.get("/api/app-users/getAllUsernames")
@@ -90,6 +102,9 @@ function RentBook(props: RentBookProps) {
                         onChange={handleRentChange}>
                     {rentBookBy()}
                 </select>
+                <p>Rent until:</p>
+                <DatePicker selected={date} onChange={handleChangeDate} showTimeSelect dateFormat="Pp"
+                            onCalendarClose={handleDateSelect}/>
                 <br/><br/>
                 <div>
                     <button className="modal-button modal-button-update">Rent</button>
