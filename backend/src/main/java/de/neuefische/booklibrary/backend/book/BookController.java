@@ -53,6 +53,11 @@ public class BookController {
         return bookService.rentBook(id, rentedBy);
     }
 
+    @PostMapping("/returnBook/{id}")
+    public Book returnBook(@PathVariable String id) {
+        return bookService.returnBook(id);
+    }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@RequestBody @Valid Book book, @PathVariable String id) {

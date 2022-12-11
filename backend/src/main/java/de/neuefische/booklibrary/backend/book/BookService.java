@@ -54,4 +54,10 @@ public class BookService {
         return bookRepository.save(bookToRent);
 
     }
+
+    public Book returnBook(String id) {
+        Book bookToReturn = bookRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book found with this ID"));
+        bookToReturn = bookToReturn.withId(id).withRentedBy(null).withAvailability(AVAILABLE);
+        return bookRepository.save(bookToReturn);
+    }
 }
