@@ -30,12 +30,9 @@ h2 {
 .search-input:hover {
     background: #e1ffe1;
 }
-.search-input:focus {
-    background: #e1ffe1;
-}
 
 .search-input:focus {
-    outline-color: orange;
+    background: #e1ffe1;
 }
 
 .search-button {
