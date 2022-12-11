@@ -8,7 +8,6 @@ import LoginPage from "./security/LoginPage";
 import RegisterPage from "./security/RegisterPage";
 import SecuredPage from "./security/SecuredPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import GetAllUsernames from "./security/GetAllUsernames";
 
 
 function App() {
@@ -52,7 +51,6 @@ function App() {
         <SecuredPage fetchUsername={fetchUsername} setUsername={setUsername}/>
         <BookOverview books={books} fetchAllBooks={fetchAllBooks}/>
         <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
-        <GetAllUsernames></GetAllUsernames>
     </>;
 
 }
