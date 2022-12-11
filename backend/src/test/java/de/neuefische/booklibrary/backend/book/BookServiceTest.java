@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static com.mongodb.assertions.Assertions.fail;
+import static de.neuefische.booklibrary.backend.book.Availability.AVAILABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
@@ -42,8 +43,8 @@ class BookServiceTest {
     @Test
     void getAllBooks_returnListWithOneBook() {
         //given
-        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", Availability.AVAILABLE, null);
-        Book foundBook = book.withTitle("Java").withAuthor("M. Kofler").withIsbn("978-3-8362-8392-2").withAvailability(Availability.AVAILABLE);
+        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", AVAILABLE, null);
+        Book foundBook = book.withTitle("Java").withAuthor("M. Kofler").withIsbn("978-3-8362-8392-2").withAvailability(AVAILABLE);
 
         when(bookRepository.findAll()).thenReturn(List.of(foundBook));
 
@@ -153,7 +154,7 @@ class BookServiceTest {
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
-                Availability.AVAILABLE,
+                AVAILABLE,
                 null);
 
         AppUser appUser = new AppUser(
@@ -193,7 +194,7 @@ class BookServiceTest {
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
-                Availability.AVAILABLE,
+                AVAILABLE,
                 null);
 
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
@@ -251,10 +252,10 @@ class BookServiceTest {
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
-                Availability.AVAILABLE,
+                AVAILABLE,
                 "user-1");
 
-        Book bookToRent = foundBook.withId(bookId).withAvailability(Availability.AVAILABLE).withRentedBy(username_1);
+        Book bookToRent = foundBook.withId(bookId).withAvailability(AVAILABLE).withRentedBy(username_1);
 
         //when
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(foundBook));
@@ -275,8 +276,8 @@ class BookServiceTest {
         String bookId = "id-1";
         String username = "user";
 
-        Book foundBook = new Book(bookId, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.AVAILABLE, null);
-        Book bookToRent = foundBook.withId(bookId).withAvailability(Availability.AVAILABLE).withRentedBy(username);
+        Book foundBook = new Book(bookId, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", AVAILABLE, null);
+        Book bookToRent = foundBook.withId(bookId).withAvailability(AVAILABLE).withRentedBy(username);
 
         //when
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(foundBook));
@@ -288,6 +289,59 @@ class BookServiceTest {
             //then
             assertEquals("Username not found", e.getMessage());
             verify(bookRepository, never()).save(bookToRent);
+        }
+    }
+
+    @Test
+    void returnBookById_returnUpdatedBook() {
+        //given
+        String bookId = "id-1";
+        Book book = new Book(
+                bookId,
+                null,
+                "Java-Script",
+                "P. Ackermann",
+                "978-3-8362-8629-9",
+                AVAILABLE,
+                null);
+
+        Book bookToReturn = book.withId(bookId)
+                .withAvailability(AVAILABLE)
+                .withRentedBy(null);
+
+        //when
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+        when(bookRepository.save(book)).thenReturn(book);
+
+        Book actual = bookService.returnBook(bookId);
+
+        //then
+        verify(bookRepository).save(book);
+        assertEquals(bookToReturn, actual);
+    }
+
+    @Test
+    void returnBookWithNotExistingBookId_returnNoSuchElementException() {
+        //given
+        String bookId = "id-1";
+        Book book = new Book(
+                bookId,
+                null,
+                "Java-Script",
+                "P. Ackermann",
+                "978-3-8362-8629-9",
+                AVAILABLE,
+                "Bob");
+
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
+        //when
+        try {
+            bookService.returnBook(bookId);
+            fail();
+        } catch (NoSuchElementException e) {
+            //then
+            assertEquals("No Book found with this ID", e.getMessage());
+            verify(bookRepository, never()).save(book);
         }
     }
 

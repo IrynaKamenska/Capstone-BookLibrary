@@ -313,4 +313,58 @@ class BookIntegrationTest {
                         """));
     }
 
+
+    @Test
+    @WithMockUser(roles = {"LIBRARIAN"}, username = "librarian")
+    @DirtiesContext
+    void returnRentedBookById_return200() throws Exception {
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "id": "id-1",
+                                "cover": "http://localhost:8080/api/cover",
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "ISBN 978-0-596-52068-7",
+                                "availability": "NOT_AVAILABLE",
+                                 "rentedBy": "member"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().is(201))
+                .andReturn().getResponse().getContentAsString();
+
+        Book book = objectMapper.readValue(body, Book.class);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/librarian")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "librarian",
+                                    "rawPassword": "Password898#",
+                                    "role": "LIBRARIAN"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/api/app-users/login"))
+                .andExpect(status().isOk());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/books/returnBook/" + book.id()).with(csrf()))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        {
+                                "id": "id-1",
+                                "cover": "http://localhost:8080/api/cover",
+                                "title": "Java",
+                                "author": "Ullenbom",
+                                "isbn": "ISBN 978-0-596-52068-7",
+                                "availability": "AVAILABLE",
+                                "rentedBy": null
+                        }
+                        """));
+    }
+
 }
