@@ -8,8 +8,11 @@ type addBookProps = {
 function AddBookManually(props: addBookProps) {
 
     return (
-        <><h2>Add new Books to Library</h2><p>Add book manually via form: </p>
-            <button className="button button-add-manually" onClick={props.openModal}>Manually add new Book</button>
+        <>
+            <div className="search-main-div">
+                <h2>Add new Books to Library</h2><p>Add book manually via form: </p>
+                <button className="button button-add-manually" onClick={props.openModal}>Manually add new Book</button>
+            </div>
         </>
     )
         ;
