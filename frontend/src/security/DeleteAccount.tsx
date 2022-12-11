@@ -2,7 +2,6 @@ import React, {Dispatch, SetStateAction, useCallback, useState} from 'react';
 import {AppUserInfo} from "./AppUserInfo";
 import axios from "axios";
 import Modal from "react-modal";
-import "./css/DeleteAccount.css";
 import "../Buttons.css"
 import "../Modals.css"
 
