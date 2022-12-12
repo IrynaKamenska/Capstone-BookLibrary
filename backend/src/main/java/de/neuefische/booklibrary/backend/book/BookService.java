@@ -42,7 +42,7 @@ public class BookService {
         Book bookToRent = bookRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book found with this ID"));
 
         if (bookToRent.availability() != AVAILABLE) throw new BookNotAvailableException("Book is not available");
-        if ((bookToRent.rentBookInfo() != null)) {
+        if ((!bookToRent.rentBookInfo().rentByUsername().isEmpty())) {
             throw new BookIsAlreadyRentedException("Book is already rented to user: " + bookToRent.rentBookInfo());
         }
 

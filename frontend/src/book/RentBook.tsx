@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
+import React, {FormEvent, useCallback, useEffect, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
@@ -14,13 +14,21 @@ type RentBookProps = {
 
 function RentBook(props: RentBookProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    const [rentedBy, setRentedBy] = useState<string>("")
+
+    // const [rentedBy, setRentedBy] = useState<string>("")
+    // const [rentedUntil, setRentedUntil] = useState<string>("")
+
     const [names, setNames] = useState<string[]>([]);
     const [date, setDate] = useState<Date>(new Date())
 
 
-    const handleChangeDate = useCallback(() => setDate(new Date()), []);
-    const handleDateSelect = useCallback(() => props.reloadAllBooks(), [props]);
+    const handleChangeDate = (date: Date) => {
+        console.log("DATE:" + date.toISOString())
+        setDate(date)
+    }
+    const handleDateSelect = () => {
+        props.reloadAllBooks()
+    }
 
     const fetchUsernames = useCallback(() => {
         axios.get("/api/app-users/getAllUsernames")
@@ -49,12 +57,17 @@ function RentBook(props: RentBookProps) {
     }, [])
     const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
 
-    const [rentInfo, setRentInfo] = useState(
-        {
-            ...props.book.rentBookInfo
-        }
-    );
+    // const [rentInfo, setRentInfo] = useState(
+    //     {
+    //         ...props.book.rentBookInfo
+    //     }
+    // );
 
+    const[rentInfo, setRentInfo] = useState({
+        rentByUsername: "",
+        rentUntil: ""
+
+    })
     const rentBook = useCallback((id: string) => {
             axios.post("/api/books/rentBook/" + id, {rentInfo})
                 .then(response => {
@@ -63,24 +76,24 @@ function RentBook(props: RentBookProps) {
                 })
                 .catch(error => console.error("POST Error: " + error))
                 .then(props.reloadAllBooks)
-            // setRentedBy("")
-            setRentInfo({
-                rentByUsername: "",
-                rentUntil: ""
-            })
         },
         [props.reloadAllBooks, closeModal])
 
 
-    const handleRentBook = (event: any) => {
+    const handleRentBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         console.log("handleRentBook: " + names)
+        console.log("NAMES: " + rentInfo.rentByUsername)
+        console.log("UNTIL: " + rentInfo.rentUntil)
+
         rentBook(props.book.id);
 
     }
 
-    const handleRentChange = (event: ChangeEvent<HTMLSelectElement>) => {
-        setRentedBy(event.target.value)
+    // event: ChangeEvent<HTMLSelectElement>
+    const handleRentChange = (event: any) => {
+        setRentInfo({
+            ...rentInfo, [event.target.name]: event.target.value})
     }
 
 
@@ -99,13 +112,11 @@ function RentBook(props: RentBookProps) {
                     <h3 className="book-title">{props.book.title}</h3>
                     <p className="book-info">{props.book.author}</p>
                     <p className="book-info">ISBN:{props.book.isbn}</p>
-                    <p className="book-info">RENTED by: {rentInfo.rentByUsername}</p>
-                    <p className="book-info">RENTED by: {rentInfo.rentUntil}</p>
                 </div>
                 <br/>
                 <label htmlFor="rentBy">RentBy:</label>
 
-                <select className="selector" value={props.book.rentBookInfo.rentByUsername} name="rentedBy" id="rentedBy"
+                <select className="selector" value={rentInfo.rentByUsername} name="rentByUsername" id="rentByUsername"
                         onChange={handleRentChange}>
                     {rentBookBy()}
                 </select>
