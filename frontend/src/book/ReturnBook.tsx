@@ -2,6 +2,8 @@ import React, {useCallback, useState} from 'react';
 import axios from "axios";
 import {BookModel} from "./BookModel";
 import Modal from "react-modal";
+import "../Buttons.css";
+import "../Modals.css";
 
 type ReturnBookProps = {
     book: BookModel;
@@ -35,7 +37,7 @@ function ReturnBook(props: ReturnBookProps) {
 
 
     return <>
-        <button className="db-list-button db-list-button-delete" type={"submit"} onClick={openModal}>Return</button>
+        <button className="button button-return-book" type={"submit"} onClick={openModal}>Return</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
                onRequestClose={closeModalCallback}
@@ -50,11 +52,12 @@ function ReturnBook(props: ReturnBookProps) {
                 <p className="book-info">{props.book.author}</p>
                 <p className="book-info">ISBN:{props.book.isbn}</p>
                 <p className="book-info">RentedBy: {props.book.rentedBy}</p>
-                <h5>Are you sure to return this book?</h5>
             </div>
-            <button className="modal-button modal-button-delete" id="del-alert" onClick={handleReturnClick}>Return
-            </button>
-            <button className="modal-button modal-button-cancel" onClick={handleCancelClick}>Cancel</button>
+            <div className="modal-body">
+                <button className="button button-return-book" id="rent-alert" onClick={handleReturnClick}>Return
+                </button>
+                <button className="button button-cancel" onClick={handleCancelClick}>Cancel</button>
+            </div>
         </Modal>
 
     </>;

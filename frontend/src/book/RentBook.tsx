@@ -3,7 +3,8 @@ import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
 import DatePicker from "react-datepicker";
-
+import "../Buttons.css";
+import "../Modals.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 type RentBookProps = {
@@ -79,7 +80,7 @@ function RentBook(props: RentBookProps) {
 
 
     return <>
-        <button className="db-list-button db-list-button-delete" type={"submit"} onClick={openModal}>Rent</button>
+        <button className="button button-rent-book" type={"submit"} onClick={openModal}>Rent</button>
         <Modal className="modal"
                isOpen={modalIsOpen}
                onRequestClose={closeModal}
@@ -106,9 +107,9 @@ function RentBook(props: RentBookProps) {
                 <DatePicker selected={date} onChange={handleChangeDate} showTimeSelect dateFormat="Pp"
                             onCalendarClose={handleDateSelect}/>
                 <br/><br/>
-                <div>
-                    <button className="modal-button modal-button-update">Rent</button>
-                    <button className="modal-button modal-button-cancel" onClick={handleCancelClick}>Cancel</button>
+                <div className="modal-body">
+                    <button className="button button-rent-book">Rent</button>
+                    <button className="button button-cancel" onClick={handleCancelClick}>Cancel</button>
                 </div>
             </form>
         </Modal>
