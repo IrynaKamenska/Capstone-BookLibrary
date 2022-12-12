@@ -51,7 +51,8 @@ function ReturnBook(props: ReturnBookProps) {
                 <h3 className="book-title">{props.book.title}</h3>
                 <p className="book-info">{props.book.author}</p>
                 <p className="book-info">ISBN:{props.book.isbn}</p>
-                <p className="book-info">RentedBy: {props.book.rentedBy}</p>
+                <p className="book-info">RentedBy: {props.book.rentBookInfo.rentByUsername}</p>
+                <p className="book-info">RentedBy: {props.book.rentBookInfo.rentUntil}</p>
             </div>
             <div className="modal-body">
                 <button className="button button-return-book" id="rent-alert" onClick={handleReturnClick}>Return

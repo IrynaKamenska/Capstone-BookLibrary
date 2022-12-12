@@ -29,7 +29,8 @@ function GetRentedBooks() {
                             <h3 className="book-title">Title: {current.title}</h3>
                             <p className="book-author">Author: {current.author}</p>
                             <p className="book-isbn">ISBN: {current.isbn}</p>
-                            <p className="book-isbn">Rented by:{current.rentedBy}</p>
+                            <p className="book-isbn">Rented by:{current.rentBookInfo.rentByUsername}</p>
+                            <p className="book-isbn">Rented by:{current.rentBookInfo.rentUntil}</p>
                         </div>
                     </div>)
                 : ""}
