@@ -10,6 +10,7 @@ const eye = <FontAwesomeIcon icon={faEye}/>;
 
 type Props = {
     fetchUsername: () => void
+    fetchUser: () => void
 }
 export default function LoginPage(props: Props) {
     const [username, setUsername] = useState<string>("")
@@ -28,6 +29,7 @@ export default function LoginPage(props: Props) {
             }
         })
             .then(props.fetchUsername)
+            .then(props.fetchUser)
             .catch(() => alert("Login failed"));
     }
 

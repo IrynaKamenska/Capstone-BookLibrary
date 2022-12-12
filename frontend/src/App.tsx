@@ -11,9 +11,24 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CreateBook from "./book/CreateBook";
 import AddBookManually from "./book/AddBookManually";
 import GetRentedBooks from "./book/GetRentedBooks";
+import {AppUserInfo} from "./security/AppUserInfo";
 
 
 function App() {
+    const initialData: AppUserInfo = {
+        "username": "",
+        "role": ""
+    }
+    const [appUserInfo, setAppUserInfo] = useState<AppUserInfo>(initialData);
+
+    const fetchUser = useCallback(() => {
+        axios.get("/api/app-users/user")
+            .then(response => response.data)
+            .then(setAppUserInfo)
+    }, [])
+    useEffect(fetchUser, [fetchUser])
+
+
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
 
     const openModal = useCallback(() => {
@@ -54,7 +69,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path={"/"}
-                           element={<LoginPage fetchUsername={fetchUsername}/>}></Route>
+                           element={<LoginPage fetchUsername={fetchUsername} fetchUser={fetchUser}/>}></Route>
                     <Route path={"/register"} element={<RegisterPage/>}></Route>
                 </Routes>
             </BrowserRouter>
@@ -62,12 +77,19 @@ function App() {
     }
 
     return <>
+        <BookOverview books={books} fetchAllBooks={fetchAllBooks} appUserInfo={appUserInfo}/>
         <SecuredPage fetchUsername={fetchUsername} setUsername={setUsername}/>
-        <BookOverview books={books} fetchAllBooks={fetchAllBooks}/>
-        <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
-        <AddBookManually openModal={openModal}></AddBookManually>
-        <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
-        <GetRentedBooks/>
+        {appUserInfo.role === "MEMBER" ?
+        <GetRentedBooks/> : ""}
+        {appUserInfo.role === "LIBRARIAN" ?
+            <>
+                <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
+                <AddBookManually openModal={openModal}></AddBookManually>
+                <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
+            </>
+            :
+            ""}
+
     </>;
 
 }
