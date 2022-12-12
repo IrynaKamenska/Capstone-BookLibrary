@@ -1,15 +1,9 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
-import BookCard from "./BookCard";
 import "../api/css/GetBooksFromApi.css";
 
-type GetRentedBooksProps = {
-    reloadAllBooks: () => void;
-}
-
-
-function GetRentedBooks(props: GetRentedBooksProps) {
+function GetRentedBooks() {
     const [books, setBooks] = useState<BookModel[]>([]);
 
     const getRentedBooks = useCallback(() => {
@@ -28,7 +22,15 @@ function GetRentedBooks(props: GetRentedBooksProps) {
             {Array.isArray(books)
                 ? books.map((current) =>
                     <div className={"book-card"}>
-                        <BookCard key={current.id} book={current} reloadAllBooks={props.reloadAllBooks}/>
+                        <div className={"book-card-inner"}>
+                            <div className="book-cover-div">
+                                <img className="book-cover" src={current.cover} alt={current.title}/>
+                            </div>
+                            <h3 className="book-title">Title: {current.title}</h3>
+                            <p className="book-author">Author: {current.author}</p>
+                            <p className="book-isbn">ISBN: {current.isbn}</p>
+                            <p className="book-isbn">Rented by:{current.rentedBy}</p>
+                        </div>
                     </div>)
                 : ""}
         </div>
