@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import static com.mongodb.assertions.Assertions.fail;
 import static de.neuefische.booklibrary.backend.book.Availability.AVAILABLE;
+import static de.neuefische.booklibrary.backend.book.Availability.NOT_AVAILABLE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
@@ -62,8 +63,8 @@ class BookServiceTest {
     @Test
     void addNewBookWithoutId_returnBookWithId() {
         //given
-        Book book = new Book(null, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
-        Book saveBook = book.withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(Availability.NOT_AVAILABLE);
+        Book book = new Book(null, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
+        Book saveBook = book.withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook.withId("id1"));
 
         //when
@@ -77,8 +78,8 @@ class BookServiceTest {
     @Test
     void addNewBookWithId_returnBook() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
-        Book saveBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(Availability.NOT_AVAILABLE);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
+        Book saveBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook);
 
         //when
@@ -89,21 +90,21 @@ class BookServiceTest {
     }
 
 
-   @Test
+    @Test
     void updateBookById_returnUpdatedBook() {
-       //given
-       Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
-       Book toUpdateBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(Availability.NOT_AVAILABLE);
+        //given
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
+        Book toUpdateBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(NOT_AVAILABLE);
 
-       when(bookRepository.save(toUpdateBook)).thenReturn(toUpdateBook);
+        when(bookRepository.save(toUpdateBook)).thenReturn(toUpdateBook);
 
-       //when
-       Book actual = bookService.updateBook(toUpdateBook);
+        //when
+        Book actual = bookService.updateBook(toUpdateBook);
 
-       //then
-       verify(bookRepository).save(toUpdateBook);
-       assertEquals(toUpdateBook, actual);
-   }
+        //then
+        verify(bookRepository).save(toUpdateBook);
+        assertEquals(toUpdateBook, actual);
+    }
 
     @Test
     void isBookExisting_returnTrue() {
@@ -135,7 +136,7 @@ class BookServiceTest {
     @Test
     void deleteBookById() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", Availability.NOT_AVAILABLE, null);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
         doNothing().when(bookRepository).deleteById(book.id());
         //when
         bookService.deleteBook(book.id());
@@ -166,7 +167,7 @@ class BookServiceTest {
 
 
         Book bookToRent = foundBook.withId(bookId)
-                .withAvailability(Availability.NOT_AVAILABLE)
+                .withAvailability(NOT_AVAILABLE)
                 .withRentedBy(appUser.username());
 
         //when
@@ -221,10 +222,10 @@ class BookServiceTest {
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
-                Availability.NOT_AVAILABLE,
+                NOT_AVAILABLE,
                 null);
 
-        Book bookToRent = foundBook.withId(bookId).withAvailability(Availability.NOT_AVAILABLE).withRentedBy(appUsername);
+        Book bookToRent = foundBook.withId(bookId).withAvailability(NOT_AVAILABLE).withRentedBy(appUsername);
 
         //when
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(foundBook));
@@ -343,6 +344,37 @@ class BookServiceTest {
             assertEquals("No Book found with this ID", e.getMessage());
             verify(bookRepository, never()).save(book);
         }
+    }
+
+    @Test
+    void getRentedByMeBooks_returnListOfBooks() {
+        //given
+        String username = "username";
+        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", NOT_AVAILABLE, username);
+        List<Book> bookList = new ArrayList<>(List.of(book));
+
+        //when
+        when(bookRepository.findAll()).thenReturn(bookList);
+        List<Book> actual = bookService.getRentedBooks(username);
+
+        //then
+        verify(bookRepository).findAll();
+        assertEquals(bookList, actual);
+    }
+
+    @Test
+    void getRentedByMeBooks_returnEmptyList() {
+        //given
+        String username = "username";
+        List<Book> bookList = new ArrayList<>(List.of());
+
+        //when
+        when(bookRepository.findAll()).thenReturn(bookList);
+        List<Book> actual = bookService.getRentedBooks(username);
+
+        //then
+        verify(bookRepository).findAll();
+        assertEquals(bookList, actual);
     }
 
 }
