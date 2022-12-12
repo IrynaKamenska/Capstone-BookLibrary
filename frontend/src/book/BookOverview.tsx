@@ -6,7 +6,6 @@ import UpdateBook from "./UpdateBook";
 import "./css/BookOverview.css";
 import "../Buttons.css";
 import "../Modals.css";
-import AddBookManually from "./AddBookManually";
 import RentBook from "./RentBook";
 import ReturnBook from "./ReturnBook";
 
@@ -22,12 +21,13 @@ function BookOverview(props: BookOverviewProps) {
         (book) => book.title.toLowerCase().includes(filterText.toLowerCase()));
 
     return <>
-        <p>Search Books in DB: {filterText}</p>
-        <input className={"search-input"} onChange={(event) => setFilterText(event.target.value)}/>
-        {props.books.length > 0 ?
 
-            <>
-                <div className="content-main-div">
+        <div className="content-main-div">
+            <h5>Search Books in DB: {filterText}</h5>
+            <input className={"search-input"} onChange={(event) => setFilterText(event.target.value)}/>
+            {props.books.length > 0 ?
+
+                <>
                     <h2>Overview of all Books</h2>
                     <table className="content-table">
                         <tbody>
@@ -70,14 +70,12 @@ function BookOverview(props: BookOverviewProps) {
                         })}
                         </tbody>
                     </table>
-                </div>
-            </>
+                </>
                 :
-                <div className="content-main-div">
-                    <p>Library is empty :-(</p>
-                </div>
-        }
+                <p>Library is empty :-(</p>
 
+            }
+        </div>
     </>;
 }
 
