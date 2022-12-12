@@ -1,4 +1,5 @@
 import {Availability} from "./Availability";
+import {RentBookInfo} from "./RentBookInfo";
 
 export type BookModel = {
     id: string,
@@ -7,5 +8,5 @@ export type BookModel = {
     author: string,
     isbn: string,
     availability: Availability,
-    rentedBy: string
+    rentBookInfo: RentBookInfo
 }
