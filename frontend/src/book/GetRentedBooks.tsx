@@ -21,7 +21,7 @@ function GetRentedBooks() {
             <p>Rented Books by me:</p>
             {Array.isArray(books)
                 ? books.map((current) =>
-                    <div className={"book-card"}>
+                    <div key={current.id} className={"book-card"}>
                         <div className={"book-card-inner"}>
                             <div className="book-cover-div">
                                 <img className="book-cover" src={current.cover} alt={current.title}/>
