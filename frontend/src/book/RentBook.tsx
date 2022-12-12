@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FormEvent, useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
@@ -49,24 +49,33 @@ function RentBook(props: RentBookProps) {
     }, [])
     const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
 
+    const [rentInfo, setRentInfo] = useState(
+        {
+            ...props.book.rentBookInfo
+        }
+    );
 
-    const rentBook = useCallback((id: string, username: string) => {
-            axios.post("/api/books/rentBook/" + id + "/" + username)
+    const rentBook = useCallback((id: string) => {
+            axios.post("/api/books/rentBook/" + id, {rentInfo})
                 .then(response => {
                     closeModal()
                     return response.data
                 })
                 .catch(error => console.error("POST Error: " + error))
                 .then(props.reloadAllBooks)
-            setRentedBy("")
+            // setRentedBy("")
+            setRentInfo({
+                rentByUsername: "",
+                rentUntil: ""
+            })
         },
         [props.reloadAllBooks, closeModal])
 
 
-    const handleRentBook = (event: FormEvent<HTMLFormElement>) => {
+    const handleRentBook = (event: any) => {
         event.preventDefault()
         console.log("handleRentBook: " + names)
-        rentBook(props.book.id, rentedBy);
+        rentBook(props.book.id);
 
     }
 
@@ -90,12 +99,13 @@ function RentBook(props: RentBookProps) {
                     <h3 className="book-title">{props.book.title}</h3>
                     <p className="book-info">{props.book.author}</p>
                     <p className="book-info">ISBN:{props.book.isbn}</p>
-                    <p className="book-info">RENTED by: {rentedBy}</p>
+                    <p className="book-info">RENTED by: {rentInfo.rentByUsername}</p>
+                    <p className="book-info">RENTED by: {rentInfo.rentUntil}</p>
                 </div>
                 <br/>
                 <label htmlFor="rentBy">RentBy:</label>
 
-                <select className="selector" value={props.book.rentedBy} name="rentedBy" id="rentedBy"
+                <select className="selector" value={props.book.rentBookInfo.rentByUsername} name="rentedBy" id="rentedBy"
                         onChange={handleRentChange}>
                     {rentBookBy()}
                 </select>

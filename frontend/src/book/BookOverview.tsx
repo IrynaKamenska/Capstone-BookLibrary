@@ -61,7 +61,7 @@ function BookOverview(props: BookOverviewProps) {
 
                                 {props.appUserInfo.role === "LIBRARIAN" ?
                                     <>
-                                <td>{book.rentedBy}</td>
+                                <td>{book.rentBookInfo.rentByUsername}</td>
 
                                 <td>
                                     <React.Fragment>

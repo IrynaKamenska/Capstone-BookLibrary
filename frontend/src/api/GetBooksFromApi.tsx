@@ -18,7 +18,10 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
         "author": "",
         "isbn": "",
         "availability": Availability.AVAILABLE,
-        rentedBy: ""
+        "rentBookInfo": {
+            "rentByUsername": "",
+            "rentUntil": ""
+        }
     }
 
     const [result, setResult] = useState<BookModel>(initialData);
