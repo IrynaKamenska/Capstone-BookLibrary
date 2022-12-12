@@ -4,6 +4,7 @@ import de.neuefische.booklibrary.backend.api.ApiBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -35,6 +36,15 @@ public class BookController {
     @GetMapping("/isbn/{isbn}")
     public List<Book> getApiBookByIsbn(@PathVariable @Valid String isbn) {
         return apiBookService.getApiBookByIsbn(isbn);
+    }
+
+    @GetMapping("/rentedBooks")
+    public List<Book> getRentedBooks() {
+        String user = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+        return bookService.getRentedBooks(user);
     }
 
 
