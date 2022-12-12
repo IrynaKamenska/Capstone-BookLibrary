@@ -2,7 +2,6 @@ package de.neuefische.booklibrary.backend.book;
 
 import de.neuefische.booklibrary.backend.security.AppUserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,7 +48,7 @@ public class BookService {
         }
 
         if (!appUserRepository.existsByUsername(rentedBy)) {
-            throw new UsernameNotFoundException("Username not found");
+            throw new UserNotExistsByUsernameException("Username not found");
         }
         bookToRent = bookToRent.withId(id).withRentedBy(rentedBy).withAvailability(NOT_AVAILABLE);
         return bookRepository.save(bookToRent);

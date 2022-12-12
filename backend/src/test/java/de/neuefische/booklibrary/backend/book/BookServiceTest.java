@@ -4,7 +4,6 @@ import de.neuefische.booklibrary.backend.security.AppUser;
 import de.neuefische.booklibrary.backend.security.AppUserRepository;
 import de.neuefische.booklibrary.backend.security.AppUserRole;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -286,7 +285,7 @@ class BookServiceTest {
         try {
             bookService.rentBook(bookId, username);
             fail();
-        } catch (UsernameNotFoundException e) {
+        } catch (UserNotExistsByUsernameException e) {
             //then
             assertEquals("Username not found", e.getMessage());
             verify(bookRepository, never()).save(bookToRent);
