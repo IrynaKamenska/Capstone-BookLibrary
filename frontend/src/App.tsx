@@ -10,6 +10,7 @@ import SecuredPage from "./security/SecuredPage";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import CreateBook from "./book/CreateBook";
 import AddBookManually from "./book/AddBookManually";
+import GetRentedBooks from "./book/GetRentedBooks";
 
 
 function App() {
@@ -66,6 +67,7 @@ function App() {
         <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
         <AddBookManually openModal={openModal}></AddBookManually>
         <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
+        <GetRentedBooks reloadAllBooks={fetchAllBooks}/>
     </>;
 
 }
