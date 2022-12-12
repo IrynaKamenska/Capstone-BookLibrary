@@ -28,10 +28,7 @@ function BookCard(props: BookCardProps) {
             author: "",
             isbn: "",
             availability: Availability.AVAILABLE,
-            rentBookInfo: {
-                rentByUsername: "",
-                rentUntil: Date.now().toLocaleString()
-            }
+            rentBookInfo: {rentByUsername: "", rentUntil: new Date()}
         });
     }
 

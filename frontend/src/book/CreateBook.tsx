@@ -17,7 +17,11 @@ export default function CreateBook(props: ModalProps) {
             title: "",
             author: "",
             isbn: "",
-            availability: Availability.AVAILABLE
+            availability: Availability.AVAILABLE,
+            rentBookInfo: {
+                rentByUsername: "",
+                rentUntil: ""
+            }
         }
     );
 
@@ -33,7 +37,11 @@ export default function CreateBook(props: ModalProps) {
             title: "",
             author: "",
             isbn: "",
-            availability: Availability.AVAILABLE
+            availability: Availability.AVAILABLE,
+            rentBookInfo: {
+                rentByUsername: "",
+                rentUntil: ""
+            }
         });
     }
 
