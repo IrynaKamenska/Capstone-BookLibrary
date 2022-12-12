@@ -19,7 +19,7 @@ function RentBook(props: RentBookProps) {
     const [date, setDate] = useState<Date>(new Date())
 
 
-    const handleChangeDate = useCallback(() => setDate(date), [date]);
+    const handleChangeDate = useCallback(() => setDate(new Date()), []);
     const handleDateSelect = useCallback(() => props.reloadAllBooks(), [props]);
 
     const fetchUsernames = useCallback(() => {
