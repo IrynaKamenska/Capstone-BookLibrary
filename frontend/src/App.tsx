@@ -67,7 +67,7 @@ function App() {
         <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
         <AddBookManually openModal={openModal}></AddBookManually>
         <GetBooksFromApi reloadAllBooks={fetchAllBooks}/>
-        <GetRentedBooks reloadAllBooks={fetchAllBooks}/>
+        <GetRentedBooks/>
     </>;
 
 }
