@@ -8,10 +8,12 @@ import "../Buttons.css";
 import "../Modals.css";
 import RentBook from "./RentBook";
 import ReturnBook from "./ReturnBook";
+import {AppUserInfo} from "../security/AppUserInfo";
 
 type BookOverviewProps = {
     books: BookModel[],
     fetchAllBooks: () => void
+    appUserInfo: AppUserInfo
 }
 
 function BookOverview(props: BookOverviewProps) {
@@ -37,8 +39,11 @@ function BookOverview(props: BookOverviewProps) {
                             <th>Author</th>
                             <th>ISBN</th>
                             <th>Availability</th>
+                            {props.appUserInfo.role === "LIBRARIAN" ?
+                                <>
                             <th>RentedBy</th>
                             <th>Action</th>
+                                </> : ""}
                         </tr>
                         {filteredBooks.map((book) => {
                             return <tr key={book.id}>
@@ -53,12 +58,15 @@ function BookOverview(props: BookOverviewProps) {
                                     <span className="content-not-available">Not Available</span>
                                 }
                                 </td>
+
+                                {props.appUserInfo.role === "LIBRARIAN" ?
+                                    <>
                                 <td>{book.rentedBy}</td>
 
                                 <td>
                                     <React.Fragment>
-                                        <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
-                                        <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
+                                                <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
+                                                <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
                                         {book.availability === "AVAILABLE" ?
                                             <RentBook book={book} reloadAllBooks={props.fetchAllBooks}/>
                                             :
@@ -66,6 +74,9 @@ function BookOverview(props: BookOverviewProps) {
                                         }
                                     </React.Fragment>
                                 </td>
+                                    </>
+                                    :
+                                    "" }
                             </tr>;
                         })}
                         </tbody>
