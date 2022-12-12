@@ -25,12 +25,12 @@ function BookOverview(props: BookOverviewProps) {
     return <>
 
         <div className="content-main-div">
-            <h5>Search Books in DB: {filterText}</h5>
-            <input className={"search-input"} onChange={(event) => setFilterText(event.target.value)}/>
+            <h2>Overview of all Books in Library</h2>
+            <span>Filter Books: </span>
+            <input className={"filter-input"} onChange={(event) => setFilterText(event.target.value)}/>
             {props.books.length > 0 ?
 
                 <>
-                    <h2>Overview of all Books</h2>
                     <table className="content-table">
                         <tbody>
                         <tr>

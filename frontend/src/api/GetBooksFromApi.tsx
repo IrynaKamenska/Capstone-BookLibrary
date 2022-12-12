@@ -60,7 +60,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
 
     return (
         <div className="search-main-div">
-            <p>Add book semi-automatic via search in google database: </p>
+            <p>Semi-automatic via search in google database: </p>
             <form onSubmit={handleSubmit}>
                 <input className={"search-input"} type="text"
                        placeholder={"Search for Books"}

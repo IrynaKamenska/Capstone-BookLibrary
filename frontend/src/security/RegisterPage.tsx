@@ -33,8 +33,11 @@ function RegisterPage() {
     }
 
     return <>
+        <div className="header-lib">The&nbsp;&nbsp;Library</div>
         <div className={"login-form"}>
             <h2>Register</h2>
+            <p>Back to&nbsp;
+                <Link to="/">login</Link></p>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
@@ -50,7 +53,6 @@ function RegisterPage() {
                 </div>
                 <button className="button button-reg">Register</button>
             </form>
-            <Link to="/">Back to login</Link>
         </div>
     </>;
 }

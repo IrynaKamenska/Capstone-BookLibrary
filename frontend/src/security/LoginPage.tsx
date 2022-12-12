@@ -1,4 +1,4 @@
-import {FormEvent, useState} from "react";
+import React, {FormEvent, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import "./css/LoginPage.css"
@@ -40,8 +40,11 @@ export default function LoginPage(props: Props) {
     }
 
     return <>
+        <div className="header-lib">The&nbsp;&nbsp;Library</div>
         <div className={"login-form"}>
             <h2>Login</h2>
+            <p>Dont have an account?&nbsp;
+            <Link to={{pathname: "/register"}}>Register</Link></p>
             <form className="form" onSubmit={handleSubmit}>
                 <div className="input-group">
                     <label htmlFor="username">Username</label>
@@ -57,7 +60,6 @@ export default function LoginPage(props: Props) {
                 </div>
                 <button className="button button-login">Login</button>
             </form>
-            <Link to={{pathname: "/register"}}>Register</Link>
         </div>
     </>
 }
