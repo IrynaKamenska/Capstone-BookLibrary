@@ -367,4 +367,59 @@ class BookIntegrationTest {
                         """));
     }
 
+
+    @Test
+    @WithMockUser(roles = {"LIBRARIAN"}, username = "member")
+    @DirtiesContext
+    void getRentedBooks_returnListWithOneBook() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                "id": "7jw5-eAicLIC",
+                                "cover": "http://books.google.com/books",
+                                "title": "Ich und meine Schwester Klara",
+                                "author": "Dimiter Inkiow",
+                                "isbn": "3770728203",
+                                "availability": "NOT_AVAILABLE",
+                                "rentedBy": "member"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().is(201))
+                .andReturn().getResponse().getContentAsString();
+
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "username": "member",
+                                    "rawPassword": "Password898#",
+                                    "role": "MEMBER"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().isCreated());
+
+        mockMvc.perform(get("/api/app-users/login"))
+                .andExpect(status().isOk());
+
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/books/rentedBooks"))
+                .andExpect(status().isOk())
+                .andExpect(content().json("""
+                        [
+                            {
+                                "id": "7jw5-eAicLIC",
+                                "cover": "http://books.google.com/books",
+                                "title": "Ich und meine Schwester Klara",
+                                "author": "Dimiter Inkiow",
+                                "isbn": "3770728203",
+                                "availability": "NOT_AVAILABLE",
+                                "rentedBy": "member"
+                            }
+                        ]
+                                """));
+    }
+
+
 }
