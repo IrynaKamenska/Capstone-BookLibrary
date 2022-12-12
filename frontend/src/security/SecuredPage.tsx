@@ -30,6 +30,7 @@ export default function SecuredPage(props: SecuredProps) {
     }
 
     return <div className={"top-bar"}>
+        <div className="top-bar-lib">The&nbsp;&nbsp;Library</div>
         <div className={"logged-in"}>Hello {appUserInfo.username}! (you are {appUserInfo.role})</div>
         <div className="top-bar-spacer"></div>
         <div className={"logout-delete-container"}>

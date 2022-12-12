@@ -48,9 +48,11 @@ function BookCard(props: BookCardProps) {
                 <div className="book-cover-div">
                     <img className="book-cover" src={props.book.cover} alt={props.book.title}/>
                 </div>
-                <h3 className="book-title">{props.book.title}</h3>
-                <p className="book-author">{props.book.author}</p>
-                <p className="book-isbn">{props.book.isbn}</p>
+                <div className="book-info-div">
+                    <h3 className="book-title">{props.book.title}</h3>
+                    <p className="book-author">by {props.book.author}</p>
+                    <p className="book-isbn">ISBN {props.book.isbn}</p>
+                </div>
                 <div className="div-form">
                     <br/>
                     <label>

@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Corinthia:wght@700&display=swap');
+.header-lib {
+    font-family: 'Corinthia', cursive;
+    font-size: 75px;
+    margin: 25px auto;
+    float: left;
+    width: 100%;
+    text-align: center;
+    color: #666;
+}
+
 .login-form {
     display: flex;
     flex-flow: column wrap;
@@ -13,11 +24,12 @@
     text-align: center;
     font-style: unset;
     margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .form {
-    margin-bottom: 40px;
-    margin-top: 15px;
+    margin-bottom: 10px;
+    margin-top: 25px;
 }
 
 .input-group {
@@ -81,4 +93,8 @@ b:hover {
     color: #ff0000;
     cursor: pointer;
     scale: 1.4;
+}
+
+.span-login {
+    float: left;
 }

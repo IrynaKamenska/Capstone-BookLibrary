@@ -115,3 +115,22 @@
     border: 2px solid #948473;
     margin-bottom: 2px;
 }
+
+.filter-input {
+    text-align: center;
+    width: 250px;
+    height: 24px;
+    border: 1px solid #c9c9c9;
+    font-size: 15px;
+    margin: 10px 10px 10px 2px;
+    border-radius: 3px;
+    background: #f5fff5;
+    cursor: pointer;
+}
+.filter-input:hover {
+    background: #e1ffe1;
+}
+
+.filter-input:focus {
+    background: #e1ffe1;
+}

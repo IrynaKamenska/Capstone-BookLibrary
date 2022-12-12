@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Corinthia:wght@700&display=swap');
+
 .top-bar {
     width: 100%;
     display: block;
@@ -10,8 +12,16 @@
     box-shadow: 0 0 6px 3px rgba(0, 0, 0, 0.3);
 }
 
+.top-bar-lib {
+    font-family: 'Corinthia', cursive;
+    font-size: 25px;
+    width: 120px;
+    padding-left: 15px;
+    float: left;
+}
+
 .logged-in {
-    width: calc(100% - 257px);
+    width: calc(100% - 392px);
     float: left;
     position: relative;
     text-align: right;
