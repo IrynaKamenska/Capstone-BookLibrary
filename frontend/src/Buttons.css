@@ -98,9 +98,34 @@
     padding: 5px 0 3px 0;
     width: 60px;
 }
+
 .button-delete-book:hover {
     background: #a65252;
 }
+
+
+.button-rent-book {
+    background: #f19147;
+    font-size: 12px;
+    padding: 5px 0 3px 0;
+    width: 60px;
+}
+
+.button-rent-book:hover {
+    background: #ea7318;
+}
+
+.button-return-book {
+    background: #78b695;
+    font-size: 12px;
+    padding: 5px 0 3px 0;
+    width: 60px;
+}
+
+.button-return-book:hover {
+    background: #5fd093;
+}
+
 
 .button-add-manually {
     background: #9ecc71;
@@ -110,6 +135,7 @@
     max-width: 420px;
     padding: 11px 0 9px 0;
 }
+
 .button-add-manually:hover {
     background: #639433;
 }
