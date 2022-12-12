@@ -38,31 +38,32 @@ public class BookService {
         return bookRepository.existsById(id);
     }
 
-    public Book rentBook(String id, String rentedBy) {
+    public Book rentBook(String id, RentBookInfo rentBookInfo) {
         Book bookToRent = bookRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book found with this ID"));
 
         if (bookToRent.availability() != AVAILABLE) throw new BookNotAvailableException("Book is not available");
-        if ((bookToRent.rentedBy() != null)) {
-            throw new BookIsAlreadyRentedException("Book is already rented to user: " + bookToRent.rentedBy());
+        if ((bookToRent.rentBookInfo() != null)) {
+            throw new BookIsAlreadyRentedException("Book is already rented to user: " + bookToRent.rentBookInfo());
         }
 
-        if (!appUserRepository.existsByUsername(rentedBy)) {
+        if (!appUserRepository.existsByUsername(rentBookInfo.rentByUsername())) {
             throw new UserNotExistsByUsernameException("Username not found");
         }
-        bookToRent = bookToRent.withId(id).withRentedBy(rentedBy).withAvailability(NOT_AVAILABLE);
+        bookToRent = bookToRent.withId(id).withRentBookInfo(rentBookInfo).withAvailability(NOT_AVAILABLE);
         return bookRepository.save(bookToRent);
 
     }
 
     public Book returnBook(String id) {
         Book bookToReturn = bookRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book found with this ID"));
-        bookToReturn = bookToReturn.withId(id).withRentedBy(null).withAvailability(AVAILABLE);
+        RentBookInfo rentBookInfo = new RentBookInfo("", "");
+        bookToReturn = bookToReturn.withId(id).withRentBookInfo(rentBookInfo).withAvailability(AVAILABLE);
         return bookRepository.save(bookToReturn);
     }
 
     public List<Book> getRentedBooks(String username) {
         List<Book> books = bookRepository.findAll();
         return books.stream()
-                .filter(book -> book.rentedBy() != null && book.rentedBy().equals(username)).toList();
+                .filter(book -> book.rentBookInfo() != null && book.rentBookInfo().rentByUsername().equals(username)).toList();
     }
 }

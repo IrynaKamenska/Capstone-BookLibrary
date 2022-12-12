@@ -3,6 +3,7 @@ package de.neuefische.booklibrary.backend.api;
 
 import de.neuefische.booklibrary.backend.book.Availability;
 import de.neuefische.booklibrary.backend.book.Book;
+import de.neuefische.booklibrary.backend.book.RentBookInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,7 @@ public class ApiBookService {
 
     private static void getBookListFromApiBookList(List<ApiBook> books, List<Book> bookList) {
         for (ApiBook apiBook : books) {
+            RentBookInfo rentBookInfo = new RentBookInfo("", "");
             VolumeInfo volumeInfo = apiBook.volumeInfo();
             String thumbnail = Optional.ofNullable(volumeInfo.imageLink())
                     .map(ImageLink::thumbnail)
@@ -58,7 +60,7 @@ public class ApiBookService {
                     apiBook.volumeInfo().title(),
                     author,
                     apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
-                    Availability.AVAILABLE, null);
+                    Availability.AVAILABLE, rentBookInfo);
             bookList.add(book);
         }
     }

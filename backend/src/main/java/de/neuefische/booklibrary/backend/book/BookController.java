@@ -54,13 +54,14 @@ public class BookController {
         if (newBook.cover() == null) {
             return bookService.saveBook(newBook.withCover(DEFAULT_COVER));
         }
-        return bookService.saveBook(newBook);
+        RentBookInfo rentBookInfo = new RentBookInfo("", "");
+        return bookService.saveBook(newBook.withRentBookInfo(rentBookInfo));
     }
 
 
-    @PostMapping("/rentBook/{id}/{rentedBy}")
-    public Book rentBook(@PathVariable String id, @PathVariable String rentedBy) {
-        return bookService.rentBook(id, rentedBy);
+    @PostMapping("/rentBook/{id}")
+    public Book rentBook(@PathVariable String id, @RequestBody RentBookInfo rentBookInfo) {
+        return bookService.rentBook(id, rentBookInfo);
     }
 
     @PostMapping("/returnBook/{id}")
