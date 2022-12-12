@@ -18,13 +18,9 @@ function RentBook(props: RentBookProps) {
     const [names, setNames] = useState<string[]>([]);
     const [date, setDate] = useState<Date>(new Date())
 
-    const handleChangeDate = (date: Date) => {
-        setDate(date)
-    }
 
-    const handleDateSelect = () => {
-        props.reloadAllBooks()
-    }
+    const handleChangeDate = useCallback(() => setDate(date), [date]);
+    const handleDateSelect = useCallback(() => props.reloadAllBooks(), [props]);
 
     const fetchUsernames = useCallback(() => {
         axios.get("/api/app-users/getAllUsernames")
@@ -38,7 +34,7 @@ function RentBook(props: RentBookProps) {
         return <>
             {names.map(name => {
                 return (
-                    <option value={name}>{name}</option>
+                    <option key={name} value={name}>{name}</option>
                 )
             })}
         </>;
