@@ -18,7 +18,7 @@ function GetRentedBooks() {
     return (
 
         <div className={"book-cards"}>
-            <p>Rented Books by me:</p>
+            <p>My Rented Books:</p>
             {Array.isArray(books)
                 ? books.map((current) =>
                     <div key={current.id} className={"book-card"}>
