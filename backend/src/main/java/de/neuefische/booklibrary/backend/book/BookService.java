@@ -43,7 +43,7 @@ public class BookService {
 
         if (bookToRent.availability() != AVAILABLE) throw new BookNotAvailableException("Book is not available");
         if ((!bookToRent.rentBookInfo().rentByUsername().isEmpty())) {
-            throw new BookIsAlreadyRentedException("Book is already rented to user: " + bookToRent.rentBookInfo());
+            throw new BookIsAlreadyRentedException("Book is already rented to user: " + bookToRent.rentBookInfo().rentByUsername());
         }
 
         if (!appUserRepository.existsByUsername(rentBookInfo.rentByUsername())) {
