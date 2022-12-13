@@ -15,5 +15,5 @@ public record Book(
         @NotBlank
         String isbn,
         Availability availability,
-         RentBookInfo rentBookInfo) {
+        RentBookInfo rentBookInfo) {
 }
