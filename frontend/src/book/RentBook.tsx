@@ -1,4 +1,4 @@
-import React, {FormEvent, useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, FormEvent, useCallback, useEffect, useState} from 'react';
 import {BookModel} from "./BookModel";
 import axios from "axios";
 import Modal from "react-modal";
@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "../Buttons.css";
 import "../Modals.css";
 import "react-datepicker/dist/react-datepicker.css";
+import {RentBookInfo} from "./RentBookInfo";
 
 type RentBookProps = {
     book: BookModel;
@@ -14,22 +15,16 @@ type RentBookProps = {
 
 function RentBook(props: RentBookProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+    const openModal = useCallback(() => {
+        setModalIsOpen(true)
+    }, [])
+    const closeModal = useCallback(() => {
+        setModalIsOpen(false)
+    }, [])
+    const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
 
-    // const [rentedBy, setRentedBy] = useState<string>("")
-    // const [rentedUntil, setRentedUntil] = useState<string>("")
 
     const [names, setNames] = useState<string[]>([]);
-    const [date, setDate] = useState<Date>(new Date())
-
-
-    const handleChangeDate = (date: Date) => {
-        console.log("DATE:" + date.toISOString())
-        setDate(date)
-    }
-    const handleDateSelect = () => {
-        props.reloadAllBooks()
-    }
-
     const fetchUsernames = useCallback(() => {
         axios.get("/api/app-users/getAllUsernames")
             .then(response => response.data)
@@ -48,54 +43,34 @@ function RentBook(props: RentBookProps) {
         </>;
     }
 
-    const openModal = useCallback(() => {
-        setModalIsOpen(true)
-    }, [])
-
-    const closeModal = useCallback(() => {
-        setModalIsOpen(false)
-    }, [])
-    const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
-
-    // const [rentInfo, setRentInfo] = useState(
-    //     {
-    //         ...props.book.rentBookInfo
-    //     }
-    // );
-
-    const[rentInfo, setRentInfo] = useState({
+    const [rentBookInfo, setRentBookInfo] = useState<RentBookInfo>({
         rentByUsername: "",
-        rentUntil: ""
-
+        rentUntil: new Date()
     })
-    const rentBook = useCallback((id: string) => {
-            axios.post("/api/books/rentBook/" + id, {rentInfo})
-                .then(response => {
-                    closeModal()
-                    return response.data
-                })
-                .catch(error => console.error("POST Error: " + error))
-                .then(props.reloadAllBooks)
-        },
-        [props.reloadAllBooks, closeModal])
-
 
     const handleRentBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log("handleRentBook: " + names)
-        console.log("NAMES: " + rentInfo.rentByUsername)
-        console.log("UNTIL: " + rentInfo.rentUntil)
-
-        rentBook(props.book.id);
-
+        console.log("RENT-BOOK-OBJECT", rentBookInfo)
+        axios.post("/api/books/rentBook/" + props.book.id, rentBookInfo)
+            .catch(error => console.error("POST Error: " + error))
+            .then(props.reloadAllBooks)
+            .then(closeModal)
     }
 
-    // event: ChangeEvent<HTMLSelectElement>
-    const handleRentChange = (event: any) => {
-        setRentInfo({
-            ...rentInfo, [event.target.name]: event.target.value})
+
+    const handleRentChangeUsername = (event: ChangeEvent<HTMLSelectElement>) => {
+        console.log("RENT-Object", rentBookInfo)
+        console.log("RENT-Username", event.target.value)
+        setRentBookInfo({
+            ...rentBookInfo, "rentByUsername": event.target.value
+        })
     }
 
+    const handleRentChangeDate = (date: Date) => {
+        setRentBookInfo({
+            ...rentBookInfo, "rentUntil": date
+        })
+    }
 
     return <>
         <button className="button button-rent-book" type={"submit"} onClick={openModal}>Rent</button>
@@ -116,13 +91,11 @@ function RentBook(props: RentBookProps) {
                 <br/>
                 <label htmlFor="rentBy">RentBy:</label>
 
-                <select className="selector" value={rentInfo.rentByUsername} name="rentByUsername" id="rentByUsername"
-                        onChange={handleRentChange}>
-                    {rentBookBy()}
-                </select>
+                <select className="selector" value={rentBookInfo.rentByUsername} name="rentByUsername" id="rentByUsername"
+                        onChange={handleRentChangeUsername}>{rentBookBy()}</select>
                 <p>Rent until:</p>
-                <DatePicker selected={date} onChange={handleChangeDate} showTimeSelect dateFormat="Pp"
-                            onCalendarClose={handleDateSelect}/>
+                <DatePicker selected={rentBookInfo.rentUntil} onChange={handleRentChangeDate} showTimeSelect
+                            dateFormat="Pp"/>
                 <br/><br/>
                 <div className="modal-body">
                     <button className="button button-rent-book">Rent</button>
