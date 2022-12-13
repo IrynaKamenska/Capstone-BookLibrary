@@ -50,7 +50,6 @@ function RentBook(props: RentBookProps) {
 
     const handleRentBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        console.log("RENT-BOOK-OBJECT", rentBookInfo)
         axios.post("/api/books/rentBook/" + props.book.id, rentBookInfo)
             .catch(error => console.error("POST Error: " + error))
             .then(props.reloadAllBooks)
@@ -59,18 +58,16 @@ function RentBook(props: RentBookProps) {
 
 
     const handleRentChangeUsername = (event: ChangeEvent<HTMLSelectElement>) => {
-        console.log("RENT-Object", rentBookInfo)
-        console.log("RENT-Username", event.target.value)
         setRentBookInfo({
             ...rentBookInfo, "rentByUsername": event.target.value
         })
     }
 
-    const handleRentChangeDate = (date: Date) => {
+    const handleRentChangeDate = React.useCallback((date: Date) =>
         setRentBookInfo({
             ...rentBookInfo, "rentUntil": date
-        })
-    }
+        }), [rentBookInfo])
+
 
     return <>
         <button className="button button-rent-book" type={"submit"} onClick={openModal}>Rent</button>
