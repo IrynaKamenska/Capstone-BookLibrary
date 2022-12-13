@@ -3,6 +3,7 @@ package de.neuefische.booklibrary.backend.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.booklibrary.backend.book.Availability;
 import de.neuefische.booklibrary.backend.book.Book;
+import de.neuefische.booklibrary.backend.book.RentBookInfo;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -23,6 +24,8 @@ class ApiBookServiceTest {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private ApiBookService apiBookService;
+
+    private final RentBookInfo rentBookInfoEmpty = new RentBookInfo("", "");
 
     @Value("${api.key}")
     private String apiKey;
@@ -62,7 +65,7 @@ class ApiBookServiceTest {
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", Availability.AVAILABLE, null));
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", Availability.AVAILABLE, rentBookInfoEmpty));
 
 
         mockWebServer.enqueue(new MockResponse()
@@ -118,7 +121,7 @@ class ApiBookServiceTest {
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", Availability.AVAILABLE, null));
+        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", "9783897214484", Availability.AVAILABLE, rentBookInfoEmpty));
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))

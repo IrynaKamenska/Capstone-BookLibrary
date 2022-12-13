@@ -47,7 +47,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "AVAILABLE"
+                                "availability": "AVAILABLE",
+                                    "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                 }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -65,7 +69,11 @@ class BookIntegrationTest {
                             "title": "Java",
                              "author": "Ullenbom",
                              "isbn": "ISBN 978-0-596-52068-7",
-                             "availability": "AVAILABLE"
+                             "availability": "AVAILABLE",
+                              "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                 }
                         } ]
                         """.replace("<id>", book.id())))
                 .andExpect(jsonPath("$..title").isNotEmpty())
@@ -86,7 +94,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "AVAILABLE"
+                                "availability": "AVAILABLE",
+                                 "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                 }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -104,7 +116,11 @@ class BookIntegrationTest {
                             "title": "Java",
                              "author": "Ullenbom",
                              "isbn": "ISBN 978-0-596-52068-7",
-                             "availability": "AVAILABLE"
+                             "availability": "AVAILABLE",
+                             "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                         } ]
                         """.replace("<id>", book.id()).replace("<cover>", book.cover())))
                 .andExpect(jsonPath("$..cover").isNotEmpty())
@@ -127,7 +143,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "AVAILABLE"
+                                "availability": "AVAILABLE",
+                                  "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                 }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -143,7 +163,11 @@ class BookIntegrationTest {
                                     "title": "Java",
                                     "author": "Ullenbom",
                                     "isbn": "ISBN 978-0-596-52068-7",
-                                    "availability": "NOT_AVAILABLE"
+                                    "availability": "NOT_AVAILABLE",
+                                     "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                     }
                                 """.replace("<id>", book.id())).with(csrf()))
                 .andExpect(status().is(200))
@@ -153,7 +177,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "NOT_AVAILABLE"
+                                "availability": "NOT_AVAILABLE",
+                                 "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                             }
                         """.replace("<id>", book.id())));
     }
@@ -170,7 +198,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "AVAILABLE"
+                                "availability": "AVAILABLE",
+                                 "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                 }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -180,7 +212,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "AVAILABLE"
+                                "availability": "AVAILABLE",
+                                 "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                         }
                         """));
     }
@@ -197,7 +233,11 @@ class BookIntegrationTest {
                                     "title": "Java",
                                     "author": "Ullenbom",
                                     "isbn": "ISBN 978-0-596-52068-7",
-                                    "availability": "NOT_AVAILABLE"
+                                    "availability": "NOT_AVAILABLE",
+                                    "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                     }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -207,7 +247,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "NOT_AVAILABLE"
+                                "availability": "NOT_AVAILABLE",
+                                  "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                 }
                         """));
 
@@ -226,7 +270,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "AVAILABLE"
+                                "availability": "AVAILABLE",
+                                 "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                 }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -250,10 +298,9 @@ class BookIntegrationTest {
     }
 
     @Test
-    @WithMockUser(roles = {"LIBRARIAN"}, username = "librarian")
+    @WithMockUser(roles = {"LIBRARIAN"}, username = "member")
     @DirtiesContext
-    void rentBookByIdOnExistingInDbAppUser_return200() throws Exception {
-        String rentOn = "member";
+    void rentBookByIdOnExistingAppUser_return200() throws Exception {
         String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
@@ -263,7 +310,11 @@ class BookIntegrationTest {
                                 "title": "Java",
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
-                                "availability": "AVAILABLE"
+                                "availability": "AVAILABLE",
+                                 "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                                 }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -298,8 +349,15 @@ class BookIntegrationTest {
                 .andExpect(status().isCreated());
 
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/books/rentBook/" + book.id() + "/" + rentOn).with(csrf()))
-                .andExpect(status().isOk())
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/books/rentBook/" + book.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "rentByUsername": "member",
+                                    "rentUntil": "2022-12-19"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().is(200))
                 .andExpect(content().json("""
                         {
                                 "id": "id-1",
@@ -308,7 +366,10 @@ class BookIntegrationTest {
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "NOT_AVAILABLE",
-                                "rentedBy": "member"
+                                 "rentBookInfo": {
+                                    "rentByUsername": "member",
+                                    "rentUntil": "2022-12-19"
+                                     }
                         }
                         """));
     }
@@ -328,7 +389,10 @@ class BookIntegrationTest {
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "NOT_AVAILABLE",
-                                 "rentedBy": "member"
+                                 "rentBookInfo": {
+                                    "rentByUsername": "member",
+                                    "rentUntil": "2022-12-19"
+                                     }
                                 }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
@@ -362,7 +426,10 @@ class BookIntegrationTest {
                                 "author": "Ullenbom",
                                 "isbn": "ISBN 978-0-596-52068-7",
                                 "availability": "AVAILABLE",
-                                "rentedBy": null
+                                "rentBookInfo": {
+                                    "rentByUsername": "",
+                                    "rentUntil": ""
+                                     }
                         }
                         """));
     }
@@ -372,21 +439,26 @@ class BookIntegrationTest {
     @WithMockUser(roles = {"LIBRARIAN"}, username = "member")
     @DirtiesContext
     void getRentedBooks_returnListWithOneBook() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
+        String body = mockMvc.perform(MockMvcRequestBuilders.post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
-                                "id": "7jw5-eAicLIC",
-                                "cover": "http://books.google.com/books",
-                                "title": "Ich und meine Schwester Klara",
-                                "author": "Dimiter Inkiow",
-                                "isbn": "3770728203",
-                                "availability": "NOT_AVAILABLE",
-                                "rentedBy": "member"
-                                }
+                                "id": "id-1",
+                                 "cover": "http://books.google.com",
+                                 "title": "Ich und meine Schwester Klara",
+                                 "author": "Dimiter Inkiow",
+                                 "isbn": "3770728203",
+                                 "availability": "AVAILABLE",
+                                 "rentBookInfo": {
+                                     "rentByUsername": "",
+                                     "rentUntil": ""
+                                         }
+                                   }
                                 """).with(csrf()))
                 .andExpect(status().is(201))
                 .andReturn().getResponse().getContentAsString();
+
+        Book book = objectMapper.readValue(body, Book.class);
 
 
         mockMvc.perform(MockMvcRequestBuilders.post("/api/app-users/member")
@@ -402,23 +474,34 @@ class BookIntegrationTest {
 
         mockMvc.perform(get("/api/app-users/login"))
                 .andExpect(status().isOk());
-
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/books/rentBook/" + book.id())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "rentByUsername": "member",
+                                    "rentUntil": "2022-12-14"
+                                }
+                                """).with(csrf()))
+                .andExpect(status().is(200));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/books/rentedBooks"))
                 .andExpect(status().isOk())
                 .andExpect(content().json("""
                         [
-                            {
-                                "id": "7jw5-eAicLIC",
-                                "cover": "http://books.google.com/books",
-                                "title": "Ich und meine Schwester Klara",
-                                "author": "Dimiter Inkiow",
-                                "isbn": "3770728203",
-                                "availability": "NOT_AVAILABLE",
-                                "rentedBy": "member"
-                            }
+                        {
+                            "id": "id-1",
+                             "cover": "http://books.google.com",
+                             "title": "Ich und meine Schwester Klara",
+                             "author": "Dimiter Inkiow",
+                             "isbn": "3770728203",
+                             "availability": "NOT_AVAILABLE",
+                             "rentBookInfo": {
+                                 "rentByUsername": "member",
+                                 "rentUntil": "2022-12-14"
+                             }
+                                 }
                         ]
-                                """));
+                                        """));
     }
 
 

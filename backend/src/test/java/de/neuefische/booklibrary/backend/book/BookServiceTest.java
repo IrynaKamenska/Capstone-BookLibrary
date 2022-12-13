@@ -1,8 +1,5 @@
 package de.neuefische.booklibrary.backend.book;
-
-import de.neuefische.booklibrary.backend.security.AppUser;
 import de.neuefische.booklibrary.backend.security.AppUserRepository;
-import de.neuefische.booklibrary.backend.security.AppUserRole;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,6 +20,7 @@ class BookServiceTest {
     private final AppUserRepository appUserRepository = mock(AppUserRepository.class);
     private final BookService bookService = new BookService(bookRepository, appUserRepository);
 
+    private final RentBookInfo rentBookInfoEmpty = new RentBookInfo("", "");
 
     @Test
     void getAllBooks_ifNoBooksExist_returnEmptyList() {
@@ -43,7 +41,7 @@ class BookServiceTest {
     @Test
     void getAllBooks_returnListWithOneBook() {
         //given
-        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", AVAILABLE, null);
+        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", AVAILABLE, rentBookInfoEmpty);
         Book foundBook = book.withTitle("Java").withAuthor("M. Kofler").withIsbn("978-3-8362-8392-2").withAvailability(AVAILABLE);
 
         when(bookRepository.findAll()).thenReturn(List.of(foundBook));
@@ -62,7 +60,7 @@ class BookServiceTest {
     @Test
     void addNewBookWithoutId_returnBookWithId() {
         //given
-        Book book = new Book(null, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
+        Book book = new Book(null, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, rentBookInfoEmpty);
         Book saveBook = book.withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook.withId("id1"));
 
@@ -77,7 +75,7 @@ class BookServiceTest {
     @Test
     void addNewBookWithId_returnBook() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, rentBookInfoEmpty);
         Book saveBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook);
 
@@ -92,7 +90,7 @@ class BookServiceTest {
     @Test
     void updateBookById_returnUpdatedBook() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, rentBookInfoEmpty);
         Book toUpdateBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn("978-3-8362-8629-9").withAvailability(NOT_AVAILABLE);
 
         when(bookRepository.save(toUpdateBook)).thenReturn(toUpdateBook);
@@ -134,8 +132,7 @@ class BookServiceTest {
 
     @Test
     void deleteBookById() {
-        //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, null);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", NOT_AVAILABLE, rentBookInfoEmpty);
         doNothing().when(bookRepository).deleteById(book.id());
         //when
         bookService.deleteBook(book.id());
@@ -144,37 +141,29 @@ class BookServiceTest {
     }
 
     @Test
-    void rentExistingBookByIdAndUsername_returnUpdatedBook() {
+    void rentBookById_returnBookWithUpdatedRentBookInfo() {
         //given
         String bookId = "id-1";
-        String appUsername = "username";
-        Book foundBook = new Book(
+        String username = "username";
+        Book book = new Book(
                 bookId,
                 null,
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
                 AVAILABLE,
-                null);
+                rentBookInfoEmpty);
 
-        AppUser appUser = new AppUser(
-                "id-1",
-                appUsername,
-                "password",
-                "",
-                AppUserRole.MEMBER);
-
-
-        Book bookToRent = foundBook.withId(bookId)
+        RentBookInfo rentBookInfo = new RentBookInfo(username, "2022-12-14");
+        Book bookToRent = book.withId(bookId)
                 .withAvailability(NOT_AVAILABLE)
-                .withRentedBy(appUser.username());
+                .withRentBookInfo(rentBookInfo);
 
         //when
-        when(bookRepository.findById(bookId)).thenReturn(Optional.of(foundBook));
-        when(appUserRepository.existsByUsername(appUser.username())).thenReturn(true);
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+        when(appUserRepository.existsByUsername(username)).thenReturn(true);
         when(bookRepository.save(bookToRent)).thenReturn(bookToRent);
-
-        Book actual = bookService.rentBook(bookId, appUser.username());
+        Book actual = bookService.rentBook(bookId, rentBookInfo);
 
         //then
         verify(bookRepository).save(bookToRent);
@@ -187,7 +176,6 @@ class BookServiceTest {
         //given
         String bookId = "id-1";
         String username = "username";
-
         Book book = new Book(
                 bookId,
                 null,
@@ -195,12 +183,12 @@ class BookServiceTest {
                 "P. Ackermann",
                 "978-3-8362-8629-9",
                 AVAILABLE,
-                null);
-
-        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
+                rentBookInfoEmpty);
+        RentBookInfo rentBookInfo = new RentBookInfo(username, "2022-12-14");
         //when
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
         try {
-            bookService.rentBook(bookId, username);
+            bookService.rentBook(bookId, rentBookInfo);
             fail();
         } catch (NoSuchElementException e) {
             //then
@@ -222,14 +210,14 @@ class BookServiceTest {
                 "P. Ackermann",
                 "978-3-8362-8629-9",
                 NOT_AVAILABLE,
-                null);
-
-        Book bookToRent = foundBook.withId(bookId).withAvailability(NOT_AVAILABLE).withRentedBy(appUsername);
+                rentBookInfoEmpty);
+        RentBookInfo rentBookInfo = new RentBookInfo(appUsername, "2022-12-14");
+        Book bookToRent = foundBook.withId(bookId).withAvailability(NOT_AVAILABLE).withRentBookInfo(rentBookInfo);
 
         //when
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(foundBook));
         try {
-            bookService.rentBook(bookId, appUsername);
+            bookService.rentBook(bookId, rentBookInfo);
             fail();
         } catch (BookNotAvailableException e) {
             //then
@@ -246,25 +234,27 @@ class BookServiceTest {
         String bookId = "id-1";
         String username_1 = "user-1";
         String username_2 = "user-2";
-        Book foundBook = new Book(
+        RentBookInfo rentBookInfo1 = new RentBookInfo(username_1, "2022-12-14");
+        RentBookInfo rentBookInfo2 = new RentBookInfo(username_2, "2022-12-14");
+        Book alreadyRentedBook = new Book(
                 bookId,
                 null,
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
                 AVAILABLE,
-                "user-1");
+                rentBookInfo1);
 
-        Book bookToRent = foundBook.withId(bookId).withAvailability(AVAILABLE).withRentedBy(username_1);
+        Book bookToRent = alreadyRentedBook.withId(bookId).withAvailability(NOT_AVAILABLE).withRentBookInfo(rentBookInfo2);
 
         //when
-        when(bookRepository.findById(bookId)).thenReturn(Optional.of(foundBook));
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(alreadyRentedBook));
         try {
-            bookService.rentBook(bookId, username_2);
+            bookService.rentBook(bookId, rentBookInfo2);
             fail();
         } catch (BookIsAlreadyRentedException e) {
             //then
-            assertEquals("Book is already rented to user: " + bookToRent.rentedBy(), e.getMessage());
+            assertEquals("Book is already rented to user: " + alreadyRentedBook.rentBookInfo().rentByUsername(), e.getMessage());
             verify(appUserRepository, never()).existsByUsername(username_2);
             verify(bookRepository, never()).save(bookToRent);
         }
@@ -275,15 +265,15 @@ class BookServiceTest {
         //given
         String bookId = "id-1";
         String username = "user";
-
-        Book foundBook = new Book(bookId, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", AVAILABLE, null);
-        Book bookToRent = foundBook.withId(bookId).withAvailability(AVAILABLE).withRentedBy(username);
+        RentBookInfo rentBookInfo = new RentBookInfo(username, "2022-12-12");
+        Book book = new Book(bookId, null, "Java-Script", "P. Ackermann", "978-3-8362-8629-9", AVAILABLE, rentBookInfoEmpty);
+        Book bookToRent = book.withId(bookId).withAvailability(AVAILABLE).withRentBookInfo(rentBookInfo);
 
         //when
-        when(bookRepository.findById(bookId)).thenReturn(Optional.of(foundBook));
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
         when(appUserRepository.existsByUsername(username)).thenReturn(false);
         try {
-            bookService.rentBook(bookId, username);
+            bookService.rentBook(bookId, rentBookInfo);
             fail();
         } catch (UserNotExistsByUsernameException e) {
             //then
@@ -293,45 +283,47 @@ class BookServiceTest {
     }
 
     @Test
-    void returnBookById_returnUpdatedBook() {
+    void returnRentedBookById_returnUpdatedBook() {
         //given
         String bookId = "id-1";
-        Book book = new Book(
+        RentBookInfo rentBookInfo = new RentBookInfo("username", "2022-12-12");
+        Book bookToReturn = new Book(
                 bookId,
                 null,
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
-                AVAILABLE,
-                null);
+                NOT_AVAILABLE,
+                rentBookInfo);
 
-        Book bookToReturn = book.withId(bookId)
+        Book bookAfterReturn = bookToReturn.withId(bookId)
                 .withAvailability(AVAILABLE)
-                .withRentedBy(null);
+                .withRentBookInfo(rentBookInfoEmpty);
 
         //when
-        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
-        when(bookRepository.save(book)).thenReturn(book);
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(bookToReturn));
+        when(bookRepository.save(bookAfterReturn)).thenReturn(bookAfterReturn);
 
         Book actual = bookService.returnBook(bookId);
 
         //then
-        verify(bookRepository).save(book);
-        assertEquals(bookToReturn, actual);
+        verify(bookRepository).save(bookAfterReturn);
+        assertEquals(bookAfterReturn, actual);
     }
 
     @Test
     void returnBookWithNotExistingBookId_returnNoSuchElementException() {
         //given
         String bookId = "id-1";
-        Book book = new Book(
+        RentBookInfo rentBookInfo = new RentBookInfo("username", "2022-12-12");
+        Book bookToReturn = new Book(
                 bookId,
                 null,
                 "Java-Script",
                 "P. Ackermann",
                 "978-3-8362-8629-9",
-                AVAILABLE,
-                "Bob");
+                NOT_AVAILABLE,
+                rentBookInfo);
 
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
         //when
@@ -341,7 +333,7 @@ class BookServiceTest {
         } catch (NoSuchElementException e) {
             //then
             assertEquals("No Book found with this ID", e.getMessage());
-            verify(bookRepository, never()).save(book);
+            verify(bookRepository, never()).save(bookToReturn);
         }
     }
 
@@ -349,7 +341,8 @@ class BookServiceTest {
     void getRentedByMeBooks_returnListOfBooks() {
         //given
         String username = "username";
-        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", NOT_AVAILABLE, username);
+        RentBookInfo rentBookInfo = new RentBookInfo("username", "2022-12-12");
+        Book book = new Book("id1", null, "Java", "M. Kofler", "978-3-8362-8392-2", NOT_AVAILABLE, rentBookInfo);
         List<Book> bookList = new ArrayList<>(List.of(book));
 
         //when
