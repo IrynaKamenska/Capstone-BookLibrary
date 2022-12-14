@@ -32,7 +32,15 @@ class ApiBookServiceTest {
     private final List<Isbn> isbns = new ArrayList<>(List.of(isbn_13, isbn_10));
     private final String previewLink = "http://books.google.de/books/preview";
     private final ImageLink thumbnail = new ImageLink("http://books.google.com/books/thumbnail");
-   private final VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), isbns, thumbnail, previewLink);
+    private final String category = "Fiction";
+    private final String printType = "BOOK";
+    private final int pageCount = 100;
+   private final VolumeInfo volumeInfo = new VolumeInfo(
+           "Java von Kopf bis Fuß",
+           List.of("Kathy Sierra", "Bert Bates"),
+           isbns, thumbnail, previewLink,
+           List.of(category),
+           "BOOK",500);
     @Value("${api.key}")
     private String apiKey;
 
@@ -60,10 +68,12 @@ class ApiBookServiceTest {
         //given
         ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, Availability.AVAILABLE);
         ApiBook foundBook = book.withVolumeInfo(volumeInfo.withTitle("Java von Kopf bis Fuß").withAuthors(List.of("Kathy Sierra", "Bert Bates")).withIndustryIdentifiers(List.of(isbn_10))
-                .withImageLink(thumbnail).withPreviewLink(previewLink));
+                .withImageLink(thumbnail).withPreviewLink(previewLink).withPageCount(100));
 
         BookResponseElement mockBokListResponse = new BookResponseElement(1, List.of(foundBook));
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", List.of(isbn_10), Availability.AVAILABLE, rentBookInfoEmpty));
+        List<Book> expected = List.of(new Book(
+                "5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß",
+                "Kathy Sierra", List.of(isbn_10), category, printType, pageCount, Availability.AVAILABLE, rentBookInfoEmpty));
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))
@@ -107,12 +117,14 @@ class ApiBookServiceTest {
         //given
         ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, Availability.AVAILABLE);
         ApiBook foundBook = book.withVolumeInfo(volumeInfo.withTitle("Java von Kopf bis Fuß").withAuthors(List.of("Kathy Sierra", "Bert Bates")).withIndustryIdentifiers(isbns)
-                .withImageLink(thumbnail).withPreviewLink(previewLink));
+                .withImageLink(thumbnail).withPreviewLink(previewLink).withPageCount(100).withCategories(List.of(category)).withPrintType("BOOK"));
 
         BookResponseElement mockBokListResponse = new BookResponseElement(1,
                 List.of(foundBook));
 
-        List<Book> expected = List.of(new Book("5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß", "Kathy Sierra", isbns, Availability.AVAILABLE, rentBookInfoEmpty));
+        List<Book> expected = List.of(new Book(
+                "5eDWcLzdAcYC", "http://books.google.com/books/thumbnail", "Java von Kopf bis Fuß",
+                "Kathy Sierra", isbns, category, printType, pageCount, Availability.AVAILABLE, rentBookInfoEmpty));
 
         mockWebServer.enqueue(new MockResponse()
                 .setBody(objectMapper.writeValueAsString(mockBokListResponse))

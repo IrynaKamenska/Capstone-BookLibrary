@@ -54,12 +54,21 @@ public class ApiBookService {
                     .orElse(DEFAULT_COVER);
             String author = Optional.ofNullable(volumeInfo.authors()).map(current -> current.get(0))
                     .orElse(null);
+
+           String category = Optional.ofNullable(volumeInfo.categories()).map(current -> current.get(0))
+                    .orElse(null);
+            int pageCount = Optional.of(volumeInfo.pageCount()).orElse(null);
+            String printType = volumeInfo.printType();
+
             Book book = new Book(
                     apiBook.id(),
                     thumbnail,
                     apiBook.volumeInfo().title(),
                     author,
                     apiBook.volumeInfo().industryIdentifiers().stream().toList(),
+                    category,
+                    printType,
+                    pageCount,
                     Availability.AVAILABLE, rentBookInfo);
             bookList.add(book);
         }

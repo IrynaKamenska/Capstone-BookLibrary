@@ -25,6 +25,9 @@ class BookServiceTest {
     private final Isbn isbn_13 = new Isbn("ISBN_13", "9783897214484");
     private final Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
     private final List<Isbn> isbns = new ArrayList<>(List.of(isbn_13, isbn_10));
+    private final String category = "Fiction";
+    private final String printType = "BOOK";
+    private final int pageCount = 100;
 
     @Test
     void getAllBooks_ifNoBooksExist_returnEmptyList() {
@@ -45,7 +48,7 @@ class BookServiceTest {
     @Test
     void getAllBooks_returnListWithOneBook() {
         //given
-        Book book = new Book("id1", null, "Java", "M. Kofler", List.of(isbn_10), AVAILABLE, rentBookInfoEmpty);
+        Book book = new Book("id1", null, "Java", "M. Kofler", List.of(isbn_10), category, printType, pageCount, AVAILABLE, rentBookInfoEmpty);
         Book foundBook = book.withTitle("Java").withAuthor("M. Kofler").withIsbn(List.of(isbn_10)).withAvailability(AVAILABLE);
 
         when(bookRepository.findAll()).thenReturn(List.of(foundBook));
@@ -64,7 +67,7 @@ class BookServiceTest {
     @Test
     void addNewBookWithoutId_returnBookWithId() {
         //given
-        Book book = new Book(null, null, "Java-Script", "P. Ackermann", List.of(isbn_13), NOT_AVAILABLE, rentBookInfoEmpty);
+        Book book = new Book(null, null, "Java-Script", "P. Ackermann", List.of(isbn_13), category, printType, pageCount, NOT_AVAILABLE, rentBookInfoEmpty);
         Book saveBook = book.withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn(List.of(isbn_13)).withAvailability(NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook.withId("id1"));
 
@@ -79,7 +82,7 @@ class BookServiceTest {
     @Test
     void addNewBookWithId_returnBook() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", List.of(isbn_13), NOT_AVAILABLE, rentBookInfoEmpty);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", List.of(isbn_13), category, printType, pageCount, NOT_AVAILABLE, rentBookInfoEmpty);
         Book saveBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn(List.of(isbn_13)).withAvailability(NOT_AVAILABLE);
         when(bookRepository.save(saveBook)).thenReturn(saveBook);
 
@@ -94,7 +97,7 @@ class BookServiceTest {
     @Test
     void updateBookById_returnUpdatedBook() {
         //given
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", List.of(isbn_13), NOT_AVAILABLE, rentBookInfoEmpty);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", List.of(isbn_13), category, printType, pageCount, NOT_AVAILABLE, rentBookInfoEmpty);
         Book toUpdateBook = book.withId("id1").withTitle("Java-Script").withAuthor("P. Ackermann").withIsbn(List.of(isbn_13)).withAvailability(NOT_AVAILABLE);
 
         when(bookRepository.save(toUpdateBook)).thenReturn(toUpdateBook);
@@ -136,7 +139,7 @@ class BookServiceTest {
 
     @Test
     void deleteBookById() {
-        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", List.of(isbn_13), NOT_AVAILABLE, rentBookInfoEmpty);
+        Book book = new Book("id1", null, "Java-Script", "P. Ackermann", List.of(isbn_13), category, printType, pageCount, NOT_AVAILABLE, rentBookInfoEmpty);
         doNothing().when(bookRepository).deleteById(book.id());
         //when
         bookService.deleteBook(book.id());
@@ -154,7 +157,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),
+                List.of(isbn_13),category, printType, pageCount,
                 AVAILABLE,
                 rentBookInfoEmpty);
 
@@ -185,7 +188,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),
+                List.of(isbn_13),category, printType, pageCount,
                 AVAILABLE,
                 rentBookInfoEmpty);
         RentBookInfo rentBookInfo = new RentBookInfo(username, "2022-12-14");
@@ -212,7 +215,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),
+                List.of(isbn_13),category, printType, pageCount,
                 NOT_AVAILABLE,
                 rentBookInfoEmpty);
         RentBookInfo rentBookInfo = new RentBookInfo(appUsername, "2022-12-14");
@@ -245,7 +248,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),
+                List.of(isbn_13),category, printType, pageCount,
                 AVAILABLE,
                 rentBookInfo1);
 
@@ -270,7 +273,7 @@ class BookServiceTest {
         String bookId = "id-1";
         String username = "user";
         RentBookInfo rentBookInfo = new RentBookInfo(username, "2022-12-12");
-        Book book = new Book(bookId, null, "Java-Script", "P. Ackermann", List.of(isbn_13), AVAILABLE, rentBookInfoEmpty);
+        Book book = new Book(bookId, null, "Java-Script", "P. Ackermann", List.of(isbn_13), category, printType, pageCount, AVAILABLE, rentBookInfoEmpty);
         Book bookToRent = book.withId(bookId).withAvailability(AVAILABLE).withRentBookInfo(rentBookInfo);
 
         //when
@@ -296,7 +299,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),
+                List.of(isbn_13),category, printType, pageCount,
                 NOT_AVAILABLE,
                 rentBookInfo);
 
@@ -325,7 +328,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                isbns,
+                isbns,category, printType, pageCount,
                 NOT_AVAILABLE,
                 rentBookInfo);
 
@@ -346,7 +349,7 @@ class BookServiceTest {
         //given
         String username = "username";
         RentBookInfo rentBookInfo = new RentBookInfo("username", "2022-12-12");
-        Book book = new Book("id1", null, "Java", "M. Kofler", isbns, NOT_AVAILABLE, rentBookInfo);
+        Book book = new Book("id1", null, "Java", "M. Kofler", isbns, category, printType, pageCount, NOT_AVAILABLE, rentBookInfo);
         List<Book> bookList = new ArrayList<>(List.of(book));
 
         //when

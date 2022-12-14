@@ -16,6 +16,10 @@ public record Book(
         String author,
 
         List<Isbn> isbn,
+        String category,
+        String printType,
+        int pageCount,
+
         Availability availability,
         RentBookInfo rentBookInfo) {
 }
