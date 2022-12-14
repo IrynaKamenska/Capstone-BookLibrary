@@ -87,8 +87,9 @@ public class AppUserController {
 
     @DeleteMapping("/deleteMe")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void deleteUser() {
+    public void deleteUser(HttpSession httpSession) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         appUserService.deleteAppUser(name);
+        httpSession.invalidate();
     }
 }
