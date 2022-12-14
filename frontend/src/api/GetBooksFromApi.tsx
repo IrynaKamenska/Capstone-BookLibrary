@@ -17,7 +17,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
         "cover": "",
         "title": "",
         "author": "",
-        "isbn": "",
+        "isbn": [{type: "", identifier: ""}],
         "availability": Availability.AVAILABLE,
         "rentBookInfo": {rentByUsername: "", rentUntil: new Date()}
     }

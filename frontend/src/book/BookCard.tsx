@@ -26,7 +26,7 @@ function BookCard(props: BookCardProps) {
             cover: "",
             title: "",
             author: "",
-            isbn: "",
+            isbn: [{type: "", identifier: ""}],
             availability: Availability.AVAILABLE,
             rentBookInfo: {rentByUsername: "", rentUntil: new Date()}
         });
@@ -48,7 +48,15 @@ function BookCard(props: BookCardProps) {
                 <div className="book-info-div">
                     <h3 className="book-title">{props.book.title}</h3>
                     <p className="book-author">by {props.book.author}</p>
-                    <p className="book-isbn">ISBN {props.book.isbn}</p>
+                    <p className="book-isbn">{props.book.isbn.map(current => {
+                        return (
+                            <>
+                                <h5 key={current.identifier}>{current.type}: {current.identifier}</h5>
+                            </>
+
+                        )
+                    })
+                    }</p>
                 </div>
                 <div className="div-form">
                     <br/>
@@ -90,7 +98,7 @@ function BookCard(props: BookCardProps) {
                         <input className="input-text" type="text"
                                id={"isbn" + props.book.id}
                                name="isbn"
-                               value={props.book.isbn}
+                               value={props.book.isbn.map(current => current.identifier)}
                                placeholder="isbn"
                                onChange={handleAddApiBook}
                         />

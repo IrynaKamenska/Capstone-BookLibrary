@@ -8,6 +8,7 @@ import "../Modals.css";
 import "react-datepicker/dist/react-datepicker.css";
 import {RentBookInfo} from "./RentBookInfo";
 
+
 type RentBookProps = {
     book: BookModel;
     reloadAllBooks: () => void;
@@ -83,7 +84,16 @@ function RentBook(props: RentBookProps) {
                     <img className="modal-cover" src={props.book.cover} alt="cover"/><br/>
                     <h3 className="book-title">{props.book.title}</h3>
                     <p className="book-info">{props.book.author}</p>
-                    <p className="book-info">ISBN:{props.book.isbn}</p>
+                    <p className="book-info">{props.book.isbn.map(current => {
+                        return (
+                            <>
+                                <p key={current.identifier}>{current.type}: {current.identifier}</p>
+                            </>
+
+                        )
+                    })
+                    }</p>
+
                 </div>
                 <br/>
                 <label htmlFor="rentBy">RentBy:</label>

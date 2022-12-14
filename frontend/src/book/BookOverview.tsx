@@ -51,7 +51,15 @@ function BookOverview(props: BookOverviewProps) {
                                                                       alt="Dummy-Cover"/></td>
                                 <td>{book.title}</td>
                                 <td>{book.author}</td>
-                                <td>{book.isbn}</td>
+                                <td className="book-isbn">{book.isbn.map(current => {
+                                    return (
+                                        <>
+                                            <h4 key={current.identifier}>{current.type}: {current.identifier}</h4>
+                                        </>
+
+                                    )
+                                })
+                                }</td>
                                 <td>{book.availability === "AVAILABLE" ?
                                     <span className="content-available">Available</span>
                                     :

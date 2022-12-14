@@ -52,7 +52,15 @@ function ReturnBook(props: ReturnBookProps) {
                 <img className="modal-cover" src={props.book.cover} alt="cover"/><br/>
                 <h3 className="book-title">{props.book.title}</h3>
                 <p className="book-info">{props.book.author}</p>
-                <p className="book-info">ISBN:{props.book.isbn}</p>
+                <p className="book-info">{props.book.isbn.map(current => {
+                    return (
+                        <>
+                            <p key={current.identifier}>{current.type}: {current.identifier}</p>
+                        </>
+
+                    )
+                })
+                }</p>
                 <p className="book-info">RentedBy: {props.book.rentBookInfo.rentByUsername}</p>
                 {props.book.rentBookInfo.rentUntil.toString() !== "" &&
                     <p className="book-info">RentedUntil: {props.book.rentBookInfo.rentUntil.toString()}</p>
