@@ -93,6 +93,9 @@ function RentBook(props: RentBookProps) {
                         )
                     })
                     }</p>
+                    <p className="book-info">Category: {props.book.category}</p>
+                    <p className="book-info">PrintType: {props.book.printType}</p>
+                    <p className="book-info">PageCount: {props.book.pageCount}</p>
 
                 </div>
                 <br/>

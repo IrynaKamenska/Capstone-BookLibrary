@@ -61,6 +61,9 @@ function ReturnBook(props: ReturnBookProps) {
                     )
                 })
                 }</p>
+                <p className="book-info">Category: {props.book.category}</p>
+                <p className="book-info">PrintType: {props.book.printType}</p>
+                <p className="book-info">PageCount: {props.book.pageCount}</p>
                 <p className="book-info">RentedBy: {props.book.rentBookInfo.rentByUsername}</p>
                 {props.book.rentBookInfo.rentUntil.toString() !== "" &&
                     <p className="book-info">RentedUntil: {props.book.rentBookInfo.rentUntil.toString()}</p>
