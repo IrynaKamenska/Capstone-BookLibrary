@@ -12,7 +12,10 @@ public record VolumeInfo(
         List<String> authors,
         List<Isbn> industryIdentifiers,
         @JsonProperty("imageLinks") ImageLink imageLink,
-        String previewLink
+        String previewLink,
+        List<String> categories,
+        String printType,
+        int pageCount
 
 ) {
 }

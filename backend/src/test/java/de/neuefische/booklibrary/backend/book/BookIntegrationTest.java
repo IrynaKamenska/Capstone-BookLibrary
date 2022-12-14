@@ -56,6 +56,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "AVAILABLE",
                                     "rentBookInfo": {
                                     "rentByUsername": "",
@@ -87,6 +90,9 @@ class BookIntegrationTest {
                                          "identifier": "9783527713646"
                                      }
                                  ],
+                             "category": "American fiction",
+                             "printType": "BOOK",
+                             "pageCount": 412,
                              "availability": "AVAILABLE",
                               "rentBookInfo": {
                                     "rentByUsername": "",
@@ -117,6 +123,9 @@ class BookIntegrationTest {
                                              "identifier": "3527713646"
                                          }
                                      ],
+                               "category": "American fiction",
+                               "printType": "BOOK",
+                               "pageCount": 412,
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -144,6 +153,9 @@ class BookIntegrationTest {
                                      "identifier": "3527713646"
                                  }
                              ],
+                             "category": "American fiction",
+                             "printType": "BOOK",
+                             "pageCount": 412,
                              "availability": "AVAILABLE",
                              "rentBookInfo": {
                                     "rentByUsername": "",
@@ -176,6 +188,9 @@ class BookIntegrationTest {
                                              "identifier": "3527713646"
                                          }
                                      ],
+                               "category": "American fiction",
+                               "printType": "BOOK",
+                               "pageCount": 412,
                                 "availability": "AVAILABLE",
                                   "rentBookInfo": {
                                     "rentByUsername": "",
@@ -201,6 +216,9 @@ class BookIntegrationTest {
                                              "identifier": "3527713646"
                                          }
                                      ],
+                                    "category": "American fiction",
+                                    "printType": "BOOK",
+                                    "pageCount": 412,
                                     "availability": "NOT_AVAILABLE",
                                      "rentBookInfo": {
                                     "rentByUsername": "",
@@ -220,6 +238,9 @@ class BookIntegrationTest {
                                          "identifier": "3527713646"
                                      }
                                  ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "NOT_AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -246,6 +267,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -265,6 +289,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -291,6 +318,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                    "category": "American fiction",
+                                    "printType": "BOOK",
+                                    "pageCount": 412,
                                     "availability": "NOT_AVAILABLE",
                                     "rentBookInfo": {
                                     "rentByUsername": "",
@@ -310,6 +340,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "NOT_AVAILABLE",
                                   "rentBookInfo": {
                                     "rentByUsername": "",
@@ -338,6 +371,9 @@ class BookIntegrationTest {
                                          "identifier": "9783527713646"
                                      }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -383,6 +419,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -443,6 +482,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "NOT_AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "member",
@@ -471,6 +513,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "NOT_AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "member",
@@ -513,6 +558,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713646"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                 "availability": "AVAILABLE",
                                 "rentBookInfo": {
                                     "rentByUsername": "",
@@ -541,6 +589,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713"
                                          }
                                      ],
+                                "category": "American fiction",
+                                "printType": "BOOK",
+                                "pageCount": 412,
                                  "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                      "rentByUsername": "",
@@ -592,6 +643,9 @@ class BookIntegrationTest {
                                              "identifier": "9783527713"
                                          }
                                      ],
+                             "category": "American fiction",
+                             "printType": "BOOK",
+                             "pageCount": 412,
                              "availability": "NOT_AVAILABLE",
                              "rentBookInfo": {
                                  "rentByUsername": "member",

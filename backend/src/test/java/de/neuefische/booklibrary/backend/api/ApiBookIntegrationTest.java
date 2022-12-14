@@ -37,7 +37,13 @@ class ApiBookIntegrationTest {
     private final Isbn isbn_13 = new Isbn("ISBN_13", "9783897214484");
     private final Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
     private final ImageLink thumbnail = new ImageLink("http://books.google.com/books/thumbnail");
-    private final VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_10, isbn_13), thumbnail, previewLink);
+    private final String category = "Fiction";
+    private final VolumeInfo volumeInfo = new VolumeInfo(
+            "Java von Kopf bis Fuß",
+            List.of("Kathy Sierra", "Bert Bates"),
+            List.of(isbn_10, isbn_13), thumbnail, previewLink,
+            List.of(category),
+            "BOOK",878);
 
     @BeforeAll
     static void beforeAll() throws IOException {
@@ -92,6 +98,9 @@ class ApiBookIntegrationTest {
                                                      "identifier": "9783897214484"
                                                  }
                                              ],
+                                         "category": "Fiction",
+                                         "printType": "BOOK",
+                                         "pageCount": 878,
                                         "availability": "AVAILABLE"
                                     }
                                 ]
@@ -159,6 +168,9 @@ class ApiBookIntegrationTest {
                                                    "identifier": "9783897214484"
                                                }
                                            ],
+                                 "category": "Fiction",
+                                 "printType": "BOOK",
+                                 "pageCount": 878,
                                  "availability": "AVAILABLE"}]
                                  """
                 ));
