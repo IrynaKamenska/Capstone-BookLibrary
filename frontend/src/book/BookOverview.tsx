@@ -41,8 +41,8 @@ function BookOverview(props: BookOverviewProps) {
                             <th>Availability</th>
                             {props.appUserInfo.role === "LIBRARIAN" ?
                                 <>
-                            <th>RentedBy</th>
-                            <th>Action</th>
+                                    <th>Rented</th>
+                                    <th>Action</th>
                                 </> : ""}
                         </tr>
                         {filteredBooks.map((book) => {
@@ -61,22 +61,29 @@ function BookOverview(props: BookOverviewProps) {
 
                                 {props.appUserInfo.role === "LIBRARIAN" ?
                                     <>
-                                <td>{book.rentBookInfo.rentByUsername}</td>
-
-                                <td>
-                                    <React.Fragment>
-                                                <UpdateBook book={book} reloadAllBooks={props.fetchAllBooks}></UpdateBook>
-                                                <DeleteBook book={book} reloadAllBooks={props.fetchAllBooks}></DeleteBook>
-                                        {book.availability === "AVAILABLE" ?
-                                            <RentBook book={book} reloadAllBooks={props.fetchAllBooks}/>
-                                            :
-                                            <ReturnBook book={book} reloadAllBooks={props.fetchAllBooks}/>
+                                        <td>
+                                        {book.rentBookInfo.rentUntil.toString() !== "" &&
+                                            <>by: {book.rentBookInfo.rentByUsername} <br/> until: {book.rentBookInfo.rentUntil.toString().substring(0, 10)}
+                                            <br/>{book.rentBookInfo.rentUntil.toString().substring(11, 16)} Uhr
+                                            </>
                                         }
-                                    </React.Fragment>
-                                </td>
+                                        </td>
+                                        <td>
+                                            <React.Fragment>
+                                                <UpdateBook book={book}
+                                                            reloadAllBooks={props.fetchAllBooks}></UpdateBook>
+                                                <DeleteBook book={book}
+                                                            reloadAllBooks={props.fetchAllBooks}></DeleteBook>
+                                                {book.availability === "AVAILABLE" ?
+                                                    <RentBook book={book} reloadAllBooks={props.fetchAllBooks}/>
+                                                    :
+                                                    <ReturnBook book={book} reloadAllBooks={props.fetchAllBooks}/>
+                                                }
+                                            </React.Fragment>
+                                        </td>
                                     </>
                                     :
-                                    "" }
+                                    ""}
                             </tr>;
                         })}
                         </tbody>

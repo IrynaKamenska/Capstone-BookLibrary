@@ -30,7 +30,9 @@ function GetRentedBooks() {
                             <p className="book-author">Author: {current.author}</p>
                             <p className="book-isbn">ISBN: {current.isbn}</p>
                             <p className="book-isbn">Rented by:{current.rentBookInfo.rentByUsername}</p>
-                            <p className="book-isbn">Rented by:{current.rentBookInfo.rentUntil.toLocaleTimeString()}</p>
+                            {current.rentBookInfo.rentUntil.toString() !== "" &&
+                                <p className="book-info">Rented until: {current.rentBookInfo.rentUntil.toString().substring(0, 10)} {current.rentBookInfo.rentUntil.toString().substring(11, 16)} Uhr</p>
+                            }
                         </div>
                     </div>)
                 : ""}
