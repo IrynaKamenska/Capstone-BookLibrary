@@ -8,6 +8,9 @@ export type BookModel = {
     title: string,
     author: string,
     isbn: Isbn[],
+    category: string,
+    printType: string,
+    pageCount: number,
     availability: Availability,
     rentBookInfo: RentBookInfo
 }

@@ -27,6 +27,9 @@ function BookCard(props: BookCardProps) {
             title: "",
             author: "",
             isbn: [{type: "", identifier: ""}],
+            category: "",
+            printType: "",
+            pageCount: 0,
             availability: Availability.AVAILABLE,
             rentBookInfo: {rentByUsername: "", rentUntil: new Date()}
         });
@@ -57,6 +60,9 @@ function BookCard(props: BookCardProps) {
                         )
                     })
                     }</p>
+                    <p className="book-author">Category: {props.book.category}</p>
+                    <p className="book-author">PrintType:{props.book.printType}</p>
+                    <p className="book-author">PageCount: {props.book.pageCount}</p>
                 </div>
                 <div className="div-form">
                     <br/>
@@ -100,6 +106,39 @@ function BookCard(props: BookCardProps) {
                                name="isbn"
                                value={props.book.isbn.map(current => current.identifier)}
                                placeholder="isbn"
+                               onChange={handleAddApiBook}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Category:
+                        <input className="input-text" type="text"
+                               id={"category" + props.book.id}
+                               name="category"
+                               value={props.book.category}
+                               placeholder="category"
+                               onChange={handleAddApiBook}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        Printtype:
+                        <input className="input-text" type="text"
+                               id={"title" + props.book.id}
+                               name="printType"
+                               value={props.book.printType}
+                               placeholder="title"
+                               onChange={handleAddApiBook}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        PageCount:
+                        <input className="input-text" type="text"
+                               id={"title" + props.book.id}
+                               name="pageCount"
+                               value={props.book.pageCount}
+                               placeholder="pageCount"
                                onChange={handleAddApiBook}
                         />
                     </label>

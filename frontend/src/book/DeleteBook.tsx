@@ -51,7 +51,16 @@ function DeleteBook(props: DeleteBookProps) {
                 <span className="modal-book-info">
                     {props.book.title}<br />
                     from <br />
-                    {props.book.author}
+                    {props.book.author}<br />
+                    {props.book.isbn.map(current => {
+                        return (
+                            <>
+                                <p key={current.identifier}>{current.type}: {current.identifier}</p>
+                            </>
+
+                        )
+                    })
+                    }
                 </span>
                 <h5>Are you sure to delete this book?</h5>
                 <button className="button button-delete" id="del-alert" onClick={handleDeleteClick}>Delete

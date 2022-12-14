@@ -29,9 +29,12 @@ function GetRentedBooks() {
                             <h3 className="book-title">Title: {current.title}</h3>
                             <p className="book-author">Author: {current.author}</p>
                             <p className="book-isbn">ISBN: {current.isbn.map(item => item.identifier)}</p>
-                            <p className="book-isbn">Rented by:{current.rentBookInfo.rentByUsername}</p>
+                            <p className="book-author">Category: {current.category}</p>
+                            <p className="book-author">PrintType: {current.printType}</p>
+                            <p className="book-author">PageCount: {current.pageCount}</p>
+                            <p className="book-author">Rented by:{current.rentBookInfo.rentByUsername}</p>
                             {current.rentBookInfo.rentUntil.toString() !== "" &&
-                                <p className="book-info">Rented until: {current.rentBookInfo.rentUntil.toString().substring(0, 10)} {current.rentBookInfo.rentUntil.toString().substring(11, 16)} Uhr</p>
+                                <h4 className="book-author">Rented until: {current.rentBookInfo.rentUntil.toString().substring(0, 10)} {current.rentBookInfo.rentUntil.toString().substring(11, 16)} Uhr</h4>
                             }
                         </div>
                     </div>)

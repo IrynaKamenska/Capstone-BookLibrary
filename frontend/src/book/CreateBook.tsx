@@ -17,6 +17,9 @@ export default function CreateBook(props: ModalProps) {
             title: "",
             author: "",
             isbn: [{type: "ISBN_10", identifier: ""}, {type: "ISBN_13", identifier: ""}],
+            category: "",
+            printType: "",
+            pageCount: 0,
             availability: Availability.AVAILABLE,
             rentBookInfo: {
                 rentByUsername: "",
@@ -36,6 +39,9 @@ export default function CreateBook(props: ModalProps) {
             title: "",
             author: "",
             isbn: [{type: "", identifier: ""}],
+            category: "",
+            printType: "",
+            pageCount: 0,
             availability: Availability.AVAILABLE,
             rentBookInfo: {
                 rentByUsername: "",
@@ -112,6 +118,30 @@ export default function CreateBook(props: ModalProps) {
                        value={newBook.isbn[1] ? newBook.isbn[1].identifier : ""}
                        onChange={handleChangeIsbn}
                        placeholder="isbn"/>
+                <br/>
+                <label htmlFor="category">Category:</label>
+                <input className="input-text" type="text"
+                       id="category"
+                       name="category"
+                       value={newBook.category}
+                       onChange={handleChange}
+                       placeholder="category"/>
+                <br/>
+                <label htmlFor="printType">PrintType:</label>
+                <input className="input-text" type="text"
+                       id="printType"
+                       name="printType"
+                       value={newBook.printType}
+                       onChange={handleChange}
+                       placeholder="printType"/>
+                <br/>
+                <label htmlFor="pageCount">PageCount:</label>
+                <input className="input-text" type="text"
+                       id="pageCount"
+                       name="pageCount"
+                       value={newBook.pageCount}
+                       onChange={handleChange}
+                       placeholder="pageCount"/>
                 <br/>
                 <label htmlFor="availability">Availability:</label>
                 <select className="selector" name="availability" id="availability">

@@ -116,6 +116,33 @@ function UpdateBook(props: UpdateBookProps) {
                        onChange={handleUpdateChangeIsbn}
                        placeholder="isbn"/>
                 <br/>
+                <label htmlFor="title">New category:</label>
+                <input className="input-text"
+                       type="text"
+                       id="category"
+                       name="category"
+                       value={updatedBook.category}
+                       onChange={handleUpdateChange}
+                       placeholder="category"/>
+                <br/>
+                <label htmlFor="title">New printType:</label>
+                <input className="input-text"
+                       type="text"
+                       id="printType"
+                       name="printType"
+                       value={updatedBook.printType}
+                       onChange={handleUpdateChange}
+                       placeholder="printType"/>
+                <br/>
+                <label htmlFor="title">New pageCount:</label>
+                <input className="input-text"
+                       type="text"
+                       id="pageCount"
+                       name="pageCount"
+                       value={updatedBook.pageCount}
+                       onChange={handleUpdateChange}
+                       placeholder="pageCount"/>
+                <br/>
                 <label htmlFor="availability">Availability</label>
                 <select className="selector" value={updatedBook.availability} name="availability" id="availability"
                         onChange={handleUpdateChange}>

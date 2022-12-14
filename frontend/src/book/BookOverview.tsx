@@ -38,6 +38,9 @@ function BookOverview(props: BookOverviewProps) {
                             <th>Title</th>
                             <th>Author</th>
                             <th>ISBN</th>
+                            <th>Category</th>
+                            <th>PrintType</th>
+                            <th>PageCount</th>
                             <th>Availability</th>
                             {props.appUserInfo.role === "LIBRARIAN" ?
                                 <>
@@ -60,6 +63,9 @@ function BookOverview(props: BookOverviewProps) {
                                     )
                                 })
                                 }</td>
+                                <td>{book.category}</td>
+                                <td>{book.printType}</td>
+                                <td>{book.pageCount}</td>
                                 <td>{book.availability === "AVAILABLE" ?
                                     <span className="content-available">Available</span>
                                     :
