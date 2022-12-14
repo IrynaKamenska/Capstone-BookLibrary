@@ -1,6 +1,6 @@
 <div >
   <h2>Book Library</h2>
-  <p>A Book Library Website where can search books of your favourite authors. </p>
+  <p>A Book Library Website where can search books of your favorite authors. </p>
 </div>
 
 ### API
