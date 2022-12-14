@@ -1,8 +1,10 @@
 package de.neuefische.booklibrary.backend.book;
 
+import de.neuefische.booklibrary.backend.api.Isbn;
 import lombok.With;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 
 @With
@@ -12,8 +14,8 @@ public record Book(
         @NotBlank
         String title,
         String author,
-        @NotBlank
-        String isbn,
+
+        List<Isbn> isbn,
         Availability availability,
         RentBookInfo rentBookInfo) {
 }

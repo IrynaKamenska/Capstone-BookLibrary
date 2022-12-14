@@ -33,6 +33,11 @@ class ApiBookIntegrationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    private final String previewLink = "http://books.google.de/books/preview";
+    private final Isbn isbn_13 = new Isbn("ISBN_13", "9783897214484");
+    private final Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
+    private final ImageLink thumbnail = new ImageLink("http://books.google.com/books/thumbnail");
+    private final VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_10, isbn_13), thumbnail, previewLink);
 
     @BeforeAll
     static void beforeAll() throws IOException {
@@ -56,11 +61,6 @@ class ApiBookIntegrationTest {
     @WithMockUser(roles = "LIBRARIAN")
     void searchApiBooksByIsbn_returnListWithOneBook() throws Exception {
         //given
-        String previewLink = "http://books.google.de/books/preview";
-        Isbn isbn_13 = new Isbn("ISBN_13", "9783897214484");
-        Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
-        ImageLink thumbnail = new ImageLink("http://books.google.com/books/thumbnail");
-        VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_10, isbn_13), thumbnail, previewLink);
         ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, Availability.AVAILABLE);
 
         BookResponseElement mockBokListResponse = new BookResponseElement(1, List.of(book));
@@ -82,7 +82,16 @@ class ApiBookIntegrationTest {
                                         "id": "5eDWcLzdAcYC",
                                         "title": "Java von Kopf bis Fuß",
                                         "author": "Kathy Sierra",
-                                        "isbn": "3897214482",
+                                        "isbn": [
+                                                 {
+                                                     "type": "ISBN_10",
+                                                     "identifier": "3897214482"
+                                                 },
+                                                 {
+                                                     "type": "ISBN_13",
+                                                     "identifier": "9783897214484"
+                                                 }
+                                             ],
                                         "availability": "AVAILABLE"
                                     }
                                 ]
@@ -121,11 +130,6 @@ class ApiBookIntegrationTest {
     @WithMockUser(roles = "LIBRARIAN")
     void searchApiBooksByKeyword_returnListOfBooks() throws Exception {
         //given
-        String previewLink = "http://books.google.de/books/preview";
-        Isbn isbn_13 = new Isbn("ISBN_13", "9783897214484");
-        Isbn isbn_10 = new Isbn("ISBN_10", "3897214482");
-        ImageLink thumbnail = new ImageLink("http://books.google.com/books/thumbnail");
-        VolumeInfo volumeInfo = new VolumeInfo("Java von Kopf bis Fuß", List.of("Kathy Sierra", "Bert Bates"), List.of(isbn_13, isbn_10), thumbnail, previewLink);
         ApiBook book = new ApiBook("5eDWcLzdAcYC", volumeInfo, Availability.AVAILABLE);
 
         BookResponseElement mockBokListResponse = new BookResponseElement(1, List.of(book));
@@ -145,7 +149,16 @@ class ApiBookIntegrationTest {
                                  {"id":"5eDWcLzdAcYC",
                                  "title":"Java von Kopf bis Fuß",
                                  "author":"Kathy Sierra",
-                                 "isbn":"9783897214484",
+                                  "isbn": [
+                                               {
+                                                   "type": "ISBN_10",
+                                                   "identifier": "3897214482"
+                                               },
+                                               {
+                                                   "type": "ISBN_13",
+                                                   "identifier": "9783897214484"
+                                               }
+                                           ],
                                  "availability": "AVAILABLE"}]
                                  """
                 ));

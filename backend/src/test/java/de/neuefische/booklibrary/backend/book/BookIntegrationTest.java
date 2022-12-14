@@ -46,7 +46,16 @@ class BookIntegrationTest {
                                 "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                "isbn": [
+                                         {
+                                             "type": "ISBN_10",
+                                             "identifier": "3527713646"
+                                         },
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "AVAILABLE",
                                     "rentBookInfo": {
                                     "rentByUsername": "",
@@ -68,7 +77,16 @@ class BookIntegrationTest {
                             "cover": "http://localhost:8080/api/cover",
                             "title": "Java",
                              "author": "Ullenbom",
-                             "isbn": "ISBN 978-0-596-52068-7",
+                                 "isbn": [
+                                     {
+                                         "type": "ISBN_10",
+                                         "identifier": "3527713646"
+                                     },
+                                     {
+                                         "type": "ISBN_13",
+                                         "identifier": "9783527713646"
+                                     }
+                                 ],
                              "availability": "AVAILABLE",
                               "rentBookInfo": {
                                     "rentByUsername": "",
@@ -93,7 +111,12 @@ class BookIntegrationTest {
                                 {
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                   "isbn": [
+                                         {
+                                             "type": "ISBN_10",
+                                             "identifier": "3527713646"
+                                         }
+                                     ],
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -115,7 +138,12 @@ class BookIntegrationTest {
                             "cover": "<cover>",
                             "title": "Java",
                              "author": "Ullenbom",
-                             "isbn": "ISBN 978-0-596-52068-7",
+                           "isbn": [
+                                 {
+                                     "type": "ISBN_10",
+                                     "identifier": "3527713646"
+                                 }
+                             ],
                              "availability": "AVAILABLE",
                              "rentBookInfo": {
                                     "rentByUsername": "",
@@ -142,7 +170,12 @@ class BookIntegrationTest {
                                 "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                 "isbn": [
+                                         {
+                                             "type": "ISBN_10",
+                                             "identifier": "3527713646"
+                                         }
+                                     ],
                                 "availability": "AVAILABLE",
                                   "rentBookInfo": {
                                     "rentByUsername": "",
@@ -162,7 +195,12 @@ class BookIntegrationTest {
                                     "id": "<id>",
                                     "title": "Java",
                                     "author": "Ullenbom",
-                                    "isbn": "ISBN 978-0-596-52068-7",
+                                   "isbn": [
+                                         {
+                                             "type": "ISBN_10",
+                                             "identifier": "3527713646"
+                                         }
+                                     ],
                                     "availability": "NOT_AVAILABLE",
                                      "rentBookInfo": {
                                     "rentByUsername": "",
@@ -176,7 +214,12 @@ class BookIntegrationTest {
                                 "id": "<id>",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                               "isbn": [
+                                     {
+                                         "type": "ISBN_10",
+                                         "identifier": "3527713646"
+                                     }
+                                 ],
                                 "availability": "NOT_AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -197,7 +240,12 @@ class BookIntegrationTest {
                                 "id": "1",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -211,7 +259,12 @@ class BookIntegrationTest {
                                 "id": "1",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -232,7 +285,12 @@ class BookIntegrationTest {
                                     "id": "id2",
                                     "title": "Java",
                                     "author": "Ullenbom",
-                                    "isbn": "ISBN 978-0-596-52068-7",
+                                    "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                     "availability": "NOT_AVAILABLE",
                                     "rentBookInfo": {
                                     "rentByUsername": "",
@@ -246,7 +304,12 @@ class BookIntegrationTest {
                                 "id": "id1",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "NOT_AVAILABLE",
                                   "rentBookInfo": {
                                     "rentByUsername": "",
@@ -269,7 +332,12 @@ class BookIntegrationTest {
                                 "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                 "isbn": [
+                                     {
+                                         "type": "ISBN_13",
+                                         "identifier": "9783527713646"
+                                     }
+                                     ],
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -309,7 +377,12 @@ class BookIntegrationTest {
                                 "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "",
@@ -364,7 +437,12 @@ class BookIntegrationTest {
                                 "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "NOT_AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "member",
@@ -387,7 +465,12 @@ class BookIntegrationTest {
                                 "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                 "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "NOT_AVAILABLE",
                                  "rentBookInfo": {
                                     "rentByUsername": "member",
@@ -424,7 +507,12 @@ class BookIntegrationTest {
                                 "cover": "http://localhost:8080/api/cover",
                                 "title": "Java",
                                 "author": "Ullenbom",
-                                "isbn": "ISBN 978-0-596-52068-7",
+                                 "isbn": [
+                                         {
+                                             "type": "ISBN_13",
+                                             "identifier": "9783527713646"
+                                         }
+                                     ],
                                 "availability": "AVAILABLE",
                                 "rentBookInfo": {
                                     "rentByUsername": "",
@@ -447,7 +535,12 @@ class BookIntegrationTest {
                                  "cover": "http://books.google.com",
                                  "title": "Ich und meine Schwester Klara",
                                  "author": "Dimiter Inkiow",
-                                 "isbn": "3770728203",
+                                 "isbn": [
+                                         {
+                                             "type": "ISBN_10",
+                                             "identifier": "9783527713"
+                                         }
+                                     ],
                                  "availability": "AVAILABLE",
                                  "rentBookInfo": {
                                      "rentByUsername": "",
@@ -493,7 +586,12 @@ class BookIntegrationTest {
                              "cover": "http://books.google.com",
                              "title": "Ich und meine Schwester Klara",
                              "author": "Dimiter Inkiow",
-                             "isbn": "3770728203",
+                             "isbn": [
+                                         {
+                                             "type": "ISBN_10",
+                                             "identifier": "9783527713"
+                                         }
+                                     ],
                              "availability": "NOT_AVAILABLE",
                              "rentBookInfo": {
                                  "rentByUsername": "member",
