@@ -29,6 +29,7 @@ function ReturnBook(props: ReturnBookProps) {
             })
             .then(props.reloadAllBooks)
             .catch(error => console.error("POST Error: " + error))
+
     }, [closeModal, props.reloadAllBooks])
 
 
@@ -46,12 +47,16 @@ function ReturnBook(props: ReturnBookProps) {
         >
 
             <span className="modal-heading">Return</span>
+
             <div className="modal-body">
                 <img className="modal-cover" src={props.book.cover} alt="cover"/><br/>
                 <h3 className="book-title">{props.book.title}</h3>
                 <p className="book-info">{props.book.author}</p>
                 <p className="book-info">ISBN:{props.book.isbn}</p>
                 <p className="book-info">RentedBy: {props.book.rentBookInfo.rentByUsername}</p>
+                {props.book.rentBookInfo.rentUntil.toString() !== "" &&
+                    <p className="book-info">RentedUntil: {props.book.rentBookInfo.rentUntil.toString()}</p>
+                }
             </div>
             <div className="modal-body">
                 <button className="button button-return-book" id="rent-alert" onClick={handleReturnClick}>Return
