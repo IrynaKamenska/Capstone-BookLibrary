@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -18,7 +19,7 @@ import static org.mockito.Mockito.*;
      void findByUsernameAndReturnUsername() {
          // given
          AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
-         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(newAppUser);
+         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(Optional.of(newAppUser));
 
          // when
          AppUser actual = appUserService.findByUsername("Bob");
@@ -33,7 +34,7 @@ import static org.mockito.Mockito.*;
          // given
          AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
          AppUserInfo appUserInfo = new AppUserInfo(newAppUser.username(), newAppUser.role());
-         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(newAppUser);
+         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(Optional.of(newAppUser));
 
          // when
          AppUserInfo actual = appUserService.getUserInfo("Bob");
