@@ -59,7 +59,7 @@ public class ApiBookService {
                     thumbnail,
                     apiBook.volumeInfo().title(),
                     author,
-                    apiBook.volumeInfo().industryIdentifiers().get(0).identifier(),
+                    apiBook.volumeInfo().industryIdentifiers().stream().toList(),
                     Availability.AVAILABLE, rentBookInfo);
             bookList.add(book);
         }
