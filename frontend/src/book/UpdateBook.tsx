@@ -20,6 +20,7 @@ function UpdateBook(props: UpdateBookProps) {
         }
     );
 
+
     const handleEditBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         axios.put("/api/books/" + props.book.id, updatedBook)
@@ -42,10 +43,25 @@ function UpdateBook(props: UpdateBookProps) {
     function handleUpdateChange(event: any) {
         setUpdatedBook({
             ...updatedBook,
-            [event.target.name]: event.target.value
+            [event.target.name] : event.target.value
         })
     }
-
+    function handleUpdateChangeIsbn(event: any) {
+        const {value, name} = event.target
+        setUpdatedBook({
+            ...updatedBook,
+            isbn: updatedBook.isbn.map( (current) => {
+                if(current.type === name) {
+                    return {
+                        type: current.type,
+                        identifier: value
+                    }
+                } else {
+                    return current
+                }
+            })
+        })
+    }
 
     return <>
         <button className="button button-edit-book" type={"submit"} onClick={openModal}>Edit</button>
@@ -81,13 +97,23 @@ function UpdateBook(props: UpdateBookProps) {
                        onChange={handleUpdateChange}
                        placeholder="author"/>
                 <br/>
-                <label htmlFor="isbn">New ISBN:</label>
+                <label htmlFor="isbn">New ISBN_10:</label>
+                 <input className="input-text"
+                       type="text"
+                       id="isbn"
+                       name="ISBN_10"
+                       value={updatedBook.isbn[0] ? updatedBook.isbn[0].identifier : ""}
+
+                       onChange={handleUpdateChangeIsbn}
+                       placeholder="isbn"/>
+                <br/>
+                <label htmlFor="isbn">New ISBN_13:</label>
                 <input className="input-text"
                        type="text"
                        id="isbn"
-                       name="isbn"
-                       value={updatedBook.isbn}
-                       onChange={handleUpdateChange}
+                       name="ISBN_13"
+                       value={updatedBook.isbn[1] ? updatedBook.isbn[1].identifier : ""}
+                       onChange={handleUpdateChangeIsbn}
                        placeholder="isbn"/>
                 <br/>
                 <label htmlFor="availability">Availability</label>

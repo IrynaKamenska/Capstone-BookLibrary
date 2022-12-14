@@ -16,7 +16,7 @@ export default function CreateBook(props: ModalProps) {
         {
             title: "",
             author: "",
-            isbn: "",
+            isbn: [{type: "ISBN_10", identifier: ""}, {type: "ISBN_13", identifier: ""}],
             availability: Availability.AVAILABLE,
             rentBookInfo: {
                 rentByUsername: "",
@@ -28,7 +28,6 @@ export default function CreateBook(props: ModalProps) {
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-
         axios.post("/api/books", newBook)
             .catch((e) => console.log("POST Error: " + e))
             .then(props.reloadAllBooks)
@@ -36,7 +35,7 @@ export default function CreateBook(props: ModalProps) {
         setNewBook({
             title: "",
             author: "",
-            isbn: "",
+            isbn: [{type: "", identifier: ""}],
             availability: Availability.AVAILABLE,
             rentBookInfo: {
                 rentByUsername: "",
@@ -45,11 +44,27 @@ export default function CreateBook(props: ModalProps) {
         });
     }
 
-
     function handleChange(event: any) {
         setNewBook({
             ...newBook,
-            [event.target.name]: event.target.value
+            [event.target.name] : event.target.value
+        })
+    }
+
+    function handleChangeIsbn(event: any) {
+        const {value, name} = event.target
+        setNewBook({
+            ...newBook,
+            isbn: newBook.isbn.map( (current) => {
+                if(current.type === name) {
+                    return {
+                        type: current.type,
+                        identifier: value
+                    }
+                } else {
+                    return current
+                }
+            })
         })
     }
 
@@ -79,12 +94,23 @@ export default function CreateBook(props: ModalProps) {
                        onChange={handleChange}
                        placeholder="author"/>
                 <br/>
-                <label htmlFor="isbn">ISBN:</label>
-                <input className="input-text" type="text"
+                <label htmlFor="isbn">New ISBN_10:</label>
+                <input className="input-text"
+                       type="text"
                        id="isbn"
-                       name="isbn"
-                       value={newBook.isbn}
-                       onChange={handleChange}
+                       name="ISBN_10"
+                       value={newBook.isbn[0] ? newBook.isbn[0].identifier : ""}
+
+                       onChange={handleChangeIsbn}
+                       placeholder="isbn"/>
+                <br/>
+                <label htmlFor="isbn">New ISBN_13:</label>
+                <input className="input-text"
+                       type="text"
+                       id="isbn"
+                       name="ISBN_13"
+                       value={newBook.isbn[1] ? newBook.isbn[1].identifier : ""}
+                       onChange={handleChangeIsbn}
                        placeholder="isbn"/>
                 <br/>
                 <label htmlFor="availability">Availability:</label>
