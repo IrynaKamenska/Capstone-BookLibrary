@@ -1,5 +1,6 @@
 package de.neuefische.booklibrary.backend.security;
 
+import de.neuefische.booklibrary.backend.book.UserNotExistsByUsernameException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,11 @@ public class AppUserService {
     private final AppUserRepository appUserRepository;
 
     public AppUser findByUsername(String username) {
-        return appUserRepository.findByUsername(username);
+        return appUserRepository.findByUsername(username).orElseThrow(() -> new UserNotExistsByUsernameException("No user found with this username"));
     }
 
     public AppUserInfo getUserInfo(String username) {
-        AppUser appUser = appUserRepository.findByUsername(username);
+        AppUser appUser = findByUsername(username);
         return new AppUserInfo(appUser.username(), appUser.role());
     }
 
