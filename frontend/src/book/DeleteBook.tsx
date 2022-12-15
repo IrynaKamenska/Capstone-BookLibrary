@@ -54,10 +54,7 @@ function DeleteBook(props: DeleteBookProps) {
                     {props.book.author}<br />
                     {props.book.isbn.map(current => {
                         return (
-                            <>
-                                <p key={current.identifier}>{current.type}: {current.identifier}</p>
-                            </>
-
+                            <p key={current.identifier}>{current.type}: {current.identifier}</p>
                         )
                     })
                     }
