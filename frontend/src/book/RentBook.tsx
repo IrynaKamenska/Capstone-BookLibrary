@@ -15,14 +15,14 @@ type RentBookProps = {
 }
 
 function RentBook(props: RentBookProps) {
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    const openModal = useCallback(() => {
-        setModalIsOpen(true)
+
+    const [modalRentBookIsOpen, setModalRentBookIsOpen] = useState<boolean>(false)
+    const openRentBookModal = useCallback(() => {
+        setModalRentBookIsOpen(true)
     }, [])
-    const closeModal = useCallback(() => {
-        setModalIsOpen(false)
+    const closeRentBookModal = useCallback(() => {
+        setModalRentBookIsOpen(false)
     }, [])
-    const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
 
 
     const [names, setNames] = useState<string[]>([]);
@@ -54,7 +54,7 @@ function RentBook(props: RentBookProps) {
         axios.post("/api/books/rentBook/" + props.book.id, rentBookInfo)
             .catch(error => console.error("POST Error: " + error))
             .then(props.reloadAllBooks)
-            .then(closeModal)
+            .then(closeRentBookModal)
     }
 
 
@@ -69,12 +69,27 @@ function RentBook(props: RentBookProps) {
             ...rentBookInfo, "rentUntil": date
         }), [rentBookInfo])
 
+    const handleCancelClick = useCallback(() => closeRentBookModal(), [closeRentBookModal]);
+
+    function getIsbnForRentBook() {
+        return <>
+            {props.book.isbn.map(current => {
+                return (
+                    <>
+                        <p key={current.identifier}>{current.type}: {current.identifier}</p>
+                    </>
+
+                )
+            })
+            }
+        </>;
+    }
 
     return <>
-        <button className="button button-rent-book" type={"submit"} onClick={openModal}>Rent</button>
+        <button className="button button-rent-book" type={"submit"} onClick={openRentBookModal}>Rent</button>
         <Modal className="modal"
-               isOpen={modalIsOpen}
-               onRequestClose={closeModal}
+               isOpen={modalRentBookIsOpen}
+               onRequestClose={closeRentBookModal}
                contentLabel="Example Modal"
                ariaHideApp={false}
         >
@@ -84,15 +99,7 @@ function RentBook(props: RentBookProps) {
                     <img className="modal-cover" src={props.book.cover} alt="cover"/><br/>
                     <h3 className="book-title">{props.book.title}</h3>
                     <p className="book-info">{props.book.author}</p>
-                    <p className="book-info">{props.book.isbn.map(current => {
-                        return (
-                            <>
-                                <p key={current.identifier}>{current.type}: {current.identifier}</p>
-                            </>
-
-                        )
-                    })
-                    }</p>
+                    <p className="book-info">{getIsbnForRentBook()}</p>
                     <p className="book-info">Category: {props.book.category}</p>
                     <p className="book-info">PrintType: {props.book.printType}</p>
                     <p className="book-info">PageCount: {props.book.pageCount}</p>
@@ -101,7 +108,8 @@ function RentBook(props: RentBookProps) {
                 <br/>
                 <label htmlFor="rentBy">RentBy:</label>
 
-                <select className="selector" value={rentBookInfo.rentByUsername} name="rentByUsername" id="rentByUsername"
+                <select className="selector" value={rentBookInfo.rentByUsername} name="rentByUsername"
+                        id="rentByUsername"
                         onChange={handleRentChangeUsername}>{rentBookBy()}</select>
                 <p>Rent until:</p>
                 <DatePicker selected={rentBookInfo.rentUntil} onChange={handleRentChangeDate} showTimeSelect
