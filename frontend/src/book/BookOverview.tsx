@@ -17,7 +17,6 @@ type BookOverviewProps = {
 }
 
 function BookOverview(props: BookOverviewProps) {
-
     const [filterText, setFilterText] = useState<string>("")
     const filteredBooks = props.books.filter(
         (book) => book.title.toLowerCase().includes(filterText.toLowerCase()));
@@ -44,11 +43,8 @@ function BookOverview(props: BookOverviewProps) {
                                                 <p className="book-author">by {book.author}</p>
                                                 {book.isbn.map(current => {
                                                     return (
-                                                        <>
-                                                            <p className="book-isbn"
-                                                               key={current.identifier}>{current.type}: {current.identifier}</p>
-                                                        </>
-
+                                                        <p className="book-isbn"
+                                                           key={current.identifier}>{current.type}: {current.identifier}</p>
                                                     )
                                                 })
                                                 }
@@ -65,10 +61,8 @@ function BookOverview(props: BookOverviewProps) {
                                                     <span className="content-not-available">Not Available</span>
                                                 }
                                                 </p>
-
                                                 {props.appUserInfo.role === "LIBRARIAN" ?
                                                     <>
-
                                                         {book.rentBookInfo.rentUntil.toString() !== "" &&
                                                             <>
                                                                 <p className="book-isbn">
@@ -111,12 +105,10 @@ function BookOverview(props: BookOverviewProps) {
                     </>
                     :
                     <p>Library is empty :-(</p>
-
                 }
             </div>
         </div>
     </>
 }
-
 
 export default BookOverview;

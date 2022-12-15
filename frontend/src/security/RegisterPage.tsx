@@ -26,7 +26,6 @@ function RegisterPage() {
             });
     }
 
-
     function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         register()

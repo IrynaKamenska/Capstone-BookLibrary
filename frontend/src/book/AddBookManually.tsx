@@ -6,7 +6,6 @@ type addBookProps = {
 }
 
 function AddBookManually(props: addBookProps) {
-
     return (
         <>
             <div className="search-main-div">
@@ -15,8 +14,7 @@ function AddBookManually(props: addBookProps) {
                 <button className="button button-add-manually" onClick={props.openModal}>+ Add new Book</button>
             </div>
         </>
-    )
-        ;
+    );
 }
 
 export default AddBookManually;

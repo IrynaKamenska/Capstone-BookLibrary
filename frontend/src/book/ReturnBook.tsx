@@ -11,12 +11,10 @@ type ReturnBookProps = {
 }
 
 function ReturnBook(props: ReturnBookProps) {
-
     const [modalReturnBookIsOpen, setModalReturnBookIsOpen] = useState<boolean>(false)
     const openReturnBookModal = useCallback(() => {
         setModalReturnBookIsOpen(true)
     }, [])
-
     const closeReturnBookModal = useCallback(() => {
         setModalReturnBookIsOpen(false)
     }, [])
@@ -33,19 +31,14 @@ function ReturnBook(props: ReturnBookProps) {
 
     }, [closeReturnBookModal, props.reloadAllBooks])
 
-
     const handleCancelClick = useCallback(() => closeReturnBookModal(), [closeReturnBookModal]);
     const handleReturnClick = useCallback(() => returnBook(props.book.id), [returnBook, props.book.id]);
-
 
     function getIsbnForReturnBook() {
         return <>
             {props.book.isbn.map(current => {
                 return (
-                    <>
-                        <p key={current.identifier}>{current.type}: {current.identifier}</p>
-                    </>
-
+                    <p key={current.identifier}>{current.type}: {current.identifier}</p>
                 )
             })
             }

@@ -8,14 +8,12 @@ import "../Modals.css";
 import "react-datepicker/dist/react-datepicker.css";
 import {RentBookInfo} from "./RentBookInfo";
 
-
 type RentBookProps = {
     book: BookModel;
     reloadAllBooks: () => void;
 }
 
 function RentBook(props: RentBookProps) {
-
     const [modalRentBookIsOpen, setModalRentBookIsOpen] = useState<boolean>(false)
     const openRentBookModal = useCallback(() => {
         setModalRentBookIsOpen(true)
@@ -23,7 +21,6 @@ function RentBook(props: RentBookProps) {
     const closeRentBookModal = useCallback(() => {
         setModalRentBookIsOpen(false)
     }, [])
-
 
     const [names, setNames] = useState<string[]>([]);
     const fetchUsernames = useCallback(() => {

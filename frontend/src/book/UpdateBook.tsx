@@ -20,7 +20,6 @@ function UpdateBook(props: UpdateBookProps) {
         }
     );
 
-
     const handleEditBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         axios.put("/api/books/" + props.book.id, updatedBook)
@@ -43,15 +42,16 @@ function UpdateBook(props: UpdateBookProps) {
     function handleUpdateChange(event: any) {
         setUpdatedBook({
             ...updatedBook,
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value
         })
     }
+
     function handleUpdateChangeIsbn(event: any) {
         const {value, name} = event.target
         setUpdatedBook({
             ...updatedBook,
-            isbn: updatedBook.isbn.map( (current) => {
-                if(current.type === name) {
+            isbn: updatedBook.isbn.map((current) => {
+                if (current.type === name) {
                     return {
                         type: current.type,
                         identifier: value
@@ -76,7 +76,7 @@ function UpdateBook(props: UpdateBookProps) {
             <span className="modal-heading">Update book manually</span>
             <form onSubmit={handleEditBook}>
                 <div className="modal-body">
-                    <img className="modal-cover" src={props.book.cover} alt="cover"/><br />
+                    <img className="modal-cover" src={props.book.cover} alt="cover"/><br/>
                 </div>
                 <br/>
                 <label htmlFor="title">New title:</label>
@@ -98,7 +98,7 @@ function UpdateBook(props: UpdateBookProps) {
                        placeholder="author"/>
                 <br/>
                 <label htmlFor="isbn">New ISBN_10:</label>
-                 <input className="input-text"
+                <input className="input-text"
                        type="text"
                        id="isbn"
                        name="ISBN_10"
