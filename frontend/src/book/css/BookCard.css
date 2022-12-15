@@ -5,7 +5,7 @@
     background-color: #fff;
     border: 1px solid #ccc;
     transition: 0.2s all ease-in-out;
-    width: 80%;
+    width: 60%;
     box-shadow: 3px 3px 7px 2px rgba(0, 0, 0, 0.2);
     position: relative;
     float: left;
@@ -16,6 +16,16 @@
     background-color: #f6f6f6;
 }
 
+@media only screen and (max-width: 1700px) {
+    .book-card {
+        width: 80%;
+    }
+}
+@media only screen and (max-width: 1000px) {
+    .book-card {
+        width: 95%;
+    }
+}
 .book-card-inner {
     display: block;
     transition: 0.5s all ease-in-out;
@@ -52,14 +62,15 @@
 }
 
 .book-author {
-    text-align: justify;
-    padding: 0 5px;
-    font-size: 16px;
-    color: #666;
+    text-align: left;
+    padding: 0 5px 10px 5px;
+    font-size: 14px;
+    color: #222;
+    font-weight: bold;
 }
 
 .book-isbn {
-    text-align: justify;
+    text-align: left;
     padding: 0 5px 10px 5px;
     font-size: 14px;
     color: #666;

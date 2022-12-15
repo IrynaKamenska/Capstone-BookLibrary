@@ -77,7 +77,7 @@ function ReturnBook(props: ReturnBookProps) {
                 }
             </div>
             <div className="modal-body">
-                <button className="button button-return-book" id="rent-alert" onClick={handleReturnClick}>Return
+                <button className="button button-return" id="rent-alert" onClick={handleReturnClick}>Return
                 </button>
                 <button className="button button-cancel" onClick={handleCancelClick}>Cancel</button>
             </div>

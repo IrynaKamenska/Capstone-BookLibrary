@@ -7,56 +7,6 @@
     position: relative;
 }
 
-.content-table {
-    border: 1px solid #555;
-    background-color: #eee;
-    width: 100%;
-    text-align: left;
-    border-spacing: 0;
-    border-collapse: collapse;
-    margin-bottom: 40px;
-}
-
-.content-table td, .content-table th {
-    border: 1px solid #aaa;
-    padding: 4px 4px;
-}
-
-.content-table tbody td {
-    font-size: 16px;
-}
-
-.content-table th {
-    background: #ccc;
-    text-align: left;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.content-table tr {
-    transition: 0.2s all ease-in-out;
-}
-.content-table tr:hover {
-    background-color: #fff;
-}
-
-.content-table th:first-child {
-    width: 92px;
-    text-align: center;
-}
-
-.content-table th:nth-last-child(-n+2) {
-    text-align: center;
-}
-
-.content-table tr td:nth-last-child(-n+2) {
-    text-align: center;
-}
-
-.content-table tr td:nth-child(4) {
-    font-size: 13px;
-}
-
 .db-list-cover-td {
     height: 92px;
     width: 92px;
@@ -96,11 +46,12 @@
 
 .content-available {
     color: #080;
+    font-weight: bold;
 }
 .content-not-available {
     color: #a00;
+    font-weight: bold;
 }
-
 
 .button-left {
     margin-left: 7px;
@@ -134,3 +85,21 @@
 .filter-input:focus {
     background: #e1ffe1;
 }
+
+.book-info-left-div {
+    position: relative;
+    float: left;
+    width: 37%;
+}
+
+.book-info-center-div {
+    position: relative;
+    float: left;
+    width: 25%;
+}
+
+.book-info-right-div {
+     position: relative;
+     float: left;
+     width: 37%;
+ }
