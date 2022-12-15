@@ -1,4 +1,5 @@
 package de.neuefische.booklibrary.backend.book;
+
 import de.neuefische.booklibrary.backend.api.Isbn;
 import de.neuefische.booklibrary.backend.security.AppUserRepository;
 import org.junit.jupiter.api.Test;
@@ -157,7 +158,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),category, printType, pageCount,
+                List.of(isbn_13), category, printType, pageCount,
                 AVAILABLE,
                 rentBookInfoEmpty);
 
@@ -188,7 +189,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),category, printType, pageCount,
+                List.of(isbn_13), category, printType, pageCount,
                 AVAILABLE,
                 rentBookInfoEmpty);
         RentBookInfo rentBookInfo = new RentBookInfo(username, "2022-12-14");
@@ -215,7 +216,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),category, printType, pageCount,
+                List.of(isbn_13), category, printType, pageCount,
                 NOT_AVAILABLE,
                 rentBookInfoEmpty);
         RentBookInfo rentBookInfo = new RentBookInfo(appUsername, "2022-12-14");
@@ -248,7 +249,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),category, printType, pageCount,
+                List.of(isbn_13), category, printType, pageCount,
                 AVAILABLE,
                 rentBookInfo1);
 
@@ -299,7 +300,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                List.of(isbn_13),category, printType, pageCount,
+                List.of(isbn_13), category, printType, pageCount,
                 NOT_AVAILABLE,
                 rentBookInfo);
 
@@ -328,7 +329,7 @@ class BookServiceTest {
                 null,
                 "Java-Script",
                 "P. Ackermann",
-                isbns,category, printType, pageCount,
+                isbns, category, printType, pageCount,
                 NOT_AVAILABLE,
                 rentBookInfo);
 
