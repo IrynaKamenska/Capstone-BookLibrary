@@ -116,7 +116,7 @@ function RentBook(props: RentBookProps) {
                             dateFormat="Pp"/>
                 <br/><br/>
                 <div className="modal-body">
-                    <button className="button button-rent-book">Rent</button>
+                    <button className="button button-rent">Rent</button>
                     <button className="button button-cancel" onClick={handleCancelClick}>Cancel</button>
                 </div>
             </form>

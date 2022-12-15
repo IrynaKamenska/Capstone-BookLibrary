@@ -73,6 +73,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
             </form>
 
 
+            <h2>Search results for {text}</h2>
             <div className={"book-cards"}>
                 {Array.isArray(result)
                     ? result.map((current) =>

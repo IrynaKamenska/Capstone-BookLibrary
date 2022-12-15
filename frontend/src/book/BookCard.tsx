@@ -50,19 +50,23 @@ function BookCard(props: BookCardProps) {
                 </div>
                 <div className="book-info-div">
                     <h3 className="book-title">{props.book.title}</h3>
-                    <p className="book-author">by {props.book.author}</p>
-                    <p className="book-isbn">{props.book.isbn.map(current => {
+                    <div className="book-info-left-div">
+                        <p className="book-author">by {props.book.author}</p>
+                    {props.book.isbn.map(current => {
                         return (
                             <>
-                                <h5 key={current.identifier}>{current.type}: {current.identifier}</h5>
+                                <p className="book-isbn" key={current.identifier}>{current.type}: {current.identifier}</p>
                             </>
 
                         )
                     })
-                    }</p>
-                    <p className="book-author">Category: {props.book.category}</p>
-                    <p className="book-author">PrintType:{props.book.printType}</p>
-                    <p className="book-author">PageCount: {props.book.pageCount}</p>
+                    }
+                    </div>
+                    <div className="book-info-center-div">
+                    <p className="book-isbn">Category: {props.book.category}</p>
+                    <p className="book-isbn">PrintType:{props.book.printType}</p>
+                    <p className="book-isbn">PageCount: {props.book.pageCount}</p>
+                    </div>
                 </div>
                 <div className="div-form">
                     <br/>

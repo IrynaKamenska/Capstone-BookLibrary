@@ -42,6 +42,7 @@ function App() {
 
     const [books, setBooks] = useState<BookModel[]>([]);
 
+
     const fetchAllBooks = useCallback(() => {
         axios.get("/api/books")
             .then(response => response.data)

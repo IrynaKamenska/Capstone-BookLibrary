@@ -82,11 +82,33 @@
     background: #3d69d2;
 }
 
+.button-rent {
+    background: #f19147;
+    font-size: 13px;
+    padding: 5px 0 3px 0;
+}
+.button-rent:hover {
+    background: #ea7318;
+}
+
+.button-return {
+    background: #78b695;
+    font-size: 13px;
+    padding: 5px 0 3px 0;
+}
+.button-return:hover {
+    background: #5fd093;
+}
+
+
 .button-edit-book {
     background: #7793e8;
-    font-size: 12px;
-    padding: 5px 0 3px 0;
-    width: 60px;
+    font-size: 19px;
+    padding: 10px 0 8px 0;
+    width: 130px;
+    position: absolute;
+    right: 290px;
+    bottom: 10px;
 }
 .button-edit-book:hover {
     background: #3d69d2;
@@ -94,9 +116,12 @@
 
 .button-delete-book {
     background: #cb8080;
-    font-size: 12px;
-    padding: 5px 0 3px 0;
-    width: 60px;
+    font-size: 19px;
+    padding: 10px 0 8px 0;
+    width: 130px;
+    position: absolute;
+    right: 150px;
+    bottom: 10px;
 }
 
 .button-delete-book:hover {
@@ -106,9 +131,12 @@
 
 .button-rent-book {
     background: #f19147;
-    font-size: 12px;
-    padding: 5px 0 3px 0;
-    width: 60px;
+    font-size: 19px;
+    padding: 10px 0 8px 0;
+    width: 130px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
 
 .button-rent-book:hover {
@@ -117,9 +145,12 @@
 
 .button-return-book {
     background: #78b695;
-    font-size: 12px;
-    padding: 5px 0 3px 0;
-    width: 60px;
+    font-size: 19px;
+    padding: 10px 0 8px 0;
+    width: 130px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
 }
 
 .button-return-book:hover {
@@ -151,7 +182,7 @@
 }
 
 .button-search-by {
-    background: #adadad;
+    background: #f19147;
     font-size: 15px;
     padding: 5px 0 3px 10px;
     width: 143px;
@@ -159,17 +190,18 @@
     margin-bottom: 2px;
 }
 .button-search-by:hover {
-    background: #868686;
+    background: #ea7318;
 }
 
 .button-add-book {
     background: #9ecc71;
     border-radius: 5px;
-    font-size: 15px;
-    width: 90px;
-    padding: 7px 0 4px 0;
+    font-size: 17px;
+    width: 120px;
+    padding: 10px 0 8px 0;
     position: absolute;
-    right: 7px;
+    right: 10px;
+    bottom: 3px;
 }
 .button-add-book:hover {
     background: #639433;
