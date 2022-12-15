@@ -65,7 +65,7 @@ public class ApiBookService {
                     thumbnail,
                     apiBook.volumeInfo().title(),
                     author,
-                    apiBook.volumeInfo().industryIdentifiers().stream().toList(),
+                    apiBook.volumeInfo().industryIdentifiers(),
                     category,
                     printType,
                     pageCount,
