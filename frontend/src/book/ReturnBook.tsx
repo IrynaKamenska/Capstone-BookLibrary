@@ -11,36 +11,51 @@ type ReturnBookProps = {
 }
 
 function ReturnBook(props: ReturnBookProps) {
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-    const openModal = useCallback(() => {
-        setModalIsOpen(true)
+
+    const [modalReturnBookIsOpen, setModalReturnBookIsOpen] = useState<boolean>(false)
+    const openReturnBookModal = useCallback(() => {
+        setModalReturnBookIsOpen(true)
     }, [])
 
-    const closeModal = useCallback(() => {
-        setModalIsOpen(false)
+    const closeReturnBookModal = useCallback(() => {
+        setModalReturnBookIsOpen(false)
     }, [])
-    const closeModalCallback = useCallback(closeModal, [closeModal])
+    const closeModalCallback = useCallback(closeReturnBookModal, [closeReturnBookModal])
 
     const returnBook = useCallback((id: string) => {
         axios.post("/api/books/returnBook/" + id)
             .then(response => {
-                closeModal()
+                closeReturnBookModal()
                 return response.data
             })
             .then(props.reloadAllBooks)
             .catch(error => console.error("POST Error: " + error))
 
-    }, [closeModal, props.reloadAllBooks])
+    }, [closeReturnBookModal, props.reloadAllBooks])
 
 
-    const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
+    const handleCancelClick = useCallback(() => closeReturnBookModal(), [closeReturnBookModal]);
     const handleReturnClick = useCallback(() => returnBook(props.book.id), [returnBook, props.book.id]);
 
 
+    function getIsbnForReturnBook() {
+        return <>
+            {props.book.isbn.map(current => {
+                return (
+                    <>
+                        <p key={current.identifier}>{current.type}: {current.identifier}</p>
+                    </>
+
+                )
+            })
+            }
+        </>;
+    }
+
     return <>
-        <button className="button button-return-book" type={"submit"} onClick={openModal}>Return</button>
+        <button className="button button-return-book" type={"submit"} onClick={openReturnBookModal}>Return</button>
         <Modal className="modal"
-               isOpen={modalIsOpen}
+               isOpen={modalReturnBookIsOpen}
                onRequestClose={closeModalCallback}
                contentLabel="Example Modal"
                ariaHideApp={false}
@@ -52,15 +67,7 @@ function ReturnBook(props: ReturnBookProps) {
                 <img className="modal-cover" src={props.book.cover} alt="cover"/><br/>
                 <h3 className="book-title">{props.book.title}</h3>
                 <p className="book-info">{props.book.author}</p>
-                <p className="book-info">{props.book.isbn.map(current => {
-                    return (
-                        <>
-                            <p key={current.identifier}>{current.type}: {current.identifier}</p>
-                        </>
-
-                    )
-                })
-                }</p>
+                <p className="book-info">{getIsbnForReturnBook()}</p>
                 <p className="book-info">Category: {props.book.category}</p>
                 <p className="book-info">PrintType: {props.book.printType}</p>
                 <p className="book-info">PageCount: {props.book.pageCount}</p>
