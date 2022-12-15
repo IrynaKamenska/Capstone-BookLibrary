@@ -13,14 +13,12 @@ import AddBookManually from "./book/AddBookManually";
 import GetRentedBooks from "./book/GetRentedBooks";
 import {AppUserInfo} from "./security/AppUserInfo";
 
-
 function App() {
     const initialData: AppUserInfo = {
         "username": "",
         "role": ""
     }
     const [appUserInfo, setAppUserInfo] = useState<AppUserInfo>(initialData);
-
     const fetchUser = useCallback(() => {
         axios.get("/api/app-users/user")
             .then(response => response.data)
@@ -28,30 +26,22 @@ function App() {
     }, [])
     useEffect(fetchUser, [fetchUser])
 
-
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-
     const openModal = useCallback(() => {
         setModalIsOpen(true)
     }, [])
-
     const closeModal = useCallback(() => {
         setModalIsOpen(false)
     }, [])
 
-
     const [books, setBooks] = useState<BookModel[]>([]);
-
-
     const fetchAllBooks = useCallback(() => {
         axios.get("/api/books")
             .then(response => response.data)
             .catch(error => console.error("GET Error: " + error))
             .then(setBooks)
     }, [])
-
     useEffect(fetchAllBooks, [fetchAllBooks])
-
 
     const [username, setUsername] = useState<string>();
     const fetchUsername = useCallback(() => {
@@ -60,8 +50,6 @@ function App() {
             .then(setUsername)
     }, [])
     useEffect(fetchUsername, [fetchUsername])
-
-
     if (username === undefined) {
         return <>Loading...</>
     }
@@ -81,7 +69,7 @@ function App() {
         <BookOverview books={books} fetchAllBooks={fetchAllBooks} appUserInfo={appUserInfo}/>
         <SecuredPage fetchUsername={fetchUsername} setUsername={setUsername}/>
         {appUserInfo.role === "MEMBER" ?
-        <GetRentedBooks/> : ""}
+            <GetRentedBooks/> : ""}
         {appUserInfo.role === "LIBRARIAN" ?
             <>
                 <CreateBook modalIsOpen={modalIsOpen} closeModal={closeModal} reloadAllBooks={fetchAllBooks}/>
@@ -90,7 +78,6 @@ function App() {
             </>
             :
             ""}
-
     </>;
 
 }
