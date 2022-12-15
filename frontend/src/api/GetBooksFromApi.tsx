@@ -64,7 +64,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
             <p>Semi-automatic via search in google database: </p>
             <form onSubmit={handleSubmit}>
                 <input className={"search-input"} type="text"
-                       placeholder={"Search for Books"}
+                       placeholder={"Enter ISBN, author or title"}
                        autoComplete={"off"}
                        onChange={handleChange}
                 />
