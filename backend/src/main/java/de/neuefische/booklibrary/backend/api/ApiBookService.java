@@ -55,7 +55,7 @@ public class ApiBookService {
             String author = Optional.ofNullable(volumeInfo.authors()).map(current -> current.get(0))
                     .orElse(null);
 
-           String category = Optional.ofNullable(volumeInfo.categories()).map(current -> current.get(0))
+            String category = Optional.ofNullable(volumeInfo.categories()).map(current -> current.get(0))
                     .orElse(null);
             int pageCount = Optional.of(volumeInfo.pageCount()).orElse(null);
             String printType = volumeInfo.printType();
