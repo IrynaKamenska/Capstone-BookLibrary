@@ -9,6 +9,7 @@ type SecuredProps = {
     fetchUsername: () => void,
     setUsername: Dispatch<SetStateAction<string | undefined>>
 }
+
 export default function SecuredPage(props: SecuredProps) {
     const initialData: AppUserInfo = {
         "username": "",
@@ -22,7 +23,6 @@ export default function SecuredPage(props: SecuredProps) {
             .then(setAppUserInfo)
     }, [])
     useEffect(fetchUser, [fetchUser])
-
 
     function logout() {
         axios.get("/api/app-users/logout")

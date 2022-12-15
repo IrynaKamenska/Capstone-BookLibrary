@@ -9,8 +9,8 @@ type ModalProps = {
     modalIsOpen: boolean,
     closeModal: () => void,
     reloadAllBooks: () => void,
-
 }
+
 export default function CreateBook(props: ModalProps) {
     const [newBook, setNewBook] = React.useState(
         {
@@ -27,7 +27,6 @@ export default function CreateBook(props: ModalProps) {
             }
         }
     );
-
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -53,7 +52,7 @@ export default function CreateBook(props: ModalProps) {
     function handleChange(event: any) {
         setNewBook({
             ...newBook,
-            [event.target.name] : event.target.value
+            [event.target.name]: event.target.value
         })
     }
 
@@ -61,8 +60,8 @@ export default function CreateBook(props: ModalProps) {
         const {value, name} = event.target
         setNewBook({
             ...newBook,
-            isbn: newBook.isbn.map( (current) => {
-                if(current.type === name) {
+            isbn: newBook.isbn.map((current) => {
+                if (current.type === name) {
                     return {
                         type: current.type,
                         identifier: value
@@ -156,5 +155,4 @@ export default function CreateBook(props: ModalProps) {
             </form>
         </Modal>
     );
-
 }

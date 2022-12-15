@@ -29,30 +29,27 @@ function GetRentedBooks() {
                                 </div>
                                 <div className="book-info-div">
                                     <h3 className="book-title">Title: {current.title}</h3>
-                                <div className="book-info-left-div">
-                                <p className="book-author">Author: {current.author}</p>
-                                <p className="book-isbn">{current.isbn.map(current => {
-                                    return (
-                                        <>
-                                            <p className="book-isbn"
-                                               key={current.identifier}>{current.type}: {current.identifier}</p>
-                                        </>
-
-                                    )
-                                })
-                                }</p>
-                                </div>
-                                <div className="book-info-center-div">
-                                <p className="book-isbn">Category: {current.category}</p>
-                                <p className="book-isbn">PrintType: {current.printType}</p>
-                                <p className="book-isbn">PageCount: {current.pageCount}</p>
-                                </div>
-                                <div className="book-info-right-div">
-                                <p className="book-isbn">Rented by: {current.rentBookInfo.rentByUsername}</p>
-                                {current.rentBookInfo.rentUntil.toString() !== "" &&
-                                    <p className="book-author">Rented
-                                        until: {current.rentBookInfo.rentUntil.toString().substring(0, 10)} {current.rentBookInfo.rentUntil.toString().substring(11, 16)} Uhr</p>}
-                                </div>
+                                    <div className="book-info-left-div">
+                                        <p className="book-author">Author: {current.author}</p>
+                                        <p className="book-isbn">{current.isbn.map(current => {
+                                            return (
+                                                <p className="book-isbn"
+                                                   key={current.identifier}>{current.type}: {current.identifier}</p>
+                                            )
+                                        })
+                                        }</p>
+                                    </div>
+                                    <div className="book-info-center-div">
+                                        <p className="book-isbn">Category: {current.category}</p>
+                                        <p className="book-isbn">PrintType: {current.printType}</p>
+                                        <p className="book-isbn">PageCount: {current.pageCount}</p>
+                                    </div>
+                                    <div className="book-info-right-div">
+                                        <p className="book-isbn">Rented by: {current.rentBookInfo.rentByUsername}</p>
+                                        {current.rentBookInfo.rentUntil.toString() !== "" &&
+                                            <p className="book-author">Rented
+                                                until: {current.rentBookInfo.rentUntil.toString().substring(0, 10)} {current.rentBookInfo.rentUntil.toString().substring(11, 16)} Uhr</p>}
+                                    </div>
                                 </div>
                             </div>
                         </div>)

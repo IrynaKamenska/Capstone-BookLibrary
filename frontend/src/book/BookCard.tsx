@@ -4,16 +4,13 @@ import {Availability} from "./Availability";
 import axios from "axios";
 import {BookModel} from "./BookModel";
 
-
 type BookCardProps = {
     book: BookModel;
     reloadAllBooks: () => void;
-
 }
 
 function BookCard(props: BookCardProps) {
     const [newBook, setNewBook] = React.useState(props.book);
-
 
     const addNewBook = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -52,20 +49,18 @@ function BookCard(props: BookCardProps) {
                     <h3 className="book-title">{props.book.title}</h3>
                     <div className="book-info-left-div">
                         <p className="book-author">by {props.book.author}</p>
-                    {props.book.isbn.map(current => {
-                        return (
-                            <>
-                                <p className="book-isbn" key={current.identifier}>{current.type}: {current.identifier}</p>
-                            </>
-
-                        )
-                    })
-                    }
+                        {props.book.isbn.map(current => {
+                            return (
+                                <p className="book-isbn"
+                                   key={current.identifier}>{current.type}: {current.identifier}</p>
+                            )
+                        })
+                        }
                     </div>
                     <div className="book-info-center-div">
-                    <p className="book-isbn">Category: {props.book.category}</p>
-                    <p className="book-isbn">PrintType:{props.book.printType}</p>
-                    <p className="book-isbn">PageCount: {props.book.pageCount}</p>
+                        <p className="book-isbn">Category: {props.book.category}</p>
+                        <p className="book-isbn">PrintType:{props.book.printType}</p>
+                        <p className="book-isbn">PageCount: {props.book.pageCount}</p>
                     </div>
                 </div>
                 <div className="div-form">
@@ -159,8 +154,6 @@ function BookCard(props: BookCardProps) {
                 <button className="button button-add-book">Add Book</button>
             </div>
         </form>
-
-
     </>
 }
 

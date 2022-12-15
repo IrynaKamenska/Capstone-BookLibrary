@@ -5,7 +5,6 @@ import Modal from "react-modal";
 import "../Buttons.css"
 import "../Modals.css"
 
-
 type DeleteAccountProps = {
     appUserInfo: AppUserInfo,
     setUsername: Dispatch<SetStateAction<string | undefined>>
@@ -14,14 +13,6 @@ type DeleteAccountProps = {
 
 function DeleteAccount(props: DeleteAccountProps) {
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
-
-    const deleteUser = () => {
-        axios.delete("/api/app-users/deleteMe")
-            .then(() => alert("User " + props.appUserInfo.username + " will be deleted!"))
-            .catch(error => console.error("DELETE Error: " + error))
-            .then(() => props.setUsername("anonymousUser"))
-    }
-
     const openModal = useCallback(() => {
         setModalIsOpen(true)
     }, [])
@@ -30,6 +21,13 @@ function DeleteAccount(props: DeleteAccountProps) {
         setModalIsOpen(false)
     }, [])
     const closeModalCallback = useCallback(closeModal, [closeModal])
+
+    const deleteUser = () => {
+        axios.delete("/api/app-users/deleteMe")
+            .then(() => alert("User " + props.appUserInfo.username + " will be deleted!"))
+            .catch(error => console.error("DELETE Error: " + error))
+            .then(() => props.setUsername("anonymousUser"))
+    }
 
     return <>
         <button className="button button-delete-account" type={"submit"} onClick={openModal}>Delete Account</button>
@@ -40,7 +38,6 @@ function DeleteAccount(props: DeleteAccountProps) {
                ariaHideApp={false}
                overlayClassName={"modal-overlay"}
         >
-
             <span className="modal-heading">Delete account</span>
             <div className="modal-body">
                 <h5>Are you sure to delete your account?</h5>
@@ -50,7 +47,6 @@ function DeleteAccount(props: DeleteAccountProps) {
                 <button className="button button-cancel" onClick={() => closeModal()}>Cancel</button>
             </div>
         </Modal>
-
     </>;
 }
 

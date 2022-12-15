@@ -8,7 +8,6 @@ import "../Modals.css";
 type DeleteBookProps = {
     book: BookModel;
     reloadAllBooks: () => void;
-
 }
 
 function DeleteBook(props: DeleteBookProps) {
@@ -34,7 +33,6 @@ function DeleteBook(props: DeleteBookProps) {
     const handleCancelClick = useCallback(() => closeModal(), [closeModal]);
     const handleDeleteClick = useCallback(() => deleteBook(props.book.id), [deleteBook, props.book.id]);
 
-
     return <>
         <button className="button button-delete-book" type={"submit"} onClick={openModal}>Delete</button>
         <Modal className="modal"
@@ -44,14 +42,13 @@ function DeleteBook(props: DeleteBookProps) {
                ariaHideApp={false}
                overlayClassName={"modal-overlay"}
         >
-
             <span className="modal-heading">Delete book</span>
             <div className="modal-body">
-                <img className="modal-cover" src={props.book.cover} alt="cover"/><br />
+                <img className="modal-cover" src={props.book.cover} alt="cover"/><br/>
                 <span className="modal-book-info">
-                    {props.book.title}<br />
-                    from <br />
-                    {props.book.author}<br />
+                    {props.book.title}<br/>
+                    from <br/>
+                    {props.book.author}<br/>
                     {props.book.isbn.map(current => {
                         return (
                             <p key={current.identifier}>{current.type}: {current.identifier}</p>
@@ -65,7 +62,6 @@ function DeleteBook(props: DeleteBookProps) {
                 <button className="button button-cancel" onClick={handleCancelClick}>Cancel</button>
             </div>
         </Modal>
-
     </>;
 }
 
