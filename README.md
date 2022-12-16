@@ -26,14 +26,15 @@ git clone https://github.com/IrynaKamenska/Capstone-BookLibrary.git
 - Open http://localhost:3000 in a browser <br>
 - To start the application for the first time a user with a role Librarian must be stored in the MongoDB beforehand:<br>
 - Open MongoDB-Compass and connect to mongodb://localhost:27017<br>
-- Create a database named "book-library"<br>
+- Create a database named "library-db"<br>
+- Create a collection named "book"<br>
 - Create a collection named "appUser"<br>
-- Create a Librarian as follows:<br>
+- Create a Librarian in the "appUser" collection as follows:<br>
 
 ``` _id: 6390cfae035b1f6382de17b7
-  username: "user"
+  username: "JohnDoe"
   rawPassword: ""
-  passwordBcrypt:"$3b$20$rYQarIu23k3fcYqlF/aFSuxynzgoHiXpM82g9rpE5oxXJ18PayyUO"
+  passwordBcrypt:"$2a$10$yef/EG0medAcG7P0IHyVh.1xAiwa7DUOAEAN/Tve6cOeRjyi2CioK"
   role: "LIBRARIAN"`
   ```
 
