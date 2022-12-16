@@ -19,7 +19,8 @@ git clone https://github.com/IrynaKamenska/Capstone-BookLibrary.git
 ### Deployed to Fly. io.
 https://capstone-book-library.fly.dev
 
-## Badges
+
+### Badges
 Backend: <br>
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=ncloc)]
 (https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-backend)
