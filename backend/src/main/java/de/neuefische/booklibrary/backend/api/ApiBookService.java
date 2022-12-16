@@ -20,8 +20,8 @@ import static java.util.Objects.requireNonNull;
 
 @Service
 public class ApiBookService {
-    private final String QUERY = "?q=";
-    private final String KEY = "&key=";
+    private static final String PATH_QUERY = "?q=";
+    private static final String PATH_KEY = "&key=";
     public static final String DEFAULT_COVER = "https://simg.nicepng.com/png/small/251-2515797_no-circle-book-book-logo-png.png";
     private final String apiKey;
     private final WebClient webClient;
@@ -33,7 +33,7 @@ public class ApiBookService {
 
     public List<Book> getApiBookByIsbn(String isbn) throws ResponseStatusException {
         String searchByIsbn = "isbn:";
-        String query = QUERY + searchByIsbn + isbn + KEY + apiKey;
+        String query = PATH_QUERY + searchByIsbn + isbn + PATH_KEY + apiKey;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse).stream().filter(book -> book.volumeInfo()
                 .industryIdentifiers()
@@ -76,7 +76,7 @@ public class ApiBookService {
 
     public List<Book> getAllApiBooks(String searchText) {
         String maxResults = "&maxResults=10";
-        String query = QUERY + searchText + KEY + apiKey + maxResults;
+        String query = PATH_QUERY + searchText + PATH_KEY + apiKey + maxResults;
         ResponseEntity<BookResponseElement> bookResponse = getBookResponse(query);
         List<ApiBook> books = getBookList(bookResponse);
 
