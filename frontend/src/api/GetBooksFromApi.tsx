@@ -78,7 +78,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
                 {Array.isArray(result)
                     ? result.map((current) =>
                         <div className={"book-card"}>
-                            <BookCard key={current.id} book={current} reloadAllBooks={props.reloadAllBooks}/>
+                            <BookCard key={"book-card"+current.id} book={current} reloadAllBooks={props.reloadAllBooks}/>
                         </div>)
                     : ""}
             </div>
