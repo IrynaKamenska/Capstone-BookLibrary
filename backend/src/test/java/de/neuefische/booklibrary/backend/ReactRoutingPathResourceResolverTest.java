@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-public class ReactRoutingPathResourceResolverTest {
+ class ReactRoutingPathResourceResolverTest {
     @Test
     void expectRelativeResource_ifItExists() throws IOException {
 
