@@ -22,21 +22,23 @@ https://capstone-book-library.fly.dev
 
 ### Badges
 Backend: <br>
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=ncloc)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-backend)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=sqale_index)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-backend)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-backend)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-backend)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-backend)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=vulnerabilities)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-backend)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=code_smells)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-backend)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=bugs)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-backend)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=coverage)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-backend)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-backend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-backend)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-backend)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-backend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-backend)
 <br>
 
 
 Frontend:<br>
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=ncloc)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-frontend)
-[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=sqale_index)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-frontend)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=code_smells)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-frontend)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=bugs)](https://sonarcloud.io/project/overview?id=irynakamenska-1_Capstone-BookLibrary-frontend)
-
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-frontend)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-frontend)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=bugs)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-frontend)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-frontend)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=irynakamenska-1_Capstone-BookLibrary-frontend&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=irynakamenska-1_Capstone-BookLibrary-frontend)
 
 ### Installation
 
