@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.neuefische.booklibrary.backend.book.Availability;
 import de.neuefische.booklibrary.backend.book.Book;
 import de.neuefische.booklibrary.backend.book.RentBookInfo;
+import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -35,6 +36,8 @@ class ApiBookServiceTest {
     private final String category = "Fiction";
     private final String printType = "BOOK";
     private final int pageCount = 100;
+
+    private final String headUrl = "http://localhost:%s";
    private final VolumeInfo volumeInfo = new VolumeInfo(
            "Java von Kopf bis Fuß",
            List.of("Kathy Sierra", "Bert Bates"),
@@ -52,8 +55,7 @@ class ApiBookServiceTest {
 
     @BeforeEach
     void initialize() {
-        String baseUrl = String.format("http://localhost:%s",
-                mockWebServer.getPort());
+        String baseUrl = String.format(headUrl, mockWebServer.getPort());
         apiBookService = new ApiBookService(baseUrl, apiKey);
     }
 
@@ -81,11 +83,15 @@ class ApiBookServiceTest {
         );
         // when
         List<Book> actual = apiBookService.getApiBookByIsbn("3897214482");
+
+        String isbnQueryUrl = "?q=isbn:3897214482&key=null";
+        HttpUrl expectedUrl = mockWebServer.url(String.format(headUrl, mockWebServer.getPort()) + isbnQueryUrl);
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
 
         //then
         assertEquals(expected, actual);
         assertEquals("GET", recordedRequest.getMethod());
+        assertEquals(expectedUrl, recordedRequest.getRequestUrl());
 
     }
 
@@ -132,11 +138,15 @@ class ApiBookServiceTest {
         );
         // when
         List<Book> actual = apiBookService.getAllApiBooks("Java");
+
+        String keyWordQueryUrl = "/?q=Java&key=null&maxResults=10";
+        HttpUrl expectedUrl = mockWebServer.url(String.format(headUrl, mockWebServer.getPort()) + keyWordQueryUrl);
         RecordedRequest recordedRequest = mockWebServer.takeRequest();
 
         //then
         assertEquals(expected, actual);
         assertEquals("GET", recordedRequest.getMethod());
+        assertEquals(expectedUrl, recordedRequest.getRequestUrl());
 
     }
 

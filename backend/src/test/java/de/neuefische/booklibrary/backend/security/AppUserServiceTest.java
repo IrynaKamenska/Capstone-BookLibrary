@@ -1,5 +1,6 @@
 package de.neuefische.booklibrary.backend.security;
 
+import de.neuefische.booklibrary.backend.book.UserNotExistsByUsernameException;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -27,6 +28,22 @@ import static org.mockito.Mockito.*;
          // then
          verify(mockAppUserRepository).findByUsername(newAppUser.username());
          assertEquals(newAppUser, actual);
+     }
+
+     @Test
+     void findByUsernameAndReturnUserNotExistsByUsernameException() {
+         // given
+         AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
+         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(Optional.empty());
+
+         // when
+         try {
+          appUserService.findByUsername(newAppUser.username());
+          fail();
+         } catch (UserNotExistsByUsernameException e) {
+             verify(mockAppUserRepository).findByUsername(newAppUser.username());
+             assertEquals("No user found with this username", e.getMessage());
+         }
      }
 
      @Test
