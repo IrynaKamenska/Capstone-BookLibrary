@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
@@ -33,6 +34,18 @@ class AppUserIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/login")
                         .header("Authorization", "Basic:" + Base64.getEncoder().encodeToString("user:user123".getBytes())))
                 .andExpect(status().is(200));
+    }
+
+
+    @Test
+    @WithMockUser()
+    void expect200_GET_logout() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/login")
+                        .header("Authorization", "Basic:" + Base64.getEncoder().encodeToString("user:user123".getBytes())))
+                .andExpect(status().is(200));
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/app-users/logout")
+                        .header("Authorization", "Basic:" + Base64.getEncoder().encodeToString("user:user123".getBytes())))
+                .andExpect(status().isOk());
     }
 
 

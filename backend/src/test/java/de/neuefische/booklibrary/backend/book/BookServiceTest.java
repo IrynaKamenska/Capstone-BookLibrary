@@ -346,7 +346,7 @@ class BookServiceTest {
     }
 
     @Test
-    void getRentedByMeBooks_returnListOfBooks() {
+    void getMyRentedBooks_returnListOfBooks() {
         //given
         String username = "username";
         RentBookInfo rentBookInfo = new RentBookInfo("username", "2022-12-12");
@@ -363,7 +363,7 @@ class BookServiceTest {
     }
 
     @Test
-    void getRentedByMeBooks_returnEmptyList() {
+    void getMyRentedBooks_returnEmptyList() {
         //given
         String username = "username";
         List<Book> bookList = new ArrayList<>(List.of());
@@ -375,6 +375,44 @@ class BookServiceTest {
         //then
         verify(bookRepository).findAll();
         assertEquals(bookList, actual);
+    }
+
+    @Test
+    void getMyRentedBooks_when_emptyRentBookInfo__returnEmptyList() {
+        //given
+        String username = "username";
+        Book book = new Book("id1", null, "Java", "M. Kofler", isbns, category, printType, pageCount, NOT_AVAILABLE, null);
+        List<Book> bookList = new ArrayList<>(List.of(book));
+        List<Book> emptyBookList = new ArrayList<>(List.of());
+
+        //when
+        when(bookRepository.findAll()).thenReturn(bookList);
+        List<Book> myRentedBooks = bookService.getRentedBooks(username);
+
+        //then
+        verify(bookRepository).findAll();
+        assertEquals(emptyBookList, myRentedBooks);
+    }
+
+    @Test
+    void getMyRentedBooks_when_usernameFromRentBookInfoMismatch_returnEmptyList() {
+        //given
+        String username1 = "username1";
+        String username2 = "username2";
+        RentBookInfo rentBookInfo = new RentBookInfo(username1, "2022-12-12");
+        Book book = new Book("id1", null, "Java", "M. Kofler", isbns, category, printType, pageCount, NOT_AVAILABLE, rentBookInfo);
+
+        List<Book> bookList = new ArrayList<>(List.of(book));
+
+        List<Book> emptyBookList = new ArrayList<>(List.of());
+
+        //when
+        when(bookRepository.findAll()).thenReturn(bookList);
+        List<Book> myRentedBooks = bookService.getRentedBooks(username2);
+
+        //then
+        verify(bookRepository).findAll();
+        assertEquals(emptyBookList, myRentedBooks);
     }
 
 }
