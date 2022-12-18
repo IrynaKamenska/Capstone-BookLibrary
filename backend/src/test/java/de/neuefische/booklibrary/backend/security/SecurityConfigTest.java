@@ -1,13 +1,12 @@
 package de.neuefische.booklibrary.backend.security;
 
 import de.neuefische.booklibrary.backend.SecurityConfig;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class SecurityConfigTest {
@@ -40,27 +39,17 @@ class SecurityConfigTest {
     @Test
     void userDetailServiceAsUser_returnUsernameNotFoundException() {
         // given
-        String rawPassword = "user123";
-        String encodedPassword = new BCryptPasswordEncoder().encode(rawPassword);
-        AppUser appUser = new AppUser(
-                "id1",
-                "user",
-                rawPassword,
-                encodedPassword,
-                AppUserRole.MEMBER);
-
+        String username = "username";
 
         // when
         SecurityConfig securityConfig = new SecurityConfig(appUserService);
-        when(appUserService.findByUsername(appUser.username())).thenReturn(null);
-
+        when(appUserService.findByUsername(username)).thenReturn(null);
         try {
-            securityConfig.userDetailsManager()
-                    .loadUserByUsername(appUser.username())
-                    .getPassword();
-            Assertions.fail();
+            securityConfig.userDetailsManager().loadUserByUsername(username);
+            fail("Expected an UsernameNotFoundException to be thrown");
+            //then
         } catch (UsernameNotFoundException e) {
-            verify(appUserService).findByUsername(appUser.username());
+            verify(appUserService).findByUsername(username);
             assertEquals("Username not found", e.getMessage());
         }
     }

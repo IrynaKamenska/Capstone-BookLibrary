@@ -33,15 +33,17 @@ import static org.mockito.Mockito.*;
      @Test
      void findByUsernameAndReturnUserNotExistsByUsernameException() {
          // given
-         AppUser newAppUser = new AppUser("1", "Bob", "password", "", null);
-         when(mockAppUserRepository.findByUsername(newAppUser.username())).thenReturn(Optional.empty());
+         String username = "username";
+         when(mockAppUserRepository.findByUsername(username)).thenReturn(Optional.empty());
 
          // when
          try {
-          appUserService.findByUsername(newAppUser.username());
-          fail();
+          appUserService.findByUsername(username);
+          fail("Expected an UserNotExistsByUsernameException to be thrown");
+
+          //then
          } catch (UserNotExistsByUsernameException e) {
-             verify(mockAppUserRepository).findByUsername(newAppUser.username());
+             verify(mockAppUserRepository).findByUsername(username);
              assertEquals("No user found with this username", e.getMessage());
          }
      }
