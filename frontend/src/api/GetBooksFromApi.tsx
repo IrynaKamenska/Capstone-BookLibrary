@@ -4,6 +4,7 @@ import BookCard from "../book/BookCard";
 import "./css/GetBooksFromApi.css";
 import {Availability} from "../book/Availability";
 import {BookModel} from "../book/BookModel";
+import {nanoid} from "nanoid";
 
 type GetBooksFromApiProps = {
     reloadAllBooks: () => void
@@ -78,7 +79,7 @@ function GetBooksFromApi(props: GetBooksFromApiProps) {
                 {Array.isArray(result)
                     ? result.map((current) =>
                         <div className={"book-card"}>
-                            <BookCard key={"book-card"+current.id} book={current} reloadAllBooks={props.reloadAllBooks}/>
+                            <BookCard key={nanoid()} book={current} reloadAllBooks={props.reloadAllBooks}/>
                         </div>)
                     : ""}
             </div>
