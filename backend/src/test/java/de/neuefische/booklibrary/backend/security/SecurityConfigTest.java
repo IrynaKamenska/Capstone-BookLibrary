@@ -1,10 +1,10 @@
 package de.neuefische.booklibrary.backend.security;
 
 import de.neuefische.booklibrary.backend.SecurityConfig;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -44,8 +44,9 @@ class SecurityConfigTest {
         // when
         SecurityConfig securityConfig = new SecurityConfig(appUserService);
         when(appUserService.findByUsername(username)).thenReturn(null);
+        UserDetailsManager userDetailsManager = securityConfig.userDetailsManager();
         try {
-            securityConfig.userDetailsManager().loadUserByUsername(username);
+            userDetailsManager.loadUserByUsername(username);
             fail("Expected an UsernameNotFoundException to be thrown");
             //then
         } catch (UsernameNotFoundException e) {
