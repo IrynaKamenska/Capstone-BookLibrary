@@ -5,6 +5,8 @@
   <br>The role member can see his rented books and view & filter books of the library-database.</p>
 </div>
 
+![kamenska_iryna](https://user-images.githubusercontent.com/113827378/208393913-e22f7b85-f0a2-4213-9769-c28d38a7fb04.gif)
+
 ### API
 
 - [Google Books API](https://developers.google.com/books/docs/v1/using)
