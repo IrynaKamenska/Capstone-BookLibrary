@@ -1,5 +1,5 @@
 <div >
-  <h2>Book-manager for library</h2>
+  <h2>BookLibrary</h2>
   <p>Full-Stack Application to manage books of a library. <br>Books can be added, edited, rented, returned and deleted by the role librarian. 
   <br>Adding of books to a library-database is simplified via Google Books API: books can be searched and then added via one click. 
   <br>The role member can see his rented books and view & filter books of the library-database.</p>
